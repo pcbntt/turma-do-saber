@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Turma do Saber — Ciências</title>
+<!-- iOS / iPhone: abrir como app em tela cheia ao 'Adicionar à Tela de Início' -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Saber Ciências" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#2F9E5E" />
+<style>
+/* ============================================================
+   TURMA DO SABER — Ciências (As Plantas)
+   App educacional para crianças com TEA
+   100% offline, sem dependências externas
+   ============================================================ */
+
+:root{
+  --azul:        #4FA3E3;
+  --azul-claro:  #DCEEFB;
+  --azul-escuro: #15324F; /* selos de página */
+  --amarelo:     #FFD66B;
+  --amarelo-cl:  #FFF4D1;
+  --verde:       #6FCF97;
+  --verde-cl:    #E3F8EC;
+  --verde-esc:   #2F9E5E;
+  --roxo:        #B190E8;
+  --roxo-cl:     #F0E9FB;
+  --laranja:     #F2994A;
+  --texto:       #233044;
+  --branco:      #FFFFFF;
+  --sombra:      0 6px 18px rgba(34,48,68,.15);
+  --raio:        22px;
+  --transicao:   .3s ease;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{ margin:0; padding:0; }
+
+body{
+  font-family: 'Trebuchet MS', 'Segoe UI', Verdana, sans-serif;
+  font-size: 20px;                 /* corpo mínimo 20px */
+  line-height: 1.5;
+  color: var(--texto);
+  background: linear-gradient(135deg, var(--verde-cl), var(--azul-claro) 45%, var(--amarelo-cl));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  /* iPhone: respeita o notch, evita zoom/realce de toque */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+h1,h2{ font-size: 28px; }          /* títulos mínimo 28px */
+h1{ font-size: 34px; }
+
+/* ---------- Layout base ---------- */
+#app{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px 16px 48px;
+}
+
+.tela{
+  display: none;
+  animation: aparecer var(--transicao);
+}
+.tela.ativa{ display: block; }
+
+@keyframes aparecer{
+  from{ opacity:0; transform: translateY(14px); }
+  to  { opacity:1; transform: translateY(0); }
+}
+
+.cartao{
+  background: var(--branco);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 26px 22px;
+  margin: 14px 0;
+  position: relative;
+}
+
+.centro{ text-align:center; }
+
+/* ---------- Botões ---------- */
+button{
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  min-height: 60px;                /* botões mínimo 60px */
+  border: none;
+  border-radius: 16px;
+  padding: 14px 22px;
+  cursor: pointer;
+  color: var(--branco);
+  background: var(--azul);
+  transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
+  box-shadow: 0 4px 0 rgba(0,0,0,.12);
+}
+button:hover{ transform: translateY(-2px); }
+button:active{ transform: translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.12); }
+button:focus-visible{ outline: 4px solid var(--roxo); outline-offset: 3px; }
+
+.btn-grande{ width:100%; min-height:78px; font-size:24px; margin:10px 0; }
+.btn-azul    { background: var(--azul); }
+.btn-verde   { background: var(--verde-esc); }
+.btn-roxo    { background: var(--roxo); }
+.btn-amarelo { background: var(--amarelo); color: var(--texto); }
+.btn-laranja { background: var(--laranja); }
+.btn-pequeno { font-size:18px; min-height:60px; }
+.btn-cinza   { background:#9AA7B8; }
+
+.linha-botoes{
+  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+}
+.linha-botoes button{ flex:1 1 140px; }
+
+/* ---------- Campo de texto ---------- */
+input[type="text"]{
+  font-family: inherit;
+  font-size: 24px;
+  text-align:center;
+  width: 100%;
+  max-width: 420px;
+  min-height: 64px;
+  padding: 12px 18px;
+  border: 3px solid var(--verde-esc);
+  border-radius: 16px;
+  margin: 10px auto;
+  display:block;
+  color: var(--texto);
+}
+input[type="text"]:focus{ outline:none; border-color: var(--roxo); box-shadow:0 0 0 4px var(--roxo-cl); }
+
+/* ---------- Emojis grandes ---------- */
+.emoji-gigante{ font-size: 100px; line-height:1.1; display:block; margin: 8px 0; }
+.emoji-grande { font-size: 80px;  line-height:1.1; display:block; margin: 6px 0; }
+
+/* ============================================================
+   MASCOTE — robô em CSS puro com olhos piscando
+   ============================================================ */
+.mascote{ width:170px; height:200px; margin: 6px auto 0; position:relative; }
+.mascote .antena{
+  position:absolute; top:-2px; left:50%; width:6px; height:26px;
+  background:#7d8aa0; transform:translateX(-50%); border-radius:4px;
+}
+.mascote .antena::after{
+  content:""; position:absolute; top:-14px; left:50%; width:16px; height:16px;
+  background: var(--amarelo); border-radius:50%; transform:translateX(-50%);
+  box-shadow:0 0 0 4px var(--amarelo-cl);
+  animation: brilho 1.4s ease-in-out infinite;
+}
+@keyframes brilho{ 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.5)} }
+
+.mascote .cabeca{
+  position:absolute; top:24px; left:50%; transform:translateX(-50%);
+  width:150px; height:118px; background: var(--verde-esc);
+  border-radius:30px; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08);
+}
+.mascote .olhos{
+  position:absolute; top:42px; width:100%; display:flex; justify-content:center; gap:26px;
+}
+.mascote .olho{
+  width:34px; height:34px; background:var(--branco); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation: piscar 4s infinite;          /* piscar em loop */
+}
+.mascote .olho::after{
+  content:""; width:16px; height:16px; background:var(--azul-escuro); border-radius:50%;
+}
+@keyframes piscar{
+  0%, 92%, 100%{ transform: scaleY(1); }
+  95%, 97%     { transform: scaleY(.1); }
+}
+.mascote .boca{
+  position:absolute; top:88px; left:50%; transform:translateX(-50%);
+  width:60px; height:16px; background:var(--azul-escuro); border-radius:0 0 30px 30px;
+}
+.mascote .corpo{
+  position:absolute; top:140px; left:50%; transform:translateX(-50%);
+  width:110px; height:56px; background: var(--roxo); border-radius:18px;
+}
+.mascote.acena{ animation: balancinho 2s ease-in-out infinite; }
+@keyframes balancinho{ 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+
+/* ============================================================
+   SELOS DE PÁGINA
+   ============================================================ */
+.selo-pagina{
+  position:absolute; right:14px; bottom:14px;
+  background: var(--azul-escuro); color: var(--branco);
+  font-size: 16px; font-weight:bold;
+  padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(0,0,0,.25);
+}
+.tag-pagina{
+  display:inline-block;
+  background: var(--azul-escuro); color: var(--branco);
+  font-size: 14px; font-weight:bold;
+  padding: 6px 12px; border-radius: 999px;
+  margin: 4px 0 2px;
+}
+.ref-relatorio{
+  display:inline-block; background: var(--azul-escuro); color:var(--branco);
+  font-size: 13px; font-weight:bold; padding: 3px 9px; border-radius: 999px;
+  margin-left: 6px; white-space:nowrap;
+}
+
+/* ---------- Progresso ---------- */
+.indicador-card{
+  text-align:center; font-size:20px; font-weight:bold; color: var(--roxo);
+  margin-bottom: 6px;
+}
+.barra-prog{
+  width:100%; height:22px; background: var(--azul-claro);
+  border-radius:999px; overflow:hidden; margin: 10px 0 4px;
+}
+.barra-prog > span{
+  display:block; height:100%; width:0%;
+  background: linear-gradient(90deg, var(--verde), var(--azul));
+  transition: width var(--transicao);
+}
+
+/* ---------- Alternativas do simulado ---------- */
+#alternativas button{
+  width:100%; text-align:left; background: var(--branco); color: var(--texto);
+  border: 3px solid var(--verde-esc); margin: 10px 0; min-height:64px;
+}
+#alternativas button:hover{ background: var(--verde-cl); }
+#alternativas button.correta{ background: var(--verde-cl); border-color: var(--verde-esc); color: var(--verde-esc); }
+#alternativas button.errada-escolhida{ background:#FDE2E2; border-color:#E05757; color:#B23030; }
+#alternativas button:disabled{ cursor: default; }
+
+@keyframes balanco{
+  0%,100%{ transform: translateX(0); }
+  20%{ transform: translateX(-10px); }
+  40%{ transform: translateX(10px); }
+  60%{ transform: translateX(-7px); }
+  80%{ transform: translateX(7px); }
+}
+.balanca{ animation: balanco .5s; }
+
+.feedback{
+  text-align:center; font-size:26px; font-weight:bold; min-height:40px;
+  margin: 12px 0; opacity:0; transition: opacity var(--transicao);
+}
+.feedback.ver{ opacity:1; animation: pulo .5s; }
+.feedback.acerto{ color: var(--verde-esc); }
+.feedback.erro  { color: var(--laranja); }
+@keyframes pulo{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+
+/* ---------- Mensagem de parabéns ---------- */
+.parabens{
+  text-align:center; animation: pulo .6s;
+}
+.parabens .emoji-gigante{ animation: balancinho 1.5s ease-in-out infinite; }
+
+/* ---------- Relatório ---------- */
+.resumo-num{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
+.cubo{
+  flex:1 1 120px; background:var(--azul-claro); border-radius:16px; padding:14px; text-align:center;
+}
+.cubo b{ display:block; font-size:40px; }
+.cubo.acertos{ background: var(--verde-cl); color: var(--verde-esc); }
+.cubo.erros  { background: #FDE2E2; color:#B23030; }
+
+.lista-questoes{ list-style:none; padding:0; margin: 8px 0; }
+.lista-questoes li{
+  background: var(--azul-claro); border-radius:14px; padding:12px 14px; margin:10px 0;
+  font-size:18px;
+}
+.lista-questoes li .res-dada{ color:#B23030; }
+.lista-questoes li.ok .res-dada{ color: var(--verde-esc); }
+.lista-questoes li .res-certa{ color: var(--verde-esc); font-weight:bold; }
+.lista-questoes .topo-q{ font-weight:bold; display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; }
+
+/* ---------- Histórico ---------- */
+.item-hist{
+  background: var(--branco); border-radius:16px; box-shadow:var(--sombra);
+  padding:14px 16px; margin:12px 0;
+}
+.item-hist .data{ font-size:17px; color:#6b7890; }
+.item-hist .pct{ font-size:24px; font-weight:bold; }
+
+/* ---------- Confete ---------- */
+#confete{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:50; }
+.confete-peca{
+  position:absolute; top:-20px; width:12px; height:18px; border-radius:3px;
+  animation: cair linear forwards;
+}
+@keyframes cair{
+  to{ transform: translateY(110vh) rotate(720deg); opacity:1; }
+}
+
+/* ---------- util ---------- */
+.saudacao{ text-align:center; font-size:26px; margin: 6px 0 18px; }
+.subtitulo{ text-align:center; color: var(--verde-esc); font-weight:bold; }
+.aviso-edicao{
+  font-size:14px; color:#6b7890; text-align:center; margin-top:18px;
+}
+
+@media (max-width:520px){
+  body{ font-size:20px; }
+  .btn-grande{ font-size:22px; }
+  input[type="text"]{ font-size:22px; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ TELA 1 — BOAS-VINDAS ============ -->
+  <section id="tela-boasvindas" class="tela ativa">
+    <div class="cartao centro">
+      <h1>Turma do Saber 🌱</h1>
+      <p class="subtitulo">Ciências — vamos aprender juntos!</p>
+
+      <div class="mascote" role="img" aria-label="Mascote robô que pisca os olhos">
+        <span class="antena"></span>
+        <div class="cabeca">
+          <div class="olhos"><span class="olho"></span><span class="olho"></span></div>
+          <span class="boca"></span>
+        </div>
+        <div class="corpo"></div>
+      </div>
+
+      <p>Qual é o seu nome?</p>
+      <input id="campo-nome" type="text" placeholder="Digite seu nome" aria-label="Digite seu nome" maxlength="20" autocomplete="off" />
+      <button class="btn-grande btn-verde" id="btn-comecar" aria-label="Começar a estudar">Vamos estudar! 🚀</button>
+    </div>
+  </section>
+
+  <!-- ============ TELA 2 — MENU PRINCIPAL ============ -->
+  <section id="tela-menu" class="tela">
+    <div class="cartao">
+      <p class="saudacao" id="saudacao-menu">Olá! 👋</p>
+      <button class="btn-grande btn-verde" id="btn-aprender" aria-label="Aprender o conteúdo">📚 Aprender o Conteúdo</button>
+      <button class="btn-grande btn-roxo" id="btn-simulado" aria-label="Fazer o simulado">🧠 Fazer o Simulado</button>
+      <div class="centro" style="margin-top:10px;">
+        <button class="btn-pequeno btn-amarelo" id="btn-historico" aria-label="Ver meu histórico">📊 Meu Histórico</button>
+      </div>
+      <p class="subtitulo" id="info-materia" style="margin-top:18px;"></p>
+    </div>
+  </section>
+
+  <!-- ============ TELA 3 — APRENDIZAGEM ============ -->
+  <section id="tela-aprender" class="tela">
+    <div class="indicador-card" id="indicador-card">Card 1 de 1</div>
+    <div class="barra-prog"><span id="prog-aprender"></span></div>
+
+    <div class="cartao" id="card-conteudo">
+      <div id="card-corpo" class="centro">
+        <!-- preenchido via JS -->
+      </div>
+      <div class="selo-pagina" id="selo-card" aria-label="Referência de página no livro">📖 Livro pág. —</div>
+    </div>
+
+    <div class="linha-botoes">
+      <button class="btn-cinza" id="btn-card-anterior" aria-label="Card anterior">⬅ Anterior</button>
+      <button class="btn-azul" id="btn-card-proximo" aria-label="Próximo card">Próximo ➡</button>
+    </div>
+    <div class="centro" style="margin-top:10px;">
+      <button class="btn-pequeno btn-cinza" id="btn-aprender-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+    </div>
+  </section>
+
+  <!-- ============ TELA 4 — SIMULADO ============ -->
+  <section id="tela-simulado" class="tela">
+    <div class="indicador-card" id="indicador-pergunta">Pergunta 1 de 1</div>
+    <div class="barra-prog"><span id="prog-simulado"></span></div>
+
+    <div class="cartao centro">
+      <span class="emoji-gigante" id="emoji-pergunta" aria-hidden="true">❓</span>
+      <h2 id="enunciado-pergunta">—</h2>
+      <div><span class="tag-pagina" id="tag-pagina-pergunta">📖 Confira no livro: pág. —</span></div>
+      <div id="alternativas" style="margin-top:14px;"></div>
+      <div class="feedback" id="feedback-pergunta" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 5 — RELATÓRIO ============ -->
+  <section id="tela-relatorio" class="tela">
+    <div class="cartao">
+      <h1 class="centro" id="rel-titulo">Resultado 🎉</h1>
+      <p class="saudacao" id="rel-nome-data"></p>
+
+      <div class="resumo-num">
+        <div class="cubo acertos"><b id="rel-acertos">0</b>✅ Acertos</div>
+        <div class="cubo erros"><b id="rel-erros">0</b>❌ Erros</div>
+      </div>
+
+      <p class="centro" style="font-size:24px;font-weight:bold;"><span id="rel-pct">0</span>% de aproveitamento</p>
+      <div class="barra-prog" style="height:28px;"><span id="rel-barra"></span></div>
+
+      <p class="centro" id="rel-mensagem" style="font-size:24px;font-weight:bold;margin:18px 0;"></p>
+
+      <h2>Revisão das perguntas</h2>
+      <ul class="lista-questoes" id="rel-lista"></ul>
+
+      <div class="linha-botoes" style="margin-top:16px;">
+        <button class="btn-roxo" id="btn-tentar-novamente" aria-label="Tentar o simulado novamente">🔄 Tentar novamente</button>
+        <button class="btn-azul" id="btn-revisar" aria-label="Revisar o conteúdo">📚 Revisar o conteúdo</button>
+      </div>
+      <div class="linha-botoes" style="margin-top:12px;">
+        <button class="btn-verde" id="btn-salvar" aria-label="Salvar resultado">💾 Salvar resultado</button>
+        <button class="btn-cinza" id="btn-relatorio-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+      </div>
+      <p class="aviso-edicao" id="aviso-salvo"></p>
+    </div>
+  </section>
+
+  <!-- ============ TELA 6 — HISTÓRICO ============ -->
+  <section id="tela-historico" class="tela">
+    <div class="cartao">
+      <h1 class="centro">Meu Histórico 📊</h1>
+      <div id="lista-historico"></div>
+      <div class="linha-botoes" style="margin-top:16px;">
+        <button class="btn-laranja" id="btn-limpar-hist" aria-label="Limpar histórico">🗑️ Limpar histórico</button>
+        <button class="btn-cinza" id="btn-historico-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="confete" aria-hidden="true"></div>
+
+<script>
+/* ============================================================
+   EDITE APENAS ESTE BLOCO PARA TROCAR O CONTEÚDO DA MATÉRIA
+   - "pagina" indica onde encontrar o conteúdo no livro físico.
+   - Conteúdo e perguntas extraídos do livro de Ciências (As Plantas),
+     páginas 55 a 81 (2º bimestre).
+   ============================================================ */
+const CONTEUDO = {
+  disciplina: "Ciências — As Plantas",
+  tema: "As plantas e suas partes",
+  turma: "4º ano",
+
+  topicos: [
+    {
+      titulo: "Características das plantas",
+      emoji: "🌱",
+      pagina: 55,
+      texto: "As plantas são seres vivos: nascem, crescem, se reproduzem e morrem. Elas produzem o próprio alimento usando luz solar, água e nutrientes do solo, e ainda renovam o ar que respiramos."
+    },
+    {
+      titulo: "As plantas têm células",
+      emoji: "🔬",
+      pagina: 55,
+      texto: "As plantas são feitas de células, unidades muito pequenas. Juntas, as células formam tecidos e dão origem a diferentes tipos de vegetais. Os musgos são plantas bem pequenas, chamadas briófitas."
+    },
+    {
+      titulo: "Tipos de plantas",
+      emoji: "🌳",
+      pagina: 56,
+      texto: "Existem vários tipos: o arbusto (como o tomateiro), as plantas rasteiras, que crescem rente ao chão (aboboreira), as trepadeiras, que se prendem em cercas (chuchu, maracujá), e as árvores, com tronco forte (laranjeira)."
+    },
+    {
+      titulo: "As partes das plantas",
+      emoji: "🪴",
+      pagina: 57,
+      texto: "A maioria das plantas precisa de solo, água, ar e luz solar. Por isso quase todas têm raiz, caule e folha. Muitas também têm flores e frutos."
+    },
+    {
+      titulo: "As folhas e a fotossíntese",
+      emoji: "🍃",
+      pagina: 57,
+      texto: "É pelas folhas que a planta recebe a luz do sol para produzir seu alimento. Esse processo se chama fotossíntese. As folhas também perdem um pouco de água por buraquinhos minúsculos."
+    },
+    {
+      titulo: "O caule",
+      emoji: "🌿",
+      pagina: 58,
+      texto: "O caule leva a água e os nutrientes do solo até as folhas e sustenta a planta na altura certa para receber luz. Há caules moles e flexíveis (feijoeiro) e caules firmes (o tronco das árvores)."
+    },
+    {
+      titulo: "A raiz",
+      emoji: "🥕",
+      pagina: 58,
+      texto: "A raiz absorve água e nutrientes do solo. Algumas raízes guardam alimento, como a cenoura e a batata-doce. As raízes também seguram a planta firme e ajudam a manter o solo no lugar."
+    },
+    {
+      titulo: "A flor e o fruto",
+      emoji: "🌸",
+      pagina: 59,
+      texto: "A flor atrai abelhas, borboletas e beija-flores, que levam o pólen de uma planta para outra. O pólen forma as sementes dentro dos frutos, garantindo a reprodução da planta. Nem todas as plantas têm flores e frutos."
+    },
+    {
+      titulo: "Plantas para cada ambiente",
+      emoji: "🌵",
+      pagina: 60,
+      texto: "Cada planta se adapta ao seu lugar. Em lugares secos e quentes vivem os cactos e as suculentas, que têm espinhos no lugar de folhas e guardam líquido. As plantas aquáticas guardam ar para boiar."
+    },
+    {
+      titulo: "Plantas nativas e exóticas",
+      emoji: "🗺️",
+      pagina: 60,
+      texto: "Uma planta nativa é natural e adaptada de uma região. Quando uma planta é levada e plantada em outra região, ela é chamada de exótica. Biodiversidade é a quantidade de seres vivos diferentes de um lugar."
+    },
+    {
+      titulo: "As plantas também comem",
+      emoji: "🍽️",
+      pagina: 75,
+      texto: "Os vegetais também precisam de alimento. Pela fotossíntese, eles fabricam comida para si mesmos e para outros seres vivos. A receita usa água, gás carbônico, nutrientes do solo e luz solar."
+    },
+    {
+      titulo: "Estômatos e transpiração",
+      emoji: "💨",
+      pagina: 75,
+      texto: "O gás carbônico entra na planta por aberturas minúsculas chamadas estômatos. A planta libera oxigênio e água para o ar. Por isso, lugares com muitas árvores têm o ar mais fresco."
+    },
+    {
+      titulo: "Germinação e polinização",
+      emoji: "🌰",
+      pagina: 66,
+      texto: "Germinação é quando a semente vira uma nova planta, com as primeiras raízes e folhas. Polinização é quando o pólen encontra a parte feminina da flor e, juntos, formam a semente."
+    },
+    {
+      titulo: "Dispersão de sementes",
+      emoji: "🍂",
+      pagina: 67,
+      texto: "As plantas espalham suas sementes de várias formas: comidas por animais e liberadas nas fezes, levadas pelo vento (dente-de-leão) ou pela água (o coco-da-baía viaja boiando pelo mar)."
+    },
+    {
+      titulo: "Plantas que a gente come",
+      emoji: "🥗",
+      pagina: 78,
+      texto: "De cada planta podemos comer uma parte diferente: folhas (alface), flores (brócolis), frutos (tomate), caules (cana-de-açúcar, palmito), raízes (cenoura, batata-doce) e sementes (milho, feijão)."
+    },
+    {
+      titulo: "Plantas que são remédios",
+      emoji: "🍵",
+      pagina: 79,
+      texto: "Muitas plantas viram remédios. Pela industrialização, alguns vegetais viram medicamentos vendidos em farmácias. Outras são preparadas em casa: o chá de camomila ajuda a aliviar a dor de barriga, o nervosismo e a insônia. Mesmo assim, quando ficamos doentes, é importante consultar um médico."
+    },
+    {
+      titulo: "Experimento: germinação",
+      emoji: "🌻",
+      pagina: 80,
+      texto: "Dá para ver uma semente germinar! Colocamos sementes de girassol de molho na água por algumas horas, mantemos sempre úmidas e, em 2 ou 3 dias, surgem os primeiros brotos."
+    }
+  ],
+
+  /* Perguntas do simulado — apanhado completo dos assuntos das páginas lidas (55 a 81).
+     As de múltipla escolha das págs. 59 e 63 seguem a redação e a resposta do livro. */
+  perguntas: [
+    {
+      emoji: "🌱",
+      enunciado: "Segundo o livro, o que mostra que as plantas são seres vivos?",
+      pagina: 55,
+      alternativas: [
+        "Elas nascem, crescem, se reproduzem e morrem",
+        "Elas ficam sempre do mesmo jeito",
+        "Elas não precisam de água nem de luz"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🔬",
+      enunciado: "Como são chamados os musgos, vegetais tão pequenos que não se pode enxergar folhas, caules e raízes?",
+      pagina: 55,
+      alternativas: [
+        "Arbustos",
+        "Briófitas",
+        "Trepadeiras"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🍃",
+      enunciado: "O X da questão (pág. 56): Como as plantas conseguem produzir os seus alimentos?",
+      pagina: 56,
+      alternativas: [
+        "Por meio da fotossíntese, usando luz solar, água e nutrientes do solo",
+        "Comprando alimento no mercado",
+        "Tirando a comida de outras plantas"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🍅",
+      enunciado: "O tomateiro é classificado como qual tipo de planta?",
+      pagina: 56,
+      alternativas: [
+        "Árvore",
+        "Arbusto",
+        "Planta rasteira"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🪴",
+      enunciado: "Como a maioria das plantas precisa de solo, água, ar e luz solar, quais partes elas costumam ter?",
+      pagina: 57,
+      alternativas: [
+        "Apenas flores",
+        "Raiz, caule e folha",
+        "Somente sementes"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🌞",
+      enunciado: "Em qual parte da planta acontece a fotossíntese, com a energia do sol?",
+      pagina: 57,
+      alternativas: [
+        "Nas folhas",
+        "Na raiz",
+        "No fruto"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🌿",
+      enunciado: "Para que serve o caule da planta?",
+      pagina: 58,
+      alternativas: [
+        "Levar água e nutrientes até as folhas e sustentar a planta",
+        "Atrair as abelhas",
+        "Produzir o pólen"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🥕",
+      enunciado: "Qual destas é uma raiz que também armazena alimento?",
+      pagina: 58,
+      alternativas: [
+        "A cenoura",
+        "A folha de alface",
+        "O tronco da árvore"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🐝",
+      enunciado: "A flor atrai abelhas, borboletas e beija-flores. O que esses animais levam de uma planta para outra?",
+      pagina: 59,
+      alternativas: [
+        "O pólen",
+        "A raiz",
+        "A água"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🥭",
+      enunciado: "Atividade 2 (pág. 59): Vovô Batista percebeu que, na sua mangueira, todas as flores foram atacadas por um fungo e não vão abrir. O que poderá acontecer?",
+      pagina: 59,
+      alternativas: [
+        "A planta vai parar de receber luz solar.",
+        "Não chegará água nas folhas e elas cairão.",
+        "A planta não conseguirá absorver água do solo.",
+        "A planta não produzirá frutos (mangas) nessa estação."
+      ],
+      correta: 3
+    },
+    {
+      emoji: "🌵",
+      enunciado: "Quais plantas se adaptam a lugares com pouca água e muito calor, como os desertos e sertões?",
+      pagina: 60,
+      alternativas: [
+        "As plantas aquáticas",
+        "Os cactos e as suculentas",
+        "Os musgos"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🗺️",
+      enunciado: "Quando uma planta é natural e adaptada de uma região, ela é chamada de:",
+      pagina: 60,
+      alternativas: [
+        "Exótica",
+        "Nativa",
+        "Aquática"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🦋",
+      enunciado: "Segundo o livro, o que é biodiversidade?",
+      pagina: 60,
+      alternativas: [
+        "A quantidade de seres vivos diferentes de um lugar",
+        "Um tipo de planta aquática",
+        "O nome de uma flor"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🪻",
+      enunciado: "Atividade 2 (pág. 63): Lívia colocou sua violeta ao lado da cama. As folhas começaram a ficar amareladas, mesmo ela regando sempre. O que pode estar acontecendo com a planta?",
+      pagina: 63,
+      alternativas: [
+        "A planta está desidratada.",
+        "O frio do quarto está afetando a planta.",
+        "A falta de luz solar está impedindo a planta de produzir o próprio alimento.",
+        "A planta está se sentindo sozinha."
+      ],
+      correta: 2
+    },
+    {
+      emoji: "🌰",
+      enunciado: "Segundo o livro, o que é a germinação?",
+      pagina: 66,
+      alternativas: [
+        "A transformação de uma semente em uma nova planta",
+        "A flor murchando na árvore",
+        "A folha caindo no chão"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🌼",
+      enunciado: "Segundo o livro, o que é a polinização?",
+      pagina: 66,
+      alternativas: [
+        "Quando o pólen encontra a parte feminina da flor e juntos formam a semente",
+        "Quando a folha perde água",
+        "Quando a raiz cresce no solo"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🏝️",
+      enunciado: "O X da questão (pág. 67): Como surgem plantas em ilhas desabitadas, onde ninguém as plantou?",
+      pagina: 67,
+      alternativas: [
+        "As sementes são levadas até lá por aves, pelo vento ou pela água",
+        "As plantas nascem do nada, sem sementes",
+        "Alguém precisa viajar até a ilha para plantar"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🍂",
+      enunciado: "Como o dente-de-leão espalha as suas sementes?",
+      pagina: 67,
+      alternativas: [
+        "Pela água do mar",
+        "Pelo vento",
+        "Por baixo da terra"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "💨",
+      enunciado: "Por onde o gás carbônico entra na planta?",
+      pagina: 75,
+      alternativas: [
+        "Pelas raízes",
+        "Pelos estômatos, aberturas minúsculas nas folhas",
+        "Pelas flores"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🌬️",
+      enunciado: "Durante a fotossíntese, qual gás importante a planta libera no ar?",
+      pagina: 75,
+      alternativas: [
+        "Oxigênio",
+        "Gás carbônico",
+        "Fumaça"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🥦",
+      enunciado: "Na galeria de plantas comestíveis, o brócolis é um exemplo de qual parte que comemos?",
+      pagina: 78,
+      alternativas: [
+        "Flor comestível",
+        "Raiz comestível",
+        "Semente comestível"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🍵",
+      enunciado: "Segundo o livro, o chá de qual planta ajuda a aliviar o mal-estar estomacal, o nervosismo e a insônia?",
+      pagina: 79,
+      alternativas: [
+        "Camomila",
+        "Cacto",
+        "Dente-de-leão"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🌻",
+      enunciado: "No experimento 'Meu laboratório', quais sementes foram usadas para observar a germinação?",
+      pagina: 80,
+      alternativas: [
+        "Sementes de girassol",
+        "Sementes de tomate",
+        "Sementes de feijão"
+      ],
+      correta: 0
+    }
+  ]
+};
+/* ===================== FIM DO BLOCO EDITÁVEL ===================== */
+
+
+/* ============================================================
+   MOTOR DO APLICATIVO  (não precisa editar abaixo)
+   ============================================================ */
+const CHAVE_NOME = "tds_nome_aluno";              /* nome compartilhado entre as matérias */
+const CHAVE_HIST = "tds_historico_ciencias";      /* histórico separado do de História    */
+
+const estado = {
+  nome: "",
+  cardAtual: 0,
+  perguntaAtual: 0,
+  respostas: [],      // {indiceEscolhido, acertou}
+  travado: false
+};
+
+/* ---------- util de telas ---------- */
+function mostrarTela(id){
+  document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
+  document.getElementById(id).classList.add("ativa");
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+function $(id){ return document.getElementById(id); }
+
+/* ---------- Web Audio API (sons) ---------- */
+let audioCtx = null;
+function tocarSom(tipo){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    if(tipo === "agudo"){           // acerto
+      o.type = "sine"; o.frequency.setValueAtTime(660, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.18);
+    }else{                          // grave (erro)
+      o.type = "sawtooth"; o.frequency.setValueAtTime(220, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.3);
+    }
+    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+    o.start(); o.stop(audioCtx.currentTime + 0.4);
+  }catch(e){ /* áudio indisponível — segue sem som */ }
+}
+
+/* ---------- Confete ---------- */
+let confeteTimer = null;
+function soltarConfete(duracaoMs){
+  const cores = ["#4FA3E3","#FFD66B","#6FCF97","#B190E8","#F2994A"];
+  const palco = $("confete");
+  const fim = Date.now() + duracaoMs;
+  clearInterval(confeteTimer);
+  confeteTimer = setInterval(() => {
+    if(Date.now() > fim){ clearInterval(confeteTimer); return; }
+    for(let i=0;i<6;i++){
+      const p = document.createElement("span");
+      p.className = "confete-peca";
+      p.style.left = Math.random()*100 + "vw";
+      p.style.background = cores[(Math.random()*cores.length)|0];
+      p.style.animationDuration = (2 + Math.random()*1.5) + "s";
+      p.style.transform = "rotate(" + (Math.random()*360) + "deg)";
+      palco.appendChild(p);
+      setTimeout(() => p.remove(), 3500);
+    }
+  }, 120);
+}
+
+/* ============================================================
+   TELA 1 — BOAS-VINDAS
+   ============================================================ */
+function iniciarApp(){
+  const salvo = localStorage.getItem(CHAVE_NOME);
+  if(salvo){ $("campo-nome").value = salvo; }
+}
+
+function comecar(){
+  const nome = $("campo-nome").value.trim();
+  if(!nome){
+    $("campo-nome").focus();
+    $("campo-nome").style.borderColor = "#E05757";
+    return;
+  }
+  estado.nome = nome;
+  localStorage.setItem(CHAVE_NOME, nome);
+  irParaMenu();
+}
+
+/* ============================================================
+   TELA 2 — MENU
+   ============================================================ */
+function irParaMenu(){
+  $("saudacao-menu").textContent = "Olá, " + estado.nome + "! 👋 O que vamos fazer hoje?";
+  $("info-materia").textContent = CONTEUDO.disciplina + " • " + CONTEUDO.tema + " • " + CONTEUDO.turma;
+  mostrarTela("tela-menu");
+}
+
+/* ============================================================
+   TELA 3 — APRENDIZAGEM
+   ============================================================ */
+function iniciarAprendizagem(){
+  estado.cardAtual = 0;
+  renderCard();
+  mostrarTela("tela-aprender");
+}
+
+function renderCard(){
+  const total = CONTEUDO.topicos.length;
+  const i = estado.cardAtual;
+  const ehUltimo = (i === total - 1);
+  $("indicador-card").textContent = "Card " + (i+1) + " de " + total;
+  $("prog-aprender").style.width = (((i+1)/total)*100) + "%";
+
+  const t = CONTEUDO.topicos[i];
+  const corpo = $("card-corpo");
+
+  if(ehUltimo){
+    corpo.innerHTML =
+      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
+      '<h2>' + t.titulo + '</h2>' +
+      '<p>' + t.texto + '</p>' +
+      '<div class="parabens" style="margin-top:18px;">' +
+        '<span class="emoji-gigante" aria-hidden="true">🎉</span>' +
+        '<h2 style="color:var(--verde-esc)">Parabéns, ' + estado.nome + '!</h2>' +
+        '<p>Você terminou todo o conteúdo! 🌟</p>' +
+      '</div>';
+  }else{
+    corpo.innerHTML =
+      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
+      '<h2>' + t.titulo + '</h2>' +
+      '<p>' + t.texto + '</p>';
+  }
+
+  $("selo-card").textContent = "📖 Livro pág. " + t.pagina;
+  $("btn-card-anterior").disabled = (i === 0);
+  $("btn-card-proximo").textContent = ehUltimo ? "Concluir ✅" : "Próximo ➡";
+}
+
+function cardProximo(){
+  if(estado.cardAtual < CONTEUDO.topicos.length - 1){
+    estado.cardAtual++; renderCard();
+  }else{
+    irParaMenu();
+  }
+}
+function cardAnterior(){
+  if(estado.cardAtual > 0){ estado.cardAtual--; renderCard(); }
+}
+
+/* ============================================================
+   TELA 4 — SIMULADO
+   ============================================================ */
+function iniciarSimulado(){
+  estado.perguntaAtual = 0;
+  estado.respostas = [];
+  estado.travado = false;
+  renderPergunta();
+  mostrarTela("tela-simulado");
+}
+
+function renderPergunta(){
+  estado.travado = false;
+  const total = CONTEUDO.perguntas.length;
+  const i = estado.perguntaAtual;
+  const p = CONTEUDO.perguntas[i];
+
+  $("indicador-pergunta").textContent = "Pergunta " + (i+1) + " de " + total;
+  $("prog-simulado").style.width = ((i/total)*100) + "%";
+  $("emoji-pergunta").textContent = p.emoji;
+  $("enunciado-pergunta").textContent = p.enunciado;
+  $("tag-pagina-pergunta").textContent = "📖 Confira no livro: pág. " + p.pagina;
+
+  const fb = $("feedback-pergunta");
+  fb.className = "feedback"; fb.textContent = "";
+
+  const cont = $("alternativas");
+  cont.innerHTML = "";
+  p.alternativas.forEach((alt, idx) => {
+    const b = document.createElement("button");
+    b.textContent = alt;
+    b.setAttribute("aria-label", "Resposta: " + alt);
+    b.addEventListener("click", () => responder(idx, b));
+    cont.appendChild(b);
+  });
+}
+
+function responder(idx, botao){
+  if(estado.travado) return;
+  estado.travado = true;
+
+  const p = CONTEUDO.perguntas[estado.perguntaAtual];
+  const acertou = (idx === p.correta);
+  const botoes = $("alternativas").querySelectorAll("button");
+  botoes.forEach(b => b.disabled = true);
+
+  const fb = $("feedback-pergunta");
+
+  if(acertou){
+    botao.classList.add("correta");
+    fb.textContent = "✅ Muito bem! Você acertou!";
+    fb.className = "feedback acerto ver";
+    tocarSom("agudo");
+    soltarConfete(2500);
+  }else{
+    botao.classList.add("errada-escolhida","balanca");
+    botoes[p.correta].classList.add("correta");
+    fb.textContent = "❌ Quase lá! A resposta certa era essa 👆";
+    fb.className = "feedback erro ver";
+    tocarSom("grave");
+  }
+
+  estado.respostas.push({ indiceEscolhido: idx, acertou: acertou });
+
+  setTimeout(() => {
+    if(estado.perguntaAtual < CONTEUDO.perguntas.length - 1){
+      estado.perguntaAtual++;
+      renderPergunta();
+    }else{
+      $("prog-simulado").style.width = "100%";
+      mostrarRelatorio();
+    }
+  }, 3000);
+}
+
+/* ============================================================
+   TELA 5 — RELATÓRIO
+   ============================================================ */
+function calcularResultado(){
+  const total = CONTEUDO.perguntas.length;
+  const acertos = estado.respostas.filter(r => r.acertou).length;
+  const erros = total - acertos;
+  const pct = total ? Math.round((acertos/total)*100) : 0;
+  return { total, acertos, erros, pct };
+}
+
+function corPorPct(pct){
+  if(pct > 80) return "var(--verde-esc)";
+  if(pct >= 50) return "var(--amarelo)";
+  return "var(--laranja)";
+}
+
+function mensagemPorPct(pct){
+  if(pct > 80) return "🏆 Campeão! Você arrasou!";
+  if(pct >= 50) return "💪 Muito bem! Continue praticando!";
+  return "📚 Não desista! Revise o conteúdo e tente de novo!";
+}
+
+function mostrarRelatorio(){
+  const r = calcularResultado();
+  const agora = new Date();
+  const dataStr = agora.toLocaleDateString("pt-BR") + " às " + agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+
+  $("rel-nome-data").textContent = estado.nome + " • " + dataStr;
+  $("rel-acertos").textContent = r.acertos;
+  $("rel-erros").textContent = r.erros;
+  $("rel-pct").textContent = r.pct;
+  $("rel-barra").style.width = r.pct + "%";
+  $("rel-barra").style.background = corPorPct(r.pct);
+  $("rel-mensagem").textContent = mensagemPorPct(r.pct);
+  $("aviso-salvo").textContent = "";
+
+  const lista = $("rel-lista");
+  lista.innerHTML = "";
+  CONTEUDO.perguntas.forEach((p, i) => {
+    const resp = estado.respostas[i];
+    const ok = resp && resp.acertou;
+    const dada = resp ? p.alternativas[resp.indiceEscolhido] : "—";
+    const certa = p.alternativas[p.correta];
+    const li = document.createElement("li");
+    if(ok) li.classList.add("ok");
+    li.innerHTML =
+      '<div class="topo-q">' +
+        '<span>' + (ok ? "✅" : "❌") + " " + p.enunciado + '</span>' +
+        '<span class="ref-relatorio">📖 pág. ' + p.pagina + '</span>' +
+      '</div>' +
+      '<div>Você respondeu: <span class="res-dada">' + dada + '</span></div>' +
+      (ok ? '' : '<div>Resposta certa: <span class="res-certa">' + certa + '</span></div>');
+    lista.appendChild(li);
+  });
+
+  mostrarTela("tela-relatorio");
+}
+
+function salvarResultado(){
+  const r = calcularResultado();
+  const registro = {
+    nome: estado.nome,
+    data: new Date().toISOString(),
+    acertos: r.acertos,
+    erros: r.erros,
+    total: r.total,
+    pct: r.pct
+  };
+  const hist = lerHistorico();
+  hist.push(registro);
+  localStorage.setItem(CHAVE_HIST, JSON.stringify(hist));
+  $("aviso-salvo").textContent = "💾 Resultado salvo no histórico!";
+}
+
+/* ============================================================
+   TELA 6 — HISTÓRICO
+   ============================================================ */
+function lerHistorico(){
+  try{ return JSON.parse(localStorage.getItem(CHAVE_HIST)) || []; }
+  catch(e){ return []; }
+}
+
+function mostrarHistorico(){
+  const cont = $("lista-historico");
+  const hist = lerHistorico().slice().reverse(); // mais recente primeiro
+  if(hist.length === 0){
+    cont.innerHTML = '<p class="centro" style="font-size:22px;">Nenhum simulado salvo ainda. 📭<br>Faça um simulado e salve o resultado!</p>';
+  }else{
+    cont.innerHTML = "";
+    hist.forEach(reg => {
+      const d = new Date(reg.data);
+      const dataStr = d.toLocaleDateString("pt-BR") + " às " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+      const cor = corPorPct(reg.pct);
+      const div = document.createElement("div");
+      div.className = "item-hist";
+      div.innerHTML =
+        '<div class="data">' + (reg.nome || "Aluno") + ' • ' + dataStr + '</div>' +
+        '<div class="pct" style="color:' + cor + '">' + reg.pct + '% — ' + reg.acertos + '/' + reg.total + ' acertos</div>' +
+        '<div class="barra-prog"><span style="width:' + reg.pct + '%;background:' + cor + '"></span></div>';
+      cont.appendChild(div);
+    });
+  }
+  mostrarTela("tela-historico");
+}
+
+function limparHistorico(){
+  if(confirm("Tem certeza que deseja apagar TODO o histórico? Esta ação não pode ser desfeita.")){
+    localStorage.removeItem(CHAVE_HIST);
+    mostrarHistorico();
+  }
+}
+
+/* ============================================================
+   LIGAÇÕES (eventos)
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  iniciarApp();
+
+  $("btn-comecar").addEventListener("click", comecar);
+  $("campo-nome").addEventListener("keydown", e => { if(e.key === "Enter") comecar(); });
+
+  $("btn-aprender").addEventListener("click", iniciarAprendizagem);
+  $("btn-simulado").addEventListener("click", iniciarSimulado);
+  $("btn-historico").addEventListener("click", mostrarHistorico);
+
+  $("btn-card-proximo").addEventListener("click", cardProximo);
+  $("btn-card-anterior").addEventListener("click", cardAnterior);
+  $("btn-aprender-menu").addEventListener("click", irParaMenu);
+
+  $("btn-tentar-novamente").addEventListener("click", iniciarSimulado);
+  $("btn-revisar").addEventListener("click", iniciarAprendizagem);
+  $("btn-salvar").addEventListener("click", salvarResultado);
+  $("btn-relatorio-menu").addEventListener("click", irParaMenu);
+
+  $("btn-limpar-hist").addEventListener("click", limparHistorico);
+  $("btn-historico-menu").addEventListener("click", irParaMenu);
+});
+</script>
+</body>
+</html>
