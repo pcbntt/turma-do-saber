@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Turma do Saber — História</title>
+<title>Turma do Saber — Escolha a matéria</title>
 <style>
 /* ============================================================
-   TURMA DO SABER — História
+   TURMA DO SABER — Página inicial (menu de matérias)
    App educacional para crianças com TEA
    100% offline, sem dependências externas
    ============================================================ */
-
 :root{
   --azul:        #4FA3E3;
   --azul-claro:  #DCEEFB;
-  --azul-escuro: #15324F; /* selos de página */
+  --azul-escuro: #15324F;
   --amarelo:     #FFD66B;
   --amarelo-cl:  #FFF4D1;
   --verde:       #6FCF97;
-  --verde-cl:    #E3F8EC;
   --verde-esc:   #2F9E5E;
   --roxo:        #B190E8;
   --roxo-cl:     #F0E9FB;
@@ -29,983 +27,99 @@
   --raio:        22px;
   --transicao:   .3s ease;
 }
-
 *{ box-sizing:border-box; }
-
 html,body{ margin:0; padding:0; }
-
 body{
   font-family: 'Trebuchet MS', 'Segoe UI', Verdana, sans-serif;
-  font-size: 20px;                 /* corpo mínimo 20px */
-  line-height: 1.5;
-  color: var(--texto);
+  font-size: 20px; line-height: 1.5; color: var(--texto);
   background: linear-gradient(135deg, var(--azul-claro), var(--roxo-cl) 45%, var(--amarelo-cl));
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
 }
-
-h1,h2{ font-size: 28px; }          /* títulos mínimo 28px */
-h1{ font-size: 34px; }
-
-/* ---------- Layout base ---------- */
-#app{
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 18px 16px 48px;
-}
-
-.tela{
-  display: none;
-  animation: aparecer var(--transicao);
-}
-.tela.ativa{ display: block; }
-
-@keyframes aparecer{
-  from{ opacity:0; transform: translateY(14px); }
-  to  { opacity:1; transform: translateY(0); }
-}
-
+#app{ max-width: 760px; margin: 0 auto; padding: 18px 16px 48px; }
+h1{ font-size: 34px; margin: 6px 0; }
 .cartao{
-  background: var(--branco);
-  border-radius: var(--raio);
-  box-shadow: var(--sombra);
-  padding: 26px 22px;
-  margin: 14px 0;
-  position: relative;
+  background: var(--branco); border-radius: var(--raio); box-shadow: var(--sombra);
+  padding: 26px 22px; margin: 14px 0; text-align:center;
 }
+.subtitulo{ text-align:center; color: var(--roxo); font-weight:bold; margin: 0 0 6px; }
+.saudacao{ text-align:center; font-size:22px; margin: 4px 0 14px; }
 
-.centro{ text-align:center; }
-
-/* ---------- Botões ---------- */
-button{
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: bold;
-  min-height: 60px;                /* botões mínimo 60px */
-  border: none;
-  border-radius: 16px;
-  padding: 14px 22px;
-  cursor: pointer;
-  color: var(--branco);
-  background: var(--azul);
-  transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
-  box-shadow: 0 4px 0 rgba(0,0,0,.12);
-}
-button:hover{ transform: translateY(-2px); }
-button:active{ transform: translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.12); }
-button:focus-visible{ outline: 4px solid var(--roxo); outline-offset: 3px; }
-
-.btn-grande{ width:100%; min-height:78px; font-size:24px; margin:10px 0; }
-.btn-azul    { background: var(--azul); }
-.btn-verde   { background: var(--verde-esc); }
-.btn-roxo    { background: var(--roxo); }
-.btn-amarelo { background: var(--amarelo); color: var(--texto); }
-.btn-laranja { background: var(--laranja); }
-.btn-pequeno { font-size:18px; min-height:60px; }
-.btn-cinza   { background:#9AA7B8; }
-
-.linha-botoes{
-  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
-}
-.linha-botoes button{ flex:1 1 140px; }
-
-/* ---------- Campo de texto ---------- */
-input[type="text"]{
-  font-family: inherit;
-  font-size: 24px;
-  text-align:center;
-  width: 100%;
-  max-width: 420px;
-  min-height: 64px;
-  padding: 12px 18px;
-  border: 3px solid var(--azul);
-  border-radius: 16px;
-  margin: 10px auto;
-  display:block;
-  color: var(--texto);
-}
-input[type="text"]:focus{ outline:none; border-color: var(--roxo); box-shadow:0 0 0 4px var(--roxo-cl); }
-
-/* ---------- Emojis grandes ---------- */
-.emoji-gigante{ font-size: 100px; line-height:1.1; display:block; margin: 8px 0; }
-.emoji-grande { font-size: 80px;  line-height:1.1; display:block; margin: 6px 0; }
-
-/* ============================================================
-   MASCOTE — robô em CSS puro com olhos piscando
-   ============================================================ */
-.mascote{ width:170px; height:200px; margin: 6px auto 0; position:relative; }
-.mascote .antena{
-  position:absolute; top:-2px; left:50%; width:6px; height:26px;
-  background:#7d8aa0; transform:translateX(-50%); border-radius:4px;
-}
-.mascote .antena::after{
-  content:""; position:absolute; top:-14px; left:50%; width:16px; height:16px;
-  background: var(--amarelo); border-radius:50%; transform:translateX(-50%);
-  box-shadow:0 0 0 4px var(--amarelo-cl);
-  animation: brilho 1.4s ease-in-out infinite;
-}
+/* ---------- Mascote ---------- */
+.mascote{ width:170px; height:200px; margin: 6px auto 4px; position:relative; }
+.mascote .antena{ position:absolute; top:-2px; left:50%; width:6px; height:26px; background:#7d8aa0; transform:translateX(-50%); border-radius:4px; }
+.mascote .antena::after{ content:""; position:absolute; top:-14px; left:50%; width:16px; height:16px; background: var(--amarelo); border-radius:50%; transform:translateX(-50%); box-shadow:0 0 0 4px var(--amarelo-cl); animation: brilho 1.4s ease-in-out infinite; }
 @keyframes brilho{ 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.5)} }
+.mascote .cabeca{ position:absolute; top:24px; left:50%; transform:translateX(-50%); width:150px; height:118px; background: var(--azul); border-radius:30px; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08); }
+.mascote .olhos{ position:absolute; top:42px; width:100%; display:flex; justify-content:center; gap:26px; }
+.mascote .olho{ width:34px; height:34px; background:var(--branco); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: piscar 4s infinite; }
+.mascote .olho::after{ content:""; width:16px; height:16px; background:var(--azul-escuro); border-radius:50%; }
+@keyframes piscar{ 0%, 92%, 100%{ transform: scaleY(1); } 95%, 97%{ transform: scaleY(.1); } }
+.mascote .boca{ position:absolute; top:88px; left:50%; transform:translateX(-50%); width:60px; height:16px; background:var(--azul-escuro); border-radius:0 0 30px 30px; }
+.mascote .corpo{ position:absolute; top:140px; left:50%; transform:translateX(-50%); width:110px; height:56px; background: var(--roxo); border-radius:18px; }
 
-.mascote .cabeca{
-  position:absolute; top:24px; left:50%; transform:translateX(-50%);
-  width:150px; height:118px; background: var(--azul);
-  border-radius:30px; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08);
-}
-.mascote .olhos{
-  position:absolute; top:42px; width:100%; display:flex; justify-content:center; gap:26px;
-}
-.mascote .olho{
-  width:34px; height:34px; background:var(--branco); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  animation: piscar 4s infinite;          /* piscar em loop */
-}
-.mascote .olho::after{
-  content:""; width:16px; height:16px; background:var(--azul-escuro); border-radius:50%;
-}
-@keyframes piscar{
-  0%, 92%, 100%{ transform: scaleY(1); }
-  95%, 97%     { transform: scaleY(.1); }
-}
-.mascote .boca{
-  position:absolute; top:88px; left:50%; transform:translateX(-50%);
-  width:60px; height:16px; background:var(--azul-escuro); border-radius:0 0 30px 30px;
-}
-.mascote .corpo{
-  position:absolute; top:140px; left:50%; transform:translateX(-50%);
-  width:110px; height:56px; background: var(--roxo); border-radius:18px;
-}
-.mascote.acena{ animation: balancinho 2s ease-in-out infinite; }
-@keyframes balancinho{ 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+/* ---------- Botões de matéria ---------- */
+.materias{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+@media (min-width:560px){ .materias{ grid-template-columns:1fr 1fr; } }
 
-/* ============================================================
-   SELOS DE PÁGINA
-   ============================================================ */
-.selo-pagina{
-  position:absolute; right:14px; bottom:14px;
-  background: var(--azul-escuro); color: var(--branco);
-  font-size: 16px; font-weight:bold;
-  padding: 8px 14px; border-radius: 999px;
-  box-shadow: 0 3px 8px rgba(0,0,0,.25);
+.materia{
+  display:flex; align-items:center; gap:16px; text-align:left; text-decoration:none;
+  color: var(--branco); border-radius: 18px; padding: 18px 20px; min-height: 92px;
+  box-shadow: 0 4px 0 rgba(0,0,0,.12);
+  transition: transform var(--transicao), box-shadow var(--transicao);
 }
-.tag-pagina{
-  display:inline-block;
-  background: var(--azul-escuro); color: var(--branco);
-  font-size: 14px; font-weight:bold;
-  padding: 6px 12px; border-radius: 999px;
-  margin: 4px 0 2px;
-}
-.ref-relatorio{
-  display:inline-block; background: var(--azul-escuro); color:var(--branco);
-  font-size: 13px; font-weight:bold; padding: 3px 9px; border-radius: 999px;
-  margin-left: 6px; white-space:nowrap;
-}
+.materia:hover{ transform: translateY(-3px); box-shadow: 0 7px 0 rgba(0,0,0,.12); }
+.materia:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,.12); }
+.materia:focus-visible{ outline: 4px solid var(--azul-escuro); outline-offset: 3px; }
+.materia .ico{ font-size: 52px; line-height:1; flex:0 0 auto; }
+.materia .txt b{ display:block; font-size: 24px; }
+.materia .txt span{ display:block; font-size: 16px; opacity:.95; font-weight:normal; }
 
-/* ---------- Progresso ---------- */
-.indicador-card{
-  text-align:center; font-size:20px; font-weight:bold; color: var(--roxo);
-  margin-bottom: 6px;
-}
-.barra-prog{
-  width:100%; height:22px; background: var(--azul-claro);
-  border-radius:999px; overflow:hidden; margin: 10px 0 4px;
-}
-.barra-prog > span{
-  display:block; height:100%; width:0%;
-  background: linear-gradient(90deg, var(--verde), var(--azul));
-  transition: width var(--transicao);
-}
+.m-historia  { background: var(--azul); }
+.m-ciencias  { background: var(--verde-esc); }
+.m-portugues { background: var(--roxo); }
+.m-geografia { background: var(--laranja); }
 
-/* ---------- Alternativas do simulado ---------- */
-#alternativas button{
-  width:100%; text-align:left; background: var(--branco); color: var(--texto);
-  border: 3px solid var(--azul); margin: 10px 0; min-height:64px;
-}
-#alternativas button:hover{ background: var(--azul-claro); }
-#alternativas button.correta{ background: var(--verde-cl); border-color: var(--verde-esc); color: var(--verde-esc); }
-#alternativas button.errada-escolhida{ background:#FDE2E2; border-color:#E05757; color:#B23030; }
-#alternativas button:disabled{ cursor: default; }
-
-@keyframes balanco{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-10px); }
-  40%{ transform: translateX(10px); }
-  60%{ transform: translateX(-7px); }
-  80%{ transform: translateX(7px); }
-}
-.balanca{ animation: balanco .5s; }
-
-.feedback{
-  text-align:center; font-size:26px; font-weight:bold; min-height:40px;
-  margin: 12px 0; opacity:0; transition: opacity var(--transicao);
-}
-.feedback.ver{ opacity:1; animation: pulo .5s; }
-.feedback.acerto{ color: var(--verde-esc); }
-.feedback.erro  { color: var(--laranja); }
-@keyframes pulo{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
-
-/* ---------- Mensagem de parabéns ---------- */
-.parabens{
-  text-align:center; animation: pulo .6s;
-}
-.parabens .emoji-gigante{ animation: balancinho 1.5s ease-in-out infinite; }
-
-/* ---------- Relatório ---------- */
-.resumo-num{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-.cubo{
-  flex:1 1 120px; background:var(--azul-claro); border-radius:16px; padding:14px; text-align:center;
-}
-.cubo b{ display:block; font-size:40px; }
-.cubo.acertos{ background: var(--verde-cl); color: var(--verde-esc); }
-.cubo.erros  { background: #FDE2E2; color:#B23030; }
-
-.lista-questoes{ list-style:none; padding:0; margin: 8px 0; }
-.lista-questoes li{
-  background: var(--azul-claro); border-radius:14px; padding:12px 14px; margin:10px 0;
-  font-size:18px;
-}
-.lista-questoes li .res-dada{ color:#B23030; }
-.lista-questoes li.ok .res-dada{ color: var(--verde-esc); }
-.lista-questoes li .res-certa{ color: var(--verde-esc); font-weight:bold; }
-.lista-questoes .topo-q{ font-weight:bold; display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; }
-
-/* ---------- Histórico ---------- */
-.item-hist{
-  background: var(--branco); border-radius:16px; box-shadow:var(--sombra);
-  padding:14px 16px; margin:12px 0;
-}
-.item-hist .data{ font-size:17px; color:#6b7890; }
-.item-hist .pct{ font-size:24px; font-weight:bold; }
-
-/* ---------- Confete ---------- */
-#confete{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:50; }
-.confete-peca{
-  position:absolute; top:-20px; width:12px; height:18px; border-radius:3px;
-  animation: cair linear forwards;
-}
-@keyframes cair{
-  to{ transform: translateY(110vh) rotate(720deg); opacity:1; }
-}
-
-/* ---------- util ---------- */
-.saudacao{ text-align:center; font-size:26px; margin: 6px 0 18px; }
-.subtitulo{ text-align:center; color: var(--roxo); font-weight:bold; }
-.aviso-edicao{
-  font-size:14px; color:#6b7890; text-align:center; margin-top:18px;
-}
-
-@media (max-width:520px){
-  body{ font-size:20px; }
-  .btn-grande{ font-size:22px; }
-  input[type="text"]{ font-size:22px; }
-}
+.rodape{ font-size:15px; color:#6b7890; text-align:center; margin-top:20px; }
 </style>
 </head>
 <body>
-
 <div id="app">
+  <div class="cartao">
+    <h1>Turma do Saber 📚</h1>
+    <p class="subtitulo">Aprender brincando!</p>
 
-  <!-- ============ TELA 1 — BOAS-VINDAS ============ -->
-  <section id="tela-boasvindas" class="tela ativa">
-    <div class="cartao centro">
-      <h1>Turma do Saber 📚</h1>
-      <p class="subtitulo">História — vamos aprender juntos!</p>
-
-      <div class="mascote" role="img" aria-label="Mascote robô que pisca os olhos">
-        <span class="antena"></span>
-        <div class="cabeca">
-          <div class="olhos"><span class="olho"></span><span class="olho"></span></div>
-          <span class="boca"></span>
-        </div>
-        <div class="corpo"></div>
+    <div class="mascote" role="img" aria-label="Mascote robô que pisca os olhos">
+      <span class="antena"></span>
+      <div class="cabeca">
+        <div class="olhos"><span class="olho"></span><span class="olho"></span></div>
+        <span class="boca"></span>
       </div>
-
-      <p>Qual é o seu nome?</p>
-      <input id="campo-nome" type="text" placeholder="Digite seu nome" aria-label="Digite seu nome" maxlength="20" autocomplete="off" />
-      <button class="btn-grande btn-verde" id="btn-comecar" aria-label="Começar a estudar">Vamos estudar! 🚀</button>
-    </div>
-  </section>
-
-  <!-- ============ TELA 2 — MENU PRINCIPAL ============ -->
-  <section id="tela-menu" class="tela">
-    <div class="cartao">
-      <p class="saudacao" id="saudacao-menu">Olá! 👋</p>
-      <button class="btn-grande btn-azul" id="btn-aprender" aria-label="Aprender o conteúdo">📚 Aprender o Conteúdo</button>
-      <button class="btn-grande btn-roxo" id="btn-simulado" aria-label="Fazer o simulado">🧠 Fazer o Simulado</button>
-      <div class="centro" style="margin-top:10px;">
-        <button class="btn-pequeno btn-amarelo" id="btn-historico" aria-label="Ver meu histórico">📊 Meu Histórico</button>
-      </div>
-      <p class="subtitulo" id="info-materia" style="margin-top:18px;"></p>
-    </div>
-  </section>
-
-  <!-- ============ TELA 3 — APRENDIZAGEM ============ -->
-  <section id="tela-aprender" class="tela">
-    <div class="indicador-card" id="indicador-card">Card 1 de 1</div>
-    <div class="barra-prog"><span id="prog-aprender"></span></div>
-
-    <div class="cartao" id="card-conteudo">
-      <div id="card-corpo" class="centro">
-        <!-- preenchido via JS -->
-      </div>
-      <div class="selo-pagina" id="selo-card" aria-label="Referência de página no livro">📖 Livro pág. —</div>
+      <div class="corpo"></div>
     </div>
 
-    <div class="linha-botoes">
-      <button class="btn-cinza" id="btn-card-anterior" aria-label="Card anterior">⬅ Anterior</button>
-      <button class="btn-azul" id="btn-card-proximo" aria-label="Próximo card">Próximo ➡</button>
-    </div>
-    <div class="centro" style="margin-top:10px;">
-      <button class="btn-pequeno btn-cinza" id="btn-aprender-menu" aria-label="Voltar ao menu">🏠 Menu</button>
-    </div>
-  </section>
+    <p class="saudacao">Olá! 👋 Escolha a matéria para estudar:</p>
 
-  <!-- ============ TELA 4 — SIMULADO ============ -->
-  <section id="tela-simulado" class="tela">
-    <div class="indicador-card" id="indicador-pergunta">Pergunta 1 de 1</div>
-    <div class="barra-prog"><span id="prog-simulado"></span></div>
+    <nav class="materias">
+      <a class="materia m-historia" href="Turma-do-Saber-Historia.html" aria-label="Estudar História">
+        <span class="ico" aria-hidden="true">🏛️</span>
+        <span class="txt"><b>História</b><span>O trabalho na comunidade</span></span>
+      </a>
+      <a class="materia m-ciencias" href="Turma-do-Saber-Ciencias.html" aria-label="Estudar Ciências">
+        <span class="ico" aria-hidden="true">🔬</span>
+        <span class="txt"><b>Ciências</b><span>Conteúdo do bimestre</span></span>
+      </a>
+      <a class="materia m-portugues" href="Turma-do-Saber-Portugues.html" aria-label="Estudar Português">
+        <span class="ico" aria-hidden="true">✏️</span>
+        <span class="txt"><b>Português</b><span>Ortografia: Ç, H, C, X/CH</span></span>
+      </a>
+      <a class="materia m-geografia" href="Turma-do-Saber-Geografia.html" aria-label="Estudar Geografia">
+        <span class="ico" aria-hidden="true">🌎</span>
+        <span class="txt"><b>Geografia</b><span>Campo e cidade + caça-palavras</span></span>
+      </a>
+    </nav>
 
-    <div class="cartao centro">
-      <span class="emoji-gigante" id="emoji-pergunta" aria-hidden="true">❓</span>
-      <h2 id="enunciado-pergunta">—</h2>
-      <div><span class="tag-pagina" id="tag-pagina-pergunta">📖 Confira no livro: pág. —</span></div>
-      <div id="alternativas" style="margin-top:14px;"></div>
-      <div class="feedback" id="feedback-pergunta" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- ============ TELA 5 — RELATÓRIO ============ -->
-  <section id="tela-relatorio" class="tela">
-    <div class="cartao">
-      <h1 class="centro" id="rel-titulo">Resultado 🎉</h1>
-      <p class="saudacao" id="rel-nome-data"></p>
-
-      <div class="resumo-num">
-        <div class="cubo acertos"><b id="rel-acertos">0</b>✅ Acertos</div>
-        <div class="cubo erros"><b id="rel-erros">0</b>❌ Erros</div>
-      </div>
-
-      <p class="centro" style="font-size:24px;font-weight:bold;"><span id="rel-pct">0</span>% de aproveitamento</p>
-      <div class="barra-prog" style="height:28px;"><span id="rel-barra"></span></div>
-
-      <p class="centro" id="rel-mensagem" style="font-size:24px;font-weight:bold;margin:18px 0;"></p>
-
-      <h2>Revisão das perguntas</h2>
-      <ul class="lista-questoes" id="rel-lista"></ul>
-
-      <div class="linha-botoes" style="margin-top:16px;">
-        <button class="btn-roxo" id="btn-tentar-novamente" aria-label="Tentar o simulado novamente">🔄 Tentar novamente</button>
-        <button class="btn-azul" id="btn-revisar" aria-label="Revisar o conteúdo">📚 Revisar o conteúdo</button>
-      </div>
-      <div class="linha-botoes" style="margin-top:12px;">
-        <button class="btn-verde" id="btn-salvar" aria-label="Salvar resultado">💾 Salvar resultado</button>
-        <button class="btn-cinza" id="btn-relatorio-menu" aria-label="Voltar ao menu">🏠 Menu</button>
-      </div>
-      <p class="aviso-edicao" id="aviso-salvo"></p>
-    </div>
-  </section>
-
-  <!-- ============ TELA 6 — HISTÓRICO ============ -->
-  <section id="tela-historico" class="tela">
-    <div class="cartao">
-      <h1 class="centro">Meu Histórico 📊</h1>
-      <div id="lista-historico"></div>
-      <div class="linha-botoes" style="margin-top:16px;">
-        <button class="btn-laranja" id="btn-limpar-hist" aria-label="Limpar histórico">🗑️ Limpar histórico</button>
-        <button class="btn-cinza" id="btn-historico-menu" aria-label="Voltar ao menu">🏠 Menu</button>
-      </div>
-    </div>
-  </section>
-
+    <p class="rodape">Cada matéria tem conteúdo de estudo, simulado e histórico. 🌟</p>
+  </div>
 </div>
-
-<div id="confete" aria-hidden="true"></div>
-
-<script>
-/* ============================================================
-   EDITE APENAS ESTE BLOCO PARA TROCAR O CONTEÚDO DA MATÉRIA
-   - "pagina" indica onde encontrar o conteúdo no livro físico.
-   - Conteúdo e perguntas extraídos do livro de História (Cap. 4),
-     páginas 132 a 149 (2º bimestre).
-   ============================================================ */
-const CONTEUDO = {
-  disciplina: "História — Capítulo 4",
-  tema: "O Trabalho na Comunidade",
-  turma: "4º ano",
-
-  topicos: [
-    {
-      titulo: "O trabalho na comunidade",
-      emoji: "🏙️",
-      pagina: 132,
-      texto: "A vida só é como a conhecemos por causa do trabalho que cada pessoa exerce. Cada trabalho é uma peça de uma grande engrenagem que faz a sociedade se desenvolver."
-    },
-    {
-      titulo: "Trabalho? Onde?",
-      emoji: "👀",
-      pagina: 133,
-      texto: "Por todos os lados vemos pessoas trabalhando para suprir suas necessidades e as da comunidade. O ser humano sempre precisou trabalhar para sobreviver e se sentir ativo e produtivo."
-    },
-    {
-      titulo: "O café da manhã de Caique",
-      emoji: "🥣",
-      pagina: 133,
-      texto: "Para Caique tomar o café da manhã, muita gente trabalha: o agricultor planta, o fazendeiro cuida do gado, a indústria fabrica, o caminhão transporta e o mercadinho vende os alimentos."
-    },
-    {
-      titulo: "Postos de trabalho na comunidade",
-      emoji: "🏪",
-      pagina: 134,
-      texto: "Cada posto de trabalho supre uma necessidade: a farmácia vende remédios, o posto vende combustível, a padaria faz pães e o supermercado vende alimentos."
-    },
-    {
-      titulo: "Por que trabalhar?",
-      emoji: "💪",
-      pagina: 137,
-      texto: "O trabalho é natural para o ser humano. Somos seres racionais, criativos e fortes. Não só nos adaptamos ao ambiente: nós o modificamos de acordo com as nossas necessidades."
-    },
-    {
-      titulo: "O que nos motiva a trabalhar",
-      emoji: "⭐",
-      pagina: 137,
-      texto: "Trabalhamos para ter alimento, moradia e segurança. Mas o trabalho também nos motiva de outras formas: superar desafios, aprender coisas novas, ajudar os outros e sentir-se útil e realizado."
-    },
-    {
-      titulo: "Valorizar o trabalho de todos",
-      emoji: "♻️",
-      pagina: 140,
-      texto: "Quando serviços como a coleta de lixo não são feitos, a cidade fica suja. Por isso devemos valorizar todo trabalho da comunidade: manter a limpeza, cuidar dos canteiros e ser grato."
-    },
-    {
-      titulo: "O trabalho transforma o ambiente",
-      emoji: "🌳",
-      pagina: 143,
-      texto: "O trabalho modifica o meio ambiente. Por exemplo, uma mata nativa pode virar uma plantação de soja. Nesse lugar houve mais mudanças do que permanências."
-    },
-    {
-      titulo: "Do campo à cidade grande",
-      emoji: "🏗️",
-      pagina: 144,
-      texto: "Nas cidades grandes, o verde das matas foi quase todo substituído por prédios e asfalto. À medida que a cidade cresce, a natureza vai diminuindo."
-    },
-    {
-      titulo: "Necessidades humanas",
-      emoji: "🧵",
-      pagina: 146,
-      texto: "As necessidades mudam conforme a época e a cultura. Até o século 18, na Europa, quase tudo era feito à mão por artesãos. Como se usava pouco recurso natural, havia menos lixo."
-    },
-    {
-      titulo: "A Revolução Industrial",
-      emoji: "🏭",
-      pagina: 147,
-      texto: "Por volta de 1760, na Inglaterra, surgiram as primeiras fábricas: a Revolução Industrial. As máquinas passaram a produzir muitos produtos e nasceu a cultura do consumo."
-    },
-    {
-      titulo: "Consumo e consumismo",
-      emoji: "🛒",
-      pagina: 149,
-      texto: "Consumo é comprar o que precisamos para viver. Consumismo é comprar de forma exagerada, o que prejudica as pessoas e o meio ambiente. O trabalho também traz o sentimento de realização."
-    }
-  ],
-
-  /* Perguntas do simulado — extraídas do livro, cada uma com sua página. */
-  perguntas: [
-    {
-      emoji: "👀",
-      enunciado: "Por que as pessoas trabalham?",
-      pagina: 133,
-      alternativas: [
-        "Para suprir suas necessidades e as da comunidade",
-        "Apenas para passar o tempo",
-        "Porque não gostam de descansar"
-      ],
-      correta: 0
-    },
-    {
-      emoji: "🥣",
-      enunciado: "No café da manhã de Caique, quem planta os alimentos?",
-      pagina: 133,
-      alternativas: [
-        "O médico",
-        "O agricultor",
-        "O professor"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🏪",
-      enunciado: "O que a farmácia oferece para a comunidade?",
-      pagina: 134,
-      alternativas: [
-        "Pães",
-        "Remédios",
-        "Gasolina"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🥖",
-      enunciado: "Onde compramos os pães para o café da manhã?",
-      pagina: 134,
-      alternativas: [
-        "Na padaria",
-        "No posto de combustíveis",
-        "Na farmácia"
-      ],
-      correta: 0
-    },
-    {
-      emoji: "⭐",
-      enunciado: "Além do dinheiro, o que também nos motiva a trabalhar?",
-      pagina: 137,
-      alternativas: [
-        "Não pensar em nada",
-        "Sentir-se útil e realizado",
-        "Ser irresponsável"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "♻️",
-      enunciado: "O que acontece com a cidade quando os coletores de lixo não trabalham?",
-      pagina: 140,
-      alternativas: [
-        "A cidade fica mais limpa",
-        "A cidade fica suja",
-        "Nada muda"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🌳",
-      enunciado: "Quando o ser humano trabalha em um lugar (como transformar a mata em plantação), o ambiente:",
-      pagina: 143,
-      alternativas: [
-        "Fica sempre igual",
-        "É transformado e modificado",
-        "Cresce sozinho"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🏗️",
-      enunciado: "À medida que a cidade cresce, o que acontece com a natureza?",
-      pagina: 144,
-      alternativas: [
-        "Aumenta",
-        "Vai diminuindo",
-        "Continua igual"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🧵",
-      enunciado: "Até o século 18, como eram feitos os produtos, como roupas e sapatos?",
-      pagina: 146,
-      alternativas: [
-        "Por grandes máquinas",
-        "À mão, pelos artesãos",
-        "Eles não existiam"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🏭",
-      enunciado: "Onde e quando começou a Revolução Industrial?",
-      pagina: 147,
-      alternativas: [
-        "Por volta de 1760, na Inglaterra",
-        "No Brasil, no ano 2000",
-        "Na África, no século 5"
-      ],
-      correta: 0
-    },
-    {
-      emoji: "🛒",
-      enunciado: "Qual é a diferença entre consumo e consumismo?",
-      pagina: 149,
-      alternativas: [
-        "São a mesma coisa",
-        "Consumo é comprar o necessário; consumismo é o exagero",
-        "Consumismo é comprar pouco"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "👨‍💼",
-      enunciado: "Qual foi a consequência do estilo de vida de André, que trabalhava só por dinheiro?",
-      pagina: 148,
-      alternativas: [
-        "Teve muito tempo para a família",
-        "Não tinha tempo para a família e produzia mais lixo",
-        "Ficou tranquilo e sem preocupações"
-      ],
-      correta: 1
-    }
-  ]
-};
-/* ===================== FIM DO BLOCO EDITÁVEL ===================== */
-
-
-/* ============================================================
-   MOTOR DO APLICATIVO  (não precisa editar abaixo)
-   ============================================================ */
-const CHAVE_NOME = "tds_nome_aluno";
-const CHAVE_HIST = "tds_historico";
-
-const estado = {
-  nome: "",
-  cardAtual: 0,
-  perguntaAtual: 0,
-  respostas: [],      // {indiceEscolhido, acertou}
-  travado: false
-};
-
-/* ---------- util de telas ---------- */
-function mostrarTela(id){
-  document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
-  document.getElementById(id).classList.add("ativa");
-  window.scrollTo({ top:0, behavior:"smooth" });
-}
-
-function $(id){ return document.getElementById(id); }
-
-/* ---------- Web Audio API (sons) ---------- */
-let audioCtx = null;
-function tocarSom(tipo){
-  try{
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.connect(g); g.connect(audioCtx.destination);
-    if(tipo === "agudo"){           // acerto
-      o.type = "sine"; o.frequency.setValueAtTime(660, audioCtx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.18);
-    }else{                          // grave (erro)
-      o.type = "sawtooth"; o.frequency.setValueAtTime(220, audioCtx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.3);
-    }
-    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-    o.start(); o.stop(audioCtx.currentTime + 0.4);
-  }catch(e){ /* áudio indisponível — segue sem som */ }
-}
-
-/* ---------- Confete ---------- */
-let confeteTimer = null;
-function soltarConfete(duracaoMs){
-  const cores = ["#4FA3E3","#FFD66B","#6FCF97","#B190E8","#F2994A"];
-  const palco = $("confete");
-  const fim = Date.now() + duracaoMs;
-  clearInterval(confeteTimer);
-  confeteTimer = setInterval(() => {
-    if(Date.now() > fim){ clearInterval(confeteTimer); return; }
-    for(let i=0;i<6;i++){
-      const p = document.createElement("span");
-      p.className = "confete-peca";
-      p.style.left = Math.random()*100 + "vw";
-      p.style.background = cores[(Math.random()*cores.length)|0];
-      p.style.animationDuration = (2 + Math.random()*1.5) + "s";
-      p.style.transform = "rotate(" + (Math.random()*360) + "deg)";
-      palco.appendChild(p);
-      setTimeout(() => p.remove(), 3500);
-    }
-  }, 120);
-}
-
-/* ============================================================
-   TELA 1 — BOAS-VINDAS
-   ============================================================ */
-function iniciarApp(){
-  const salvo = localStorage.getItem(CHAVE_NOME);
-  if(salvo){ $("campo-nome").value = salvo; }
-}
-
-function comecar(){
-  const nome = $("campo-nome").value.trim();
-  if(!nome){
-    $("campo-nome").focus();
-    $("campo-nome").style.borderColor = "#E05757";
-    return;
-  }
-  estado.nome = nome;
-  localStorage.setItem(CHAVE_NOME, nome);
-  irParaMenu();
-}
-
-/* ============================================================
-   TELA 2 — MENU
-   ============================================================ */
-function irParaMenu(){
-  $("saudacao-menu").textContent = "Olá, " + estado.nome + "! 👋 O que vamos fazer hoje?";
-  $("info-materia").textContent = CONTEUDO.disciplina + " • " + CONTEUDO.tema + " • " + CONTEUDO.turma;
-  mostrarTela("tela-menu");
-}
-
-/* ============================================================
-   TELA 3 — APRENDIZAGEM
-   ============================================================ */
-function iniciarAprendizagem(){
-  estado.cardAtual = 0;
-  renderCard();
-  mostrarTela("tela-aprender");
-}
-
-function renderCard(){
-  const total = CONTEUDO.topicos.length;
-  const i = estado.cardAtual;
-  const ehUltimo = (i === total - 1);
-  $("indicador-card").textContent = "Card " + (i+1) + " de " + total;
-  $("prog-aprender").style.width = (((i+1)/total)*100) + "%";
-
-  const t = CONTEUDO.topicos[i];
-  const corpo = $("card-corpo");
-
-  if(ehUltimo){
-    corpo.innerHTML =
-      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
-      '<h2>' + t.titulo + '</h2>' +
-      '<p>' + t.texto + '</p>' +
-      '<div class="parabens" style="margin-top:18px;">' +
-        '<span class="emoji-gigante" aria-hidden="true">🎉</span>' +
-        '<h2 style="color:var(--verde-esc)">Parabéns, ' + estado.nome + '!</h2>' +
-        '<p>Você terminou todo o conteúdo! 🌟</p>' +
-      '</div>';
-  }else{
-    corpo.innerHTML =
-      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
-      '<h2>' + t.titulo + '</h2>' +
-      '<p>' + t.texto + '</p>';
-  }
-
-  $("selo-card").textContent = "📖 Livro pág. " + t.pagina;
-  $("btn-card-anterior").disabled = (i === 0);
-  $("btn-card-proximo").textContent = ehUltimo ? "Concluir ✅" : "Próximo ➡";
-}
-
-function cardProximo(){
-  if(estado.cardAtual < CONTEUDO.topicos.length - 1){
-    estado.cardAtual++; renderCard();
-  }else{
-    irParaMenu();
-  }
-}
-function cardAnterior(){
-  if(estado.cardAtual > 0){ estado.cardAtual--; renderCard(); }
-}
-
-/* ============================================================
-   TELA 4 — SIMULADO
-   ============================================================ */
-function iniciarSimulado(){
-  estado.perguntaAtual = 0;
-  estado.respostas = [];
-  estado.travado = false;
-  renderPergunta();
-  mostrarTela("tela-simulado");
-}
-
-function renderPergunta(){
-  estado.travado = false;
-  const total = CONTEUDO.perguntas.length;
-  const i = estado.perguntaAtual;
-  const p = CONTEUDO.perguntas[i];
-
-  $("indicador-pergunta").textContent = "Pergunta " + (i+1) + " de " + total;
-  $("prog-simulado").style.width = ((i/total)*100) + "%";
-  $("emoji-pergunta").textContent = p.emoji;
-  $("enunciado-pergunta").textContent = p.enunciado;
-  $("tag-pagina-pergunta").textContent = "📖 Confira no livro: pág. " + p.pagina;
-
-  const fb = $("feedback-pergunta");
-  fb.className = "feedback"; fb.textContent = "";
-
-  const cont = $("alternativas");
-  cont.innerHTML = "";
-  p.alternativas.forEach((alt, idx) => {
-    const b = document.createElement("button");
-    b.textContent = alt;
-    b.setAttribute("aria-label", "Resposta: " + alt);
-    b.addEventListener("click", () => responder(idx, b));
-    cont.appendChild(b);
-  });
-}
-
-function responder(idx, botao){
-  if(estado.travado) return;
-  estado.travado = true;
-
-  const p = CONTEUDO.perguntas[estado.perguntaAtual];
-  const acertou = (idx === p.correta);
-  const botoes = $("alternativas").querySelectorAll("button");
-  botoes.forEach(b => b.disabled = true);
-
-  const fb = $("feedback-pergunta");
-
-  if(acertou){
-    botao.classList.add("correta");
-    fb.textContent = "✅ Muito bem! Você acertou!";
-    fb.className = "feedback acerto ver";
-    tocarSom("agudo");
-    soltarConfete(2500);
-  }else{
-    botao.classList.add("errada-escolhida","balanca");
-    botoes[p.correta].classList.add("correta");
-    fb.textContent = "❌ Quase lá! A resposta certa era essa 👆";
-    fb.className = "feedback erro ver";
-    tocarSom("grave");
-  }
-
-  estado.respostas.push({ indiceEscolhido: idx, acertou: acertou });
-
-  setTimeout(() => {
-    if(estado.perguntaAtual < CONTEUDO.perguntas.length - 1){
-      estado.perguntaAtual++;
-      renderPergunta();
-    }else{
-      $("prog-simulado").style.width = "100%";
-      mostrarRelatorio();
-    }
-  }, 3000);
-}
-
-/* ============================================================
-   TELA 5 — RELATÓRIO
-   ============================================================ */
-function calcularResultado(){
-  const total = CONTEUDO.perguntas.length;
-  const acertos = estado.respostas.filter(r => r.acertou).length;
-  const erros = total - acertos;
-  const pct = total ? Math.round((acertos/total)*100) : 0;
-  return { total, acertos, erros, pct };
-}
-
-function corPorPct(pct){
-  if(pct > 80) return "var(--verde-esc)";
-  if(pct >= 50) return "var(--amarelo)";
-  return "var(--laranja)";
-}
-
-function mensagemPorPct(pct){
-  if(pct > 80) return "🏆 Campeão! Você arrasou!";
-  if(pct >= 50) return "💪 Muito bem! Continue praticando!";
-  return "📚 Não desista! Revise o conteúdo e tente de novo!";
-}
-
-function mostrarRelatorio(){
-  const r = calcularResultado();
-  const agora = new Date();
-  const dataStr = agora.toLocaleDateString("pt-BR") + " às " + agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-
-  $("rel-nome-data").textContent = estado.nome + " • " + dataStr;
-  $("rel-acertos").textContent = r.acertos;
-  $("rel-erros").textContent = r.erros;
-  $("rel-pct").textContent = r.pct;
-  $("rel-barra").style.width = r.pct + "%";
-  $("rel-barra").style.background = corPorPct(r.pct);
-  $("rel-mensagem").textContent = mensagemPorPct(r.pct);
-  $("aviso-salvo").textContent = "";
-
-  const lista = $("rel-lista");
-  lista.innerHTML = "";
-  CONTEUDO.perguntas.forEach((p, i) => {
-    const resp = estado.respostas[i];
-    const ok = resp && resp.acertou;
-    const dada = resp ? p.alternativas[resp.indiceEscolhido] : "—";
-    const certa = p.alternativas[p.correta];
-    const li = document.createElement("li");
-    if(ok) li.classList.add("ok");
-    li.innerHTML =
-      '<div class="topo-q">' +
-        '<span>' + (ok ? "✅" : "❌") + " " + p.enunciado + '</span>' +
-        '<span class="ref-relatorio">📖 pág. ' + p.pagina + '</span>' +
-      '</div>' +
-      '<div>Você respondeu: <span class="res-dada">' + dada + '</span></div>' +
-      (ok ? '' : '<div>Resposta certa: <span class="res-certa">' + certa + '</span></div>');
-    lista.appendChild(li);
-  });
-
-  mostrarTela("tela-relatorio");
-}
-
-function salvarResultado(){
-  const r = calcularResultado();
-  const registro = {
-    nome: estado.nome,
-    data: new Date().toISOString(),
-    acertos: r.acertos,
-    erros: r.erros,
-    total: r.total,
-    pct: r.pct
-  };
-  const hist = lerHistorico();
-  hist.push(registro);
-  localStorage.setItem(CHAVE_HIST, JSON.stringify(hist));
-  $("aviso-salvo").textContent = "💾 Resultado salvo no histórico!";
-}
-
-/* ============================================================
-   TELA 6 — HISTÓRICO
-   ============================================================ */
-function lerHistorico(){
-  try{ return JSON.parse(localStorage.getItem(CHAVE_HIST)) || []; }
-  catch(e){ return []; }
-}
-
-function mostrarHistorico(){
-  const cont = $("lista-historico");
-  const hist = lerHistorico().slice().reverse(); // mais recente primeiro
-  if(hist.length === 0){
-    cont.innerHTML = '<p class="centro" style="font-size:22px;">Nenhum simulado salvo ainda. 📭<br>Faça um simulado e salve o resultado!</p>';
-  }else{
-    cont.innerHTML = "";
-    hist.forEach(reg => {
-      const d = new Date(reg.data);
-      const dataStr = d.toLocaleDateString("pt-BR") + " às " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-      const cor = corPorPct(reg.pct);
-      const div = document.createElement("div");
-      div.className = "item-hist";
-      div.innerHTML =
-        '<div class="data">' + (reg.nome || "Aluno") + ' • ' + dataStr + '</div>' +
-        '<div class="pct" style="color:' + cor + '">' + reg.pct + '% — ' + reg.acertos + '/' + reg.total + ' acertos</div>' +
-        '<div class="barra-prog"><span style="width:' + reg.pct + '%;background:' + cor + '"></span></div>';
-      cont.appendChild(div);
-    });
-  }
-  mostrarTela("tela-historico");
-}
-
-function limparHistorico(){
-  if(confirm("Tem certeza que deseja apagar TODO o histórico? Esta ação não pode ser desfeita.")){
-    localStorage.removeItem(CHAVE_HIST);
-    mostrarHistorico();
-  }
-}
-
-/* ============================================================
-   LIGAÇÕES (eventos)
-   ============================================================ */
-window.addEventListener("DOMContentLoaded", () => {
-  iniciarApp();
-
-  $("btn-comecar").addEventListener("click", comecar);
-  $("campo-nome").addEventListener("keydown", e => { if(e.key === "Enter") comecar(); });
-
-  $("btn-aprender").addEventListener("click", iniciarAprendizagem);
-  $("btn-simulado").addEventListener("click", iniciarSimulado);
-  $("btn-historico").addEventListener("click", mostrarHistorico);
-
-  $("btn-card-proximo").addEventListener("click", cardProximo);
-  $("btn-card-anterior").addEventListener("click", cardAnterior);
-  $("btn-aprender-menu").addEventListener("click", irParaMenu);
-
-  $("btn-tentar-novamente").addEventListener("click", iniciarSimulado);
-  $("btn-revisar").addEventListener("click", iniciarAprendizagem);
-  $("btn-salvar").addEventListener("click", salvarResultado);
-  $("btn-relatorio-menu").addEventListener("click", irParaMenu);
-
-  $("btn-limpar-hist").addEventListener("click", limparHistorico);
-  $("btn-historico-menu").addEventListener("click", irParaMenu);
-});
-</script>
 </body>
 </html>
