@@ -5,17 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Turma do Saber — Ciências 3º Bimestre</title>
 <style>
-/* ============================================================
-   TURMA DO SABER — Ciências (O Corpo Humano)
-   App educacional para crianças com TEA
-   100% offline, sem dependências externas
-   Conteúdo: Capítulos 7 e 8 (3º Bimestre)
-   ============================================================ */
-
 :root{
   --azul:        #4FA3E3;
   --azul-claro:  #DCEEFB;
-  --azul-escuro: #15324F; /* selos de página */
+  --azul-escuro: #15324F;
   --amarelo:     #FFD66B;
   --amarelo-cl:  #FFF4D1;
   --verde:       #6FCF97;
@@ -30,72 +23,35 @@
   --raio:        22px;
   --transicao:   .3s ease;
 }
-
 *{ box-sizing:border-box; }
-
 html,body{ margin:0; padding:0; }
-
 body{
   font-family: 'Trebuchet MS', 'Segoe UI', Verdana, sans-serif;
-  font-size: 20px;                 /* corpo mínimo 20px */
+  font-size: 20px;
   line-height: 1.5;
   color: var(--texto);
   background: linear-gradient(135deg, var(--roxo-cl), var(--azul-claro) 45%, var(--verde-cl));
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-
-h1,h2{ font-size: 28px; }          /* títulos mínimo 28px */
+h1,h2{ font-size: 28px; }
 h1{ font-size: 34px; }
-
-/* ---------- Layout base ---------- */
-#app{
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 18px 16px 48px;
-}
-
-.tela{
-  display: none;
-  animation: aparecer var(--transicao);
-}
+#app{ max-width: 760px; margin: 0 auto; padding: 18px 16px 48px; }
+.tela{ display: none; animation: aparecer var(--transicao); }
 .tela.ativa{ display: block; }
-
-@keyframes aparecer{
-  from{ opacity:0; transform: translateY(14px); }
-  to  { opacity:1; transform: translateY(0); }
-}
-
-.cartao{
-  background: var(--branco);
-  border-radius: var(--raio);
-  box-shadow: var(--sombra);
-  padding: 26px 22px;
-  margin: 14px 0;
-  position: relative;
-}
-
+@keyframes aparecer{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform: translateY(0); } }
+.cartao{ background: var(--branco); border-radius: var(--raio); box-shadow: var(--sombra); padding: 26px 22px; margin: 14px 0; position: relative; }
 .centro{ text-align:center; }
-
-/* ---------- Botões ---------- */
 button{
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: bold;
-  min-height: 60px;                /* botões mínimo 60px */
-  border: none;
-  border-radius: 16px;
-  padding: 14px 22px;
-  cursor: pointer;
-  color: var(--branco);
-  background: var(--azul);
+  font-family: inherit; font-size: 22px; font-weight: bold; min-height: 60px;
+  border: none; border-radius: 16px; padding: 14px 22px; cursor: pointer;
+  color: var(--branco); background: var(--azul);
   transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
   box-shadow: 0 4px 0 rgba(0,0,0,.12);
 }
 button:hover{ transform: translateY(-2px); }
 button:active{ transform: translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.12); }
 button:focus-visible{ outline: 4px solid var(--roxo); outline-offset: 3px; }
-
 .btn-grande{ width:100%; min-height:78px; font-size:24px; margin:10px 0; }
 .btn-azul    { background: var(--azul); }
 .btn-verde   { background: var(--verde-esc); }
@@ -104,267 +60,111 @@ button:focus-visible{ outline: 4px solid var(--roxo); outline-offset: 3px; }
 .btn-laranja { background: var(--laranja); }
 .btn-pequeno { font-size:18px; min-height:60px; }
 .btn-cinza   { background:#9AA7B8; }
-
-.linha-botoes{
-  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
-}
+.linha-botoes{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
 .linha-botoes button{ flex:1 1 140px; }
-
-/* ---------- Campo de texto ---------- */
 input[type="text"]{
-  font-family: inherit;
-  font-size: 24px;
-  text-align:center;
-  width: 100%;
-  max-width: 420px;
-  min-height: 64px;
-  padding: 12px 18px;
-  border: 3px solid var(--roxo);
-  border-radius: 16px;
-  margin: 10px auto;
-  display:block;
-  color: var(--texto);
+  font-family: inherit; font-size: 24px; text-align:center; width: 100%; max-width: 420px;
+  min-height: 64px; padding: 12px 18px; border: 3px solid var(--roxo); border-radius: 16px;
+  margin: 10px auto; display:block; color: var(--texto);
 }
 input[type="text"]:focus{ outline:none; border-color: var(--azul); box-shadow:0 0 0 4px var(--azul-claro); }
-
-/* ---------- Emojis grandes ---------- */
 .emoji-gigante{ font-size: 100px; line-height:1.1; display:block; margin: 8px 0; }
-.emoji-grande { font-size: 80px;  line-height:1.1; display:block; margin: 6px 0; }
-
-/* ============================================================
-   MASCOTE — robô em CSS puro com olhos piscando
-   ============================================================ */
 .mascote{ width:170px; height:200px; margin: 6px auto 0; position:relative; }
-.mascote .antena{
-  position:absolute; top:-2px; left:50%; width:6px; height:26px;
-  background:#7d8aa0; transform:translateX(-50%); border-radius:4px;
-}
-.mascote .antena::after{
-  content:""; position:absolute; top:-14px; left:50%; width:16px; height:16px;
-  background: var(--amarelo); border-radius:50%; transform:translateX(-50%);
-  box-shadow:0 0 0 4px var(--amarelo-cl);
-  animation: brilho 1.4s ease-in-out infinite;
-}
+.mascote .antena{ position:absolute; top:-2px; left:50%; width:6px; height:26px; background:#7d8aa0; transform:translateX(-50%); border-radius:4px; }
+.mascote .antena::after{ content:""; position:absolute; top:-14px; left:50%; width:16px; height:16px; background: var(--amarelo); border-radius:50%; transform:translateX(-50%); box-shadow:0 0 0 4px var(--amarelo-cl); animation: brilho 1.4s ease-in-out infinite; }
 @keyframes brilho{ 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.5)} }
-
-.mascote .cabeca{
-  position:absolute; top:24px; left:50%; transform:translateX(-50%);
-  width:150px; height:118px; background: var(--roxo);
-  border-radius:30px; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08);
-}
-.mascote .olhos{
-  position:absolute; top:42px; width:100%; display:flex; justify-content:center; gap:26px;
-}
-.mascote .olho{
-  width:34px; height:34px; background:var(--branco); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  animation: piscar 4s infinite;          /* piscar em loop */
-}
-.mascote .olho::after{
-  content:""; width:16px; height:16px; background:var(--azul-escuro); border-radius:50%;
-}
-@keyframes piscar{
-  0%, 92%, 100%{ transform: scaleY(1); }
-  95%, 97%     { transform: scaleY(.1); }
-}
-.mascote .boca{
-  position:absolute; top:88px; left:50%; transform:translateX(-50%);
-  width:60px; height:16px; background:var(--azul-escuro); border-radius:0 0 30px 30px;
-}
-.mascote .corpo{
-  position:absolute; top:140px; left:50%; transform:translateX(-50%);
-  width:110px; height:56px; background: var(--verde-esc); border-radius:18px;
-}
-.mascote.acena{ animation: balancinho 2s ease-in-out infinite; }
-@keyframes balancinho{ 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
-
-/* ============================================================
-   SELOS DE PÁGINA
-   ============================================================ */
-.selo-pagina{
-  position:absolute; right:14px; bottom:14px;
-  background: var(--azul-escuro); color: var(--branco);
-  font-size: 16px; font-weight:bold;
-  padding: 8px 14px; border-radius: 999px;
-  box-shadow: 0 3px 8px rgba(0,0,0,.25);
-}
-.tag-pagina{
-  display:inline-block;
-  background: var(--azul-escuro); color: var(--branco);
-  font-size: 14px; font-weight:bold;
-  padding: 6px 12px; border-radius: 999px;
-  margin: 4px 0 2px;
-}
-.ref-relatorio{
-  display:inline-block; background: var(--azul-escuro); color:var(--branco);
-  font-size: 13px; font-weight:bold; padding: 3px 9px; border-radius: 999px;
-  margin-left: 6px; white-space:nowrap;
-}
-
-/* ---------- Progresso ---------- */
-.indicador-card{
-  text-align:center; font-size:20px; font-weight:bold; color: var(--roxo);
-  margin-bottom: 6px;
-}
-.barra-prog{
-  width:100%; height:22px; background: var(--azul-claro);
-  border-radius:999px; overflow:hidden; margin: 10px 0 4px;
-}
-.barra-prog > span{
-  display:block; height:100%; width:0%;
-  background: linear-gradient(90deg, var(--verde), var(--azul));
-  transition: width var(--transicao);
-}
-
-/* ---------- Alternativas do simulado ---------- */
-#alternativas button{
-  width:100%; text-align:left; background: var(--branco); color: var(--texto);
-  border: 3px solid var(--roxo); margin: 10px 0; min-height:64px;
-}
+.mascote .cabeca{ position:absolute; top:24px; left:50%; transform:translateX(-50%); width:150px; height:118px; background: var(--roxo); border-radius:30px; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08); }
+.mascote .olhos{ position:absolute; top:42px; width:100%; display:flex; justify-content:center; gap:26px; }
+.mascote .olho{ width:34px; height:34px; background:var(--branco); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: piscar 4s infinite; }
+.mascote .olho::after{ content:""; width:16px; height:16px; background:var(--azul-escuro); border-radius:50%; }
+@keyframes piscar{ 0%, 92%, 100%{ transform: scaleY(1); } 95%, 97%{ transform: scaleY(.1); } }
+.mascote .boca{ position:absolute; top:88px; left:50%; transform:translateX(-50%); width:60px; height:16px; background:var(--azul-escuro); border-radius:0 0 30px 30px; }
+.mascote .corpo{ position:absolute; top:140px; left:50%; transform:translateX(-50%); width:110px; height:56px; background: var(--verde-esc); border-radius:18px; }
+.selo-pagina{ position:absolute; right:14px; bottom:14px; background: var(--azul-escuro); color: var(--branco); font-size: 16px; font-weight:bold; padding: 8px 14px; border-radius: 999px; box-shadow: 0 3px 8px rgba(0,0,0,.25); }
+.tag-pagina{ display:inline-block; background: var(--azul-escuro); color: var(--branco); font-size: 14px; font-weight:bold; padding: 6px 12px; border-radius: 999px; margin: 4px 0 2px; }
+.ref-relatorio{ display:inline-block; background: var(--azul-escuro); color:var(--branco); font-size: 13px; font-weight:bold; padding: 3px 9px; border-radius: 999px; margin-left: 6px; white-space:nowrap; }
+.indicador-card{ text-align:center; font-size:20px; font-weight:bold; color: var(--roxo); margin-bottom: 6px; }
+.barra-prog{ width:100%; height:22px; background: var(--azul-claro); border-radius:999px; overflow:hidden; margin: 10px 0 4px; }
+.barra-prog > span{ display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--verde), var(--azul)); transition: width var(--transicao); }
+#alternativas button{ width:100%; text-align:left; background: var(--branco); color: var(--texto); border: 3px solid var(--roxo); margin: 10px 0; min-height:64px; }
 #alternativas button:hover{ background: var(--roxo-cl); }
 #alternativas button.correta{ background: var(--verde-cl); border-color: var(--verde-esc); color: var(--verde-esc); }
 #alternativas button.errada-escolhida{ background:#FDE2E2; border-color:#E05757; color:#B23030; }
 #alternativas button:disabled{ cursor: default; }
-
-@keyframes balanco{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-10px); }
-  40%{ transform: translateX(10px); }
-  60%{ transform: translateX(-7px); }
-  80%{ transform: translateX(7px); }
-}
+@keyframes balanco{ 0%,100%{ transform: translateX(0); } 20%{ transform: translateX(-10px); } 40%{ transform: translateX(10px); } 60%{ transform: translateX(-7px); } 80%{ transform: translateX(7px); } }
 .balanca{ animation: balanco .5s; }
-
-.feedback{
-  text-align:center; font-size:26px; font-weight:bold; min-height:40px;
-  margin: 12px 0; opacity:0; transition: opacity var(--transicao);
-}
+.feedback{ text-align:center; font-size:26px; font-weight:bold; min-height:40px; margin: 12px 0; opacity:0; transition: opacity var(--transicao); }
 .feedback.ver{ opacity:1; animation: pulo .5s; }
 .feedback.acerto{ color: var(--verde-esc); }
 .feedback.erro  { color: var(--laranja); }
 @keyframes pulo{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
-
-/* ---------- Mensagem de parabéns ---------- */
-.parabens{
-  text-align:center; animation: pulo .6s;
-}
+.parabens{ text-align:center; animation: pulo .6s; }
 .parabens .emoji-gigante{ animation: balancinho 1.5s ease-in-out infinite; }
-
-/* ---------- Relatório ---------- */
+@keyframes balancinho{ 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 .resumo-num{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-.cubo{
-  flex:1 1 120px; background:var(--azul-claro); border-radius:16px; padding:14px; text-align:center;
-}
+.cubo{ flex:1 1 120px; background:var(--azul-claro); border-radius:16px; padding:14px; text-align:center; }
 .cubo b{ display:block; font-size:40px; }
 .cubo.acertos{ background: var(--verde-cl); color: var(--verde-esc); }
 .cubo.erros  { background: #FDE2E2; color:#B23030; }
-
 .lista-questoes{ list-style:none; padding:0; margin: 8px 0; }
-.lista-questoes li{
-  background: var(--azul-claro); border-radius:14px; padding:12px 14px; margin:10px 0;
-  font-size:18px;
-}
+.lista-questoes li{ background: var(--azul-claro); border-radius:14px; padding:12px 14px; margin:10px 0; font-size:18px; }
 .lista-questoes li .res-dada{ color:#B23030; }
 .lista-questoes li.ok .res-dada{ color: var(--verde-esc); }
 .lista-questoes li .res-certa{ color: var(--verde-esc); font-weight:bold; }
 .lista-questoes .topo-q{ font-weight:bold; display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; }
-
-/* ---------- Histórico ---------- */
-.item-hist{
-  background: var(--branco); border-radius:16px; box-shadow:var(--sombra);
-  padding:14px 16px; margin:12px 0;
-}
+.item-hist{ background: var(--branco); border-radius:16px; box-shadow:var(--sombra); padding:14px 16px; margin:12px 0; }
 .item-hist .data{ font-size:17px; color:#6b7890; }
 .item-hist .pct{ font-size:24px; font-weight:bold; }
-
-/* ---------- Confete ---------- */
 #confete{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:50; }
-.confete-peca{
-  position:absolute; top:-20px; width:12px; height:18px; border-radius:3px;
-  animation: cair linear forwards;
-}
-@keyframes cair{
-  to{ transform: translateY(110vh) rotate(720deg); opacity:1; }
-}
-
-/* ---------- util ---------- */
+.confete-peca{ position:absolute; top:-20px; width:12px; height:18px; border-radius:3px; animation: cair linear forwards; }
+@keyframes cair{ to{ transform: translateY(110vh) rotate(720deg); opacity:1; } }
 .saudacao{ text-align:center; font-size:26px; margin: 6px 0 18px; }
 .subtitulo{ text-align:center; color: var(--roxo); font-weight:bold; }
-.aviso-edicao{
-  font-size:14px; color:#6b7890; text-align:center; margin-top:18px;
-}
-
-@media (max-width:520px){
-  body{ font-size:20px; }
-  .btn-grande{ font-size:22px; }
-  input[type="text"]{ font-size:22px; }
-}
+.aviso-edicao{ font-size:14px; color:#6b7890; text-align:center; margin-top:18px; }
+@media (max-width:520px){ body{ font-size:20px; } .btn-grande{ font-size:22px; } input[type="text"]{ font-size:22px; } }
 </style>
 </head>
 <body>
-
 <div id="app">
-
-  <!-- ============ TELA 1 — BOAS-VINDAS ============ -->
   <section id="tela-boasvindas" class="tela ativa">
     <div class="cartao centro">
-      <h1>Turma do Saber 🧬</h1>
-      <p class="subtitulo">Ciências — O Corpo Humano (3º Bimestre)</p>
-
-      <div class="mascote" role="img" aria-label="Mascote robô que pisca os olhos">
+      <h1>Turma do Saber 🔬</h1>
+      <p class="subtitulo">Ciências — Materiais e suas Propriedades / Naturais e Artificiais (3º Bimestre)</p>
+      <div class="mascote" role="img" aria-label="Mascote robô">
         <span class="antena"></span>
-        <div class="cabeca">
-          <div class="olhos"><span class="olho"></span><span class="olho"></span></div>
-          <span class="boca"></span>
-        </div>
+        <div class="cabeca"><div class="olhos"><span class="olho"></span><span class="olho"></span></div><span class="boca"></span></div>
         <div class="corpo"></div>
       </div>
-
       <p>Qual é o seu nome?</p>
       <input id="campo-nome" type="text" placeholder="Digite seu nome" aria-label="Digite seu nome" maxlength="20" autocomplete="off" />
-      <button class="btn-grande btn-roxo" id="btn-comecar" aria-label="Começar a estudar">Vamos estudar! 🚀</button>
+      <button class="btn-grande btn-roxo" id="btn-comecar">Vamos estudar! 🚀</button>
     </div>
   </section>
-
-  <!-- ============ TELA 2 — MENU PRINCIPAL ============ -->
   <section id="tela-menu" class="tela">
     <div class="cartao">
       <p class="saudacao" id="saudacao-menu">Olá! 👋</p>
-      <button class="btn-grande btn-roxo" id="btn-aprender" aria-label="Aprender o conteúdo">📚 Aprender o Conteúdo</button>
-      <button class="btn-grande btn-azul" id="btn-simulado" aria-label="Fazer o simulado">🧠 Fazer o Simulado</button>
-      <div class="centro" style="margin-top:10px;">
-        <button class="btn-pequeno btn-amarelo" id="btn-historico" aria-label="Ver meu histórico">📊 Meu Histórico</button>
-      </div>
+      <button class="btn-grande btn-roxo" id="btn-aprender">📚 Aprender o Conteúdo</button>
+      <button class="btn-grande btn-azul" id="btn-simulado">🧠 Fazer o Simulado</button>
+      <div class="centro" style="margin-top:10px;"><button class="btn-pequeno btn-amarelo" id="btn-historico">📊 Meu Histórico</button></div>
       <p class="subtitulo" id="info-materia" style="margin-top:18px;"></p>
     </div>
   </section>
-
-  <!-- ============ TELA 3 — APRENDIZAGEM ============ -->
   <section id="tela-aprender" class="tela">
     <div class="indicador-card" id="indicador-card">Card 1 de 1</div>
     <div class="barra-prog"><span id="prog-aprender"></span></div>
-
     <div class="cartao" id="card-conteudo">
-      <div id="card-corpo" class="centro">
-        <!-- preenchido via JS -->
-      </div>
-      <div class="selo-pagina" id="selo-card" aria-label="Referência de página no livro">📖 Livro pág. —</div>
+      <div id="card-corpo" class="centro"></div>
+      <div class="selo-pagina" id="selo-card">📖 Livro pág. —</div>
     </div>
-
     <div class="linha-botoes">
-      <button class="btn-cinza" id="btn-card-anterior" aria-label="Card anterior">⬅ Anterior</button>
-      <button class="btn-roxo" id="btn-card-proximo" aria-label="Próximo card">Próximo ➡</button>
+      <button class="btn-cinza" id="btn-card-anterior">⬅ Anterior</button>
+      <button class="btn-roxo" id="btn-card-proximo">Próximo ➡</button>
     </div>
-    <div class="centro" style="margin-top:10px;">
-      <button class="btn-pequeno btn-cinza" id="btn-aprender-menu" aria-label="Voltar ao menu">🏠 Menu</button>
-    </div>
+    <div class="centro" style="margin-top:10px;"><button class="btn-pequeno btn-cinza" id="btn-aprender-menu">🏠 Menu</button></div>
   </section>
-
-  <!-- ============ TELA 4 — SIMULADO ============ -->
   <section id="tela-simulado" class="tela">
     <div class="indicador-card" id="indicador-pergunta">Pergunta 1 de 1</div>
     <div class="barra-prog"><span id="prog-simulado"></span></div>
-
     <div class="cartao centro">
       <span class="emoji-gigante" id="emoji-pergunta" aria-hidden="true">❓</span>
       <h2 id="enunciado-pergunta">—</h2>
@@ -373,344 +173,90 @@ input[type="text"]:focus{ outline:none; border-color: var(--azul); box-shadow:0 
       <div class="feedback" id="feedback-pergunta" aria-live="polite"></div>
     </div>
   </section>
-
-  <!-- ============ TELA 5 — RELATÓRIO ============ -->
   <section id="tela-relatorio" class="tela">
     <div class="cartao">
       <h1 class="centro" id="rel-titulo">Resultado 🎉</h1>
       <p class="saudacao" id="rel-nome-data"></p>
-
       <div class="resumo-num">
         <div class="cubo acertos"><b id="rel-acertos">0</b>✅ Acertos</div>
         <div class="cubo erros"><b id="rel-erros">0</b>❌ Erros</div>
       </div>
-
       <p class="centro" style="font-size:24px;font-weight:bold;"><span id="rel-pct">0</span>% de aproveitamento</p>
       <div class="barra-prog" style="height:28px;"><span id="rel-barra"></span></div>
-
       <p class="centro" id="rel-mensagem" style="font-size:24px;font-weight:bold;margin:18px 0;"></p>
-
       <h2>Revisão das perguntas</h2>
       <ul class="lista-questoes" id="rel-lista"></ul>
-
       <div class="linha-botoes" style="margin-top:16px;">
-        <button class="btn-roxo" id="btn-tentar-novamente" aria-label="Tentar o simulado novamente">🔄 Tentar novamente</button>
-        <button class="btn-azul" id="btn-revisar" aria-label="Revisar o conteúdo">📚 Revisar o conteúdo</button>
+        <button class="btn-roxo" id="btn-tentar-novamente">🔄 Tentar novamente</button>
+        <button class="btn-azul" id="btn-revisar">📚 Revisar o conteúdo</button>
       </div>
       <div class="linha-botoes" style="margin-top:12px;">
-        <button class="btn-verde" id="btn-salvar" aria-label="Salvar resultado">💾 Salvar resultado</button>
-        <button class="btn-cinza" id="btn-relatorio-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+        <button class="btn-verde" id="btn-salvar">💾 Salvar resultado</button>
+        <button class="btn-cinza" id="btn-relatorio-menu">🏠 Menu</button>
       </div>
       <p class="aviso-edicao" id="aviso-salvo"></p>
     </div>
   </section>
-
-  <!-- ============ TELA 6 — HISTÓRICO ============ -->
   <section id="tela-historico" class="tela">
     <div class="cartao">
       <h1 class="centro">Meu Histórico 📊</h1>
       <div id="lista-historico"></div>
       <div class="linha-botoes" style="margin-top:16px;">
-        <button class="btn-laranja" id="btn-limpar-hist" aria-label="Limpar histórico">🗑️ Limpar histórico</button>
-        <button class="btn-cinza" id="btn-historico-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+        <button class="btn-laranja" id="btn-limpar-hist">🗑️ Limpar histórico</button>
+        <button class="btn-cinza" id="btn-historico-menu">🏠 Menu</button>
       </div>
     </div>
   </section>
-
 </div>
-
 <div id="confete" aria-hidden="true"></div>
-
 <script>
-/* ============================================================
-   CONTEÚDO — CIÊNCIAS 3º BIMESTRE (CAPÍTULOS 7 E 8)
-   Sistemas do Corpo Humano: Digestório, Respiratório,
-   Circulatório e Excretor.
-   ============================================================ */
 const CHAVE_NOME = "ts_ciencias_3b_nome";
 const CHAVE_HIST = "ts_ciencias_3b_hist";
 
 const CONTEUDO = {
-  disciplina: "Ciências — O Corpo Humano",
-  tema: "Sistemas do Corpo (Caps. 7 e 8)",
-  turma: "4º ano • 3º Bimestre",
-
+  disciplina: "Ciências",
+  tema: "Materiais: Propriedades, Naturais e Artificiais (Caps. 7 e 8)",
+  turma: "3º Bimestre",
   topicos: [
-    {
-      titulo: "O Sistema Digestório",
-      emoji: "🍔",
-      pagina: 102,
-      texto: "O sistema digestório transforma os alimentos em nutrientes pequenos o suficiente para entrar nas células. Ele começa na boca, onde os dentes trituram a comida e a saliva umedece tudo. Depois, o alimento desce pelo esôfago até o estômago."
-    },
-    {
-      titulo: "Estômago e Intestinos",
-      emoji: "🌀",
-      pagina: 103,
-      texto: "No estômago, sucos ácidos misturam e dissolvem a comida, formando uma pasta. Essa pasta segue para o intestino delgado, onde os nutrientes são absorvidos pelo sangue. O que sobra vai para o intestino grosso, que retira a água e forma as fezes."
-    },
-    {
-      titulo: "Glândulas Anexas",
-      emoji: "💧",
-      pagina: 104,
-      texto: "Alguns órgãos ajudam na digestão sem que a comida passe por eles. São as glândulas anexas: as glândulas salivares (produzem saliva), o fígado (produz bile) e o pâncreas (produz suco pancreático). Eles lançam líquidos que facilitam a digestão."
-    },
-    {
-      titulo: "O Sistema Respiratório",
-      emoji: "🫁",
-      pagina: 110,
-      texto: "Respirar é trocar gases com o ambiente. Inspiramos oxigênio (O₂) e expiramos gás carbônico (CO₂). O ar entra pelo nariz ou pela boca, passa pela faringe, laringe e traqueia, chegando aos brônquios e depois aos pulmões."
-    },
-    {
-      titulo: "Os Pulmões e Alvéolos",
-      emoji: "🎈",
-      pagina: 111,
-      texto: "Dentro dos pulmões existem milhões de saquinhos chamados alvéolos pulmonares. É neles que acontece a troca gasosa: o oxigênio passa para o sangue e o gás carbônico sai do sangue para ser eliminado na expiração."
-    },
-    {
-      titulo: "Movimentos Respiratórios",
-      emoji: "🌬️",
-      pagina: 112,
-      texto: "A inspiração ocorre quando o diafragma e os músculos entre as costelas se contraem, aumentando o peito e puxando o ar para dentro. Na expiração, esses músculos relaxam, o peito diminui e o ar é empurrado para fora."
-    },
-    {
-      titulo: "O Sistema Circulatório",
-      emoji: "❤️",
-      pagina: 118,
-      texto: "O sistema circulatório transporta nutrientes, oxigênio e outras substâncias para todas as células do corpo. Ele é formado pelo coração, pelos vasos sanguíneos (artérias, veias e capilares) e pelo sangue."
-    },
-    {
-      titulo: "O Coração",
-      emoji: "💓",
-      pagina: 119,
-      texto: "O coração é um músculo forte que funciona como uma bomba. Ele tem quatro cavidades: dois átrios (recebem o sangue) e dois ventrículos (enviam o sangue). O coração bate sem parar, impulsionando o sangue por todo o corpo."
-    },
-    {
-      titulo: "Vasos Sanguíneos e Sangue",
-      emoji: "🩸",
-      pagina: 120,
-      texto: "As artérias levam sangue rico em oxigênio do coração para o corpo. As veias trazem sangue de volta ao coração. Os capilares são vasinhos finíssimos onde ocorrem as trocas de substâncias. O sangue é formado por plasma, hemácias, leucócitos e plaquetas."
-    },
-    {
-      titulo: "Pequena e Grande Circulação",
-      emoji: "🔄",
-      pagina: 121,
-      texto: "Na pequena circulação, o sangue vai do coração aos pulmões para pegar oxigênio. Na grande circulação, o sangue oxigenado sai do coração e vai para todo o resto do corpo, levando nutrientes e oxigênio às células."
-    },
-    {
-      titulo: "O Sistema Excretor",
-      emoji: "🚽",
-      pagina: 126,
-      texto: "Nosso corpo produz substâncias tóxicas que precisam ser eliminadas. O sistema excretor faz essa limpeza. Os principais órgãos são os rins, que filtram o sangue e produzem a urina, eliminando ureia e excesso de sais minerais."
-    },
-    {
-      titulo: "Rins e Vias Urinárias",
-      emoji: "🫘",
-      pagina: 127,
-      texto: "Temos dois rins, localizados na região lombar. Eles filtram o sangue constantemente. A urina formada sai dos rins pelos ureteres, é armazenada na bexiga e depois eliminada pela uretra. Beber água ajuda os rins a funcionarem bem!"
-    },
-    {
-      titulo: "Outras Formas de Excreção",
-      emoji: "💦",
-      pagina: 128,
-      texto: "Além da urina, eliminamos resíduos pelo suor (na pele), pelo ar expirado (nos pulmões) e pelas fezes (no intestino). Todas essas formas ajudam a manter o equilíbrio interno do nosso organismo."
-    },
-    {
-      titulo: "Cuidados com os Sistemas",
-      emoji: "🥗",
-      pagina: 130,
-      texto: "Para manter todos esses sistemas saudáveis, precisamos ter uma alimentação equilibrada, beber bastante água, praticar atividades físicas, dormir bem e evitar álcool, cigarro e drogas. A prevenção é o melhor remédio!"
-    }
+    { titulo: "Propriedades dos Materiais", emoji: "🔍", pagina: 98, texto: "Os materiais possuem características chamadas propriedades. Algumas delas são: dureza (resistência a riscos), elasticidade (capacidade de esticar e voltar), transparência (deixa passar luz), opacidade (não deixa passar luz), condutividade (conduz calor ou eletricidade) e impermeabilidade (não deixa passar água)." },
+    { titulo: "Materiais Transparentes e Opacos", emoji: "🪟", pagina: 99, texto: "Material transparente permite ver através dele, como o vidro de uma janela. Material translúcido deixa passar luz mas não vemos nitidamente, como papel vegetal. Material opaco não deixa passar luz, como madeira e metal." },
+    { titulo: "Dureza e Resistência", emoji: "💎", pagina: 100, texto: "Dureza é a resistência que um material oferece ao ser riscado. O diamante é o mineral mais duro conhecido. O talco é muito mole. A escala de Mohs classifica os minerais de 1 (talco) a 10 (diamante) quanto à dureza." },
+    { titulo: "Elasticidade e Plasticidade", emoji: "🎈", pagina: 101, texto: "Elasticidade é quando o material volta à forma original após ser deformado, como um elástico. Plasticidade é quando o material mantém a nova forma após ser moldado, como a argila ou massa de modelar." },
+    { titulo: "Condutividade Térmica e Elétrica", emoji: "⚡", pagina: 102, texto: "Condutores permitem passagem de calor ou eletricidade. Metais como cobre e alumínio são bons condutores. Isolantes não conduzem bem, como plástico, borracha e madeira. Panelas são de metal para conduzir calor; cabos elétricos têm capa plástica para isolar." },
+    { titulo: "Materiais Naturais", emoji: "🌿", pagina: 110, texto: "Materiais naturais são obtidos diretamente da natureza sem transformação industrial. Exemplos: algodão (planta), lã (animal), couro (animal), madeira (planta), pedra e areia (mineral). Eles existem prontos no meio ambiente." },
+    { titulo: "Materiais Artificiais", emoji: "🏭", pagina: 111, texto: "Materiais artificiais são produzidos pelo ser humano através de transformações industriais de matérias-primas naturais. Exemplos: plástico (derivado do petróleo), vidro (feito de areia, soda e calcário), aço (ferro processado), nylon e poliéster." },
+    { titulo: "Origem dos Materiais", emoji: "🐑", pagina: 112, texto: "Podemos classificar pela origem: animal (lã, seda, couro), vegetal (algodão, madeira, borracha natural) e mineral (ouro, ferro, areia, granito). Os artificiais podem ter origem em qualquer uma dessas fontes após processamento." },
+    { titulo: "Reciclagem e Sustentabilidade", emoji: "♻️", pagina: 114, texto: "Muitos materiais artificiais como plástico demoram centenas de anos para se decompor. A reciclagem transforma materiais usados em novos produtos, reduzindo poluição e economizando recursos naturais. Vidro, metal, papel e alguns plásticos são recicláveis." },
+    { titulo: "Uso Adequado dos Materiais", emoji: "🥗", pagina: 116, texto: "Escolhemos materiais conforme suas propriedades. Vidro para janelas (transparente), metal para panelas (conduz calor), borracha para pneus (elástica e resistente), plástico para embalagens (leve e impermeável). Usar o material certo evita desperdício e acidentes." }
   ],
-
   perguntas: [
-    {
-      emoji: "🍔",
-      enunciado: "Onde começa a digestão dos alimentos?",
-      pagina: 102,
-      alternativas: [
-        "No estômago",
-        "Na boca, com os dentes e a saliva",
-        "No intestino delgado"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🌀",
-      enunciado: "Em qual órgão os nutrientes são absorvidos pelo sangue?",
-      pagina: 103,
-      alternativas: [
-        "No esôfago",
-        "No intestino grosso",
-        "No intestino delgado"
-      ],
-      correta: 2
-    },
-    {
-      emoji: "💧",
-      enunciado: "Quais são as glândulas anexas do sistema digestório?",
-      pagina: 104,
-      alternativas: [
-        "Coração, pulmão e rins",
-        "Glândulas salivares, fígado e pâncreas",
-        "Estômago, esôfago e traqueia"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🫁",
-      enunciado: "Qual gás inspiramos (colocamos para dentro) ao respirar?",
-      pagina: 110,
-      alternativas: [
-        "Gás carbônico",
-        "Nitrogênio",
-        "Oxigênio"
-      ],
-      correta: 2
-    },
-    {
-      emoji: "🎈",
-      enunciado: "Como se chamam os saquinhos nos pulmões onde ocorrem as trocas gasosas?",
-      pagina: 111,
-      alternativas: [
-        "Brônquios",
-        "Alvéolos pulmonares",
-        "Traqueias"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🌬️",
-      enunciado: "O que acontece com o diafragma durante a inspiração?",
-      pagina: 112,
-      alternativas: [
-        "Ele relaxa e sobe",
-        "Ele se contrai e desce, aumentando o peito",
-        "Ele não participa da respiração"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "❤️",
-      enunciado: "Qual é a função principal do sistema circulatório?",
-      pagina: 118,
-      alternativas: [
-        "Digerir os alimentos",
-        "Transportar nutrientes e oxigênio para as células",
-        "Eliminar o suor"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "💓",
-      enunciado: "Quantas cavidades tem o coração humano?",
-      pagina: 119,
-      alternativas: [
-        "Duas (um átrio e um ventrículo)",
-        "Três",
-        "Quatro (dois átrios e dois ventrículos)"
-      ],
-      correta: 2
-    },
-    {
-      emoji: "🩸",
-      enunciado: "Quais vasos levam o sangue DO coração PARA o corpo?",
-      pagina: 120,
-      alternativas: [
-        "Veias",
-        "Artérias",
-        "Capilares"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🔄",
-      enunciado: "Na pequena circulação, o sangue vai do coração para onde?",
-      pagina: 121,
-      alternativas: [
-        "Para os pulmões",
-        "Para os pés",
-        "Para o estômago"
-      ],
-      correta: 0
-    },
-    {
-      emoji: "🚽",
-      enunciado: "Qual é a principal função do sistema excretor?",
-      pagina: 126,
-      alternativas: [
-        "Levar oxigênio para o sangue",
-        "Eliminar substâncias tóxicas do corpo",
-        "Triturar os alimentos"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🫘",
-      enunciado: "Onde a urina fica armazenada antes de ser eliminada?",
-      pagina: 127,
-      alternativas: [
-        "Nos rins",
-        "Na bexiga",
-        "No ureter"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "💦",
-      enunciado: "Além da urina, por onde mais eliminamos resíduos?",
-      pagina: 128,
-      alternativas: [
-        "Apenas pelas unhas",
-        "Pelo suor, pelo ar expirado e pelas fezes",
-        "Somente pelos cabelos"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🥗",
-      enunciado: "O que devemos fazer para manter os sistemas do corpo saudáveis?",
-      pagina: 130,
-      alternativas: [
-        "Comer apenas doces e refrigerantes",
-        "Ter alimentação equilibrada, beber água e praticar exercícios",
-        "Dormir pouco e ficar sentado o dia todo"
-      ],
-      correta: 1
-    },
-    {
-      emoji: "🤔",
-      enunciado: "O que o fígado produz para ajudar na digestão?",
-      pagina: 104,
-      alternativas: [
-        "Saliva",
-        "Bile",
-        "Suco gástrico"
-      ],
-      correta: 1
-    }
+    { emoji: "🪟", enunciado: "Qual objeto abaixo é feito de material transparente?", pagina: 99, alternativas: ["Porta de madeira", "Janela de vidro", "Panela de ferro"], correta: 1 },
+    { emoji: "💎", enunciado: "Qual propriedade mede a resistência de um mineral a ser riscado?", pagina: 100, alternativas: ["Elasticidade", "Transparência", "Dureza"], correta: 2 },
+    { emoji: "🎈", enunciado: "O elástico de borracha volta à forma original após ser esticado. Essa propriedade chama-se:", pagina: 101, alternativas: ["Plasticidade", "Elasticidade", "Opacidade"], correta: 1 },
+    { emoji: "⚡", enunciado: "Por que os fios elétricos são revestidos com plástico?", pagina: 102, alternativas: ["Porque o plástico é bom condutor", "Porque o plástico é isolante elétrico", "Porque o plástico conduz calor"], correta: 1 },
+    { emoji: "🔍", enunciado: "Um material que NÃO deixa passar luz é chamado de:", pagina: 99, alternativas: ["Transparente", "Translúcido", "Opaco"], correta: 2 },
+    { emoji: "🌿", enunciado: "Qual dos materiais abaixo é NATURAL?", pagina: 110, alternativas: ["Plástico", "Algodão", "Nylon"], correta: 1 },
+    { emoji: "🏭", enunciado: "O vidro é um exemplo de material:", pagina: 111, alternativas: ["Natural", "Artificial", "Animal"], correta: 1 },
+    { emoji: "🐑", enunciado: "A lã é um material de origem:", pagina: 112, alternativas: ["Vegetal", "Mineral", "Animal"], correta: 2 },
+    { emoji: "♻️", enunciado: "Por que a reciclagem de plásticos é importante?", pagina: 114, alternativas: ["Porque plástico se decompõe rápido", "Porque reduz poluição e economiza recursos", "Porque plástico não pode ser reutilizado"], correta: 1 },
+    { emoji: "🥗", enunciado: "As panelas são feitas de metal principalmente porque:", pagina: 116, alternativas: ["São transparentes", "São boas condutoras de calor", "São elásticas"], correta: 1 },
+    { emoji: "💎", enunciado: "Na escala de Mohs, qual mineral tem a MAIOR dureza?", pagina: 100, alternativas: ["Talco", "Quartzo", "Diamante"], correta: 2 },
+    { emoji: "🌿", enunciado: "Qual alternativa contém APENAS materiais naturais?", pagina: 110, alternativas: ["Plástico e vidro", "Algodão, couro e madeira", "Nylon e poliéster"], correta: 1 },
+    { emoji: "🏭", enunciado: "O plástico é produzido a partir de qual matéria-prima?", pagina: 111, alternativas: ["Madeira", "Petróleo", "Algodão"], correta: 1 },
+    { emoji: "🔍", enunciado: "O papel vegetal deixa passar luz mas não vemos nitidamente através dele. Ele é:", pagina: 99, alternativas: ["Transparente", "Opaco", "Translúcido"], correta: 2 },
+    { emoji: "⚡", enunciado: "Qual material abaixo é um bom condutor de eletricidade?", pagina: 102, alternativas: ["Borracha", "Cobre", "Plástico"], correta: 1 }
   ]
 };
 
-/* ============================================================
-   ESTADO & UTILITÁRIOS
-   ============================================================ */
-const estado = {
-  nome: "",
-  cardAtual: 0,
-  perguntaAtual: 0,
-  respostas: [],
-  travado: false
-};
-
-function $(id){ return document.getElementById(id); }
+let estado = { nome:"", cardAtual:0, perguntaAtual:0, respostas:[], travado:false };
+const $ = id => document.getElementById(id);
 
 function mostrarTela(id){
   document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
   $(id).classList.add("ativa");
-  window.scrollTo({top:0, behavior:"smooth"});
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ---------- Áudio simples (Web Audio API) ---------- */
 let audioCtx = null;
 function tocarSom(tipo){
   try{
@@ -718,334 +264,140 @@ function tocarSom(tipo){
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
     o.connect(g); g.connect(audioCtx.destination);
-    if(tipo === "agudo"){           // acerto
-      o.type = "sine"; o.frequency.setValueAtTime(660, audioCtx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.18);
-    }else{                          // grave (erro)
-      o.type = "sawtooth"; o.frequency.setValueAtTime(220, audioCtx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.3);
-    }
-    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-    o.start(); o.stop(audioCtx.currentTime + 0.4);
-  }catch(e){ /* áudio indisponível — segue sem som */ }
+    if(tipo === "agudo"){ o.type="sine"; o.frequency.setValueAtTime(660,audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(1320,audioCtx.currentTime+0.18); }
+    else{ o.type="sawtooth"; o.frequency.setValueAtTime(220,audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(120,audioCtx.currentTime+0.3); }
+    g.gain.setValueAtTime(0.18,audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
+    o.start(); o.stop(audioCtx.currentTime+0.4);
+  }catch(e){}
 }
 
-/* ---------- Confete ---------- */
 let confeteTimer = null;
 function soltarConfete(duracaoMs){
-  const cores = ["#4FA3E3","#FFD66B","#6FCF97","#B190E8","#F2994A"];
-  const palco = $("confete");
-  const fim = Date.now() + duracaoMs;
+  const cores=["#4FA3E3","#FFD66B","#6FCF97","#B190E8","#F2994A"];
+  const palco=$("confete"); const fim=Date.now()+duracaoMs;
   clearInterval(confeteTimer);
-  confeteTimer = setInterval(() => {
-    if(Date.now() > fim){ clearInterval(confeteTimer); return; }
+  confeteTimer=setInterval(()=>{
+    if(Date.now()>fim){clearInterval(confeteTimer);return;}
     for(let i=0;i<6;i++){
-      const p = document.createElement("span");
-      p.className = "confete-peca";
-      p.style.left = Math.random()*100 + "vw";
-      p.style.background = cores[(Math.random()*cores.length)|0];
-      p.style.animationDuration = (2 + Math.random()*1.5) + "s";
-      p.style.transform = "rotate(" + (Math.random()*360) + "deg)";
-      palco.appendChild(p);
-      setTimeout(() => p.remove(), 3500);
+      const p=document.createElement("span"); p.className="confete-peca";
+      p.style.left=Math.random()*100+"vw"; p.style.background=cores[(Math.random()*cores.length)|0];
+      p.style.animationDuration=(2+Math.random()*1.5)+"s"; p.style.transform="rotate("+(Math.random()*360)+"deg)";
+      palco.appendChild(p); setTimeout(()=>p.remove(),3500);
     }
-  }, 120);
+  },120);
 }
 
-/* ============================================================
-   TELA 1 — BOAS-VINDAS
-   ============================================================ */
-function iniciarApp(){
-  const salvo = localStorage.getItem(CHAVE_NOME);
-  if(salvo){ $("campo-nome").value = salvo; }
-}
-
+function iniciarApp(){ const s=localStorage.getItem(CHAVE_NOME); if(s)$("campo-nome").value=s; }
 function comecar(){
-  const nome = $("campo-nome").value.trim();
-  if(!nome){
-    $("campo-nome").focus();
-    $("campo-nome").style.borderColor = "#E05757";
-    return;
-  }
-  estado.nome = nome;
-  localStorage.setItem(CHAVE_NOME, nome);
-  irParaMenu();
+  const n=$("campo-nome").value.trim();
+  if(!n){$("campo-nome").focus();$("campo-nome").style.borderColor="#E05757";return;}
+  estado.nome=n; localStorage.setItem(CHAVE_NOME,n); irParaMenu();
 }
-
-/* ============================================================
-   TELA 2 — MENU
-   ============================================================ */
 function irParaMenu(){
-  $("saudacao-menu").textContent = "Olá, " + estado.nome + "! 👋 O que vamos fazer hoje?";
-  $("info-materia").textContent = CONTEUDO.disciplina + " • " + CONTEUDO.tema + " • " + CONTEUDO.turma;
+  $("saudacao-menu").textContent="Olá, "+estado.nome+"! 👋 O que vamos fazer hoje?";
+  $("info-materia").textContent=CONTEUDO.disciplina+" • "+CONTEUDO.tema+" • "+CONTEUDO.turma;
   mostrarTela("tela-menu");
 }
-
-/* ============================================================
-   TELA 3 — APRENDIZAGEM
-   ============================================================ */
-function iniciarAprendizagem(){
-  estado.cardAtual = 0;
-  renderCard();
-  mostrarTela("tela-aprender");
-}
-
+function iniciarAprendizagem(){ estado.cardAtual=0; renderCard(); mostrarTela("tela-aprender"); }
 function renderCard(){
-  const total = CONTEUDO.topicos.length;
-  const i = estado.cardAtual;
-  const ehUltimo = (i === total - 1);
-  $("indicador-card").textContent = "Card " + (i+1) + " de " + total;
-  $("prog-aprender").style.width = (((i+1)/total)*100) + "%";
-
-  const t = CONTEUDO.topicos[i];
-  const corpo = $("card-corpo");
-
+  const total=CONTEUDO.topicos.length; const i=estado.cardAtual; const ehUltimo=(i===total-1);
+  $("indicador-card").textContent="Card "+(i+1)+" de "+total;
+  $("prog-aprender").style.width=(((i+1)/total)*100)+"%";
+  const t=CONTEUDO.topicos[i]; const corpo=$("card-corpo");
   if(ehUltimo){
-    corpo.innerHTML =
-      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
-      '<h2>' + t.titulo + '</h2>' +
-      '<p>' + t.texto + '</p>' +
-      '<div class="parabens" style="margin-top:18px;">' +
-        '<span class="emoji-gigante" aria-hidden="true">🎉</span>' +
-        '<h2 style="color:var(--roxo)">Parabéns, ' + estado.nome + '!</h2>' +
-        '<p>Você terminou todo o conteúdo do 3º bimestre! 🌟</p>' +
-      '</div>';
+    corpo.innerHTML='<span class="emoji-gigante">'+t.emoji+'</span><h2>'+t.titulo+'</h2><p>'+t.texto+'</p><div class="parabens" style="margin-top:18px;"><span class="emoji-gigante">🎉</span><h2 style="color:var(--roxo)">Parabéns, '+estado.nome+'!</h2><p>Você terminou todo o conteúdo! 🌟</p></div>';
   }else{
-    corpo.innerHTML =
-      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
-      '<h2>' + t.titulo + '</h2>' +
-      '<p>' + t.texto + '</p>';
+    corpo.innerHTML='<span class="emoji-gigante">'+t.emoji+'</span><h2>'+t.titulo+'</h2><p>'+t.texto+'</p>';
   }
-
-  $("selo-card").textContent = "📖 Livro pág. " + t.pagina;
-  $("btn-card-anterior").disabled = (i === 0);
-  $("btn-card-proximo").textContent = ehUltimo ? "Concluir ✅" : "Próximo ➡";
+  $("selo-card").textContent="📖 Livro pág. "+t.pagina;
+  $("btn-card-anterior").disabled=(i===0);
+  $("btn-card-proximo").textContent=ehUltimo?"Concluir ✅":"Próximo ➡";
 }
-
-function cardProximo(){
-  if(estado.cardAtual < CONTEUDO.topicos.length - 1){
-    estado.cardAtual++; renderCard();
-  }else{
-    irParaMenu();
-  }
-}
-function cardAnterior(){
-  if(estado.cardAtual > 0){ estado.cardAtual--; renderCard(); }
-}
-
-/* ============================================================
-   TELA 4 — SIMULADO
-   ============================================================ */
-function iniciarSimulado(){
-  estado.perguntaAtual = 0;
-  estado.respostas = [];
-  estado.travado = false;
-  renderPergunta();
-  mostrarTela("tela-simulado");
-}
-
+function cardProximo(){ if(estado.cardAtual<CONTEUDO.topicos.length-1){estado.cardAtual++;renderCard();}else{irParaMenu();} }
+function cardAnterior(){ if(estado.cardAtual>0){estado.cardAtual--;renderCard();} }
+function iniciarSimulado(){ estado.perguntaAtual=0; estado.respostas=[]; estado.travado=false; renderPergunta(); mostrarTela("tela-simulado"); }
 function renderPergunta(){
-  estado.travado = false;
-  const total = CONTEUDO.perguntas.length;
-  const i = estado.perguntaAtual;
-  const p = CONTEUDO.perguntas[i];
-
-  $("indicador-pergunta").textContent = "Pergunta " + (i+1) + " de " + total;
-  $("prog-simulado").style.width = ((i/total)*100) + "%";
-  $("emoji-pergunta").textContent = p.emoji;
-  $("enunciado-pergunta").textContent = p.enunciado;
-  $("tag-pagina-pergunta").textContent = "📖 Confira no livro: pág. " + p.pagina;
-
-  const fb = $("feedback-pergunta");
-  fb.className = "feedback"; fb.textContent = "";
-
-  const cont = $("alternativas");
-  cont.innerHTML = "";
-  p.alternativas.forEach((alt, idx) => {
-    const b = document.createElement("button");
-    b.textContent = alt;
-    b.setAttribute("aria-label", "Resposta: " + alt);
-    b.addEventListener("click", () => responder(idx, b));
-    cont.appendChild(b);
+  estado.travado=false; const total=CONTEUDO.perguntas.length; const i=estado.perguntaAtual; const p=CONTEUDO.perguntas[i];
+  $("indicador-pergunta").textContent="Pergunta "+(i+1)+" de "+total;
+  $("prog-simulado").style.width=((i/total)*100)+"%";
+  $("emoji-pergunta").textContent=p.emoji;
+  $("enunciado-pergunta").textContent=p.enunciado;
+  $("tag-pagina-pergunta").textContent="📖 Confira no livro: pág. "+p.pagina;
+  const fb=$("feedback-pergunta"); fb.className="feedback"; fb.textContent="";
+  const cont=$("alternativas"); cont.innerHTML="";
+  p.alternativas.forEach((alt,idx)=>{
+    const b=document.createElement("button"); b.textContent=alt;
+    b.setAttribute("aria-label","Resposta: "+alt);
+    b.addEventListener("click",()=>responder(idx,b)); cont.appendChild(b);
   });
 }
-
-function responder(idx, botao){
-  if(estado.travado) return;
-  estado.travado = true;
-
-  const p = CONTEUDO.perguntas[estado.perguntaAtual];
-  const acertou = (idx === p.correta);
-  const botoes = $("alternativas").querySelectorAll("button");
-  botoes.forEach(b => b.disabled = true);
-
-  const fb = $("feedback-pergunta");
-
-  if(acertou){
-    botao.classList.add("correta");
-    fb.textContent = "✅ Muito bem! Você acertou!";
-    fb.className = "feedback acerto ver";
-    tocarSom("agudo");
-    soltarConfete(2500);
-  }else{
-    botao.classList.add("errada-escolhida","balanca");
-    botoes[p.correta].classList.add("correta");
-    fb.textContent = "❌ Quase lá! A resposta certa era essa 👆";
-    fb.className = "feedback erro ver";
-    tocarSom("grave");
-  }
-
-  estado.respostas.push({ indiceEscolhido: idx, acertou: acertou });
-
-  setTimeout(() => {
-    if(estado.perguntaAtual < CONTEUDO.perguntas.length - 1){
-      estado.perguntaAtual++;
-      renderPergunta();
-    }else{
-      $("prog-simulado").style.width = "100%";
-      mostrarRelatorio();
-    }
-  }, 3000);
+function responder(idx,botao){
+  if(estado.travado)return; estado.travado=true;
+  const p=CONTEUDO.perguntas[estado.perguntaAtual]; const acertou=(idx===p.correta);
+  const botoes=$("alternativas").querySelectorAll("button"); botoes.forEach(b=>b.disabled=true);
+  const fb=$("feedback-pergunta");
+  if(acertou){ botao.classList.add("correta"); fb.textContent="✅ Muito bem! Você acertou!"; fb.className="feedback acerto ver"; tocarSom("agudo"); soltarConfete(2500); }
+  else{ botao.classList.add("errada-escolhida","balanca"); botoes[p.correta].classList.add("correta"); fb.textContent="❌ Quase lá! A resposta certa era essa 👆"; fb.className="feedback erro ver"; tocarSom("grave"); }
+  estado.respostas.push({indiceEscolhido:idx,acertou:acertou});
+  setTimeout(()=>{ if(estado.perguntaAtual<CONTEUDO.perguntas.length-1){estado.perguntaAtual++;renderPergunta();}else{$("prog-simulado").style.width="100%";mostrarRelatorio();} },3000);
 }
-
-/* ============================================================
-   TELA 5 — RELATÓRIO
-   ============================================================ */
-function calcularResultado(){
-  const total = CONTEUDO.perguntas.length;
-  const acertos = estado.respostas.filter(r => r.acertou).length;
-  const erros = total - acertos;
-  const pct = total ? Math.round((acertos/total)*100) : 0;
-  return { total, acertos, erros, pct };
-}
-
-function corPorPct(pct){
-  if(pct > 80) return "var(--verde-esc)";
-  if(pct >= 50) return "var(--amarelo)";
-  return "var(--laranja)";
-}
-
-function mensagemPorPct(pct){
-  if(pct > 80) return "🏆 Campeão! Você arrasou!";
-  if(pct >= 50) return "💪 Muito bem! Continue praticando!";
-  return "📚 Não desista! Revise o conteúdo e tente de novo!";
-}
-
+function calcularResultado(){ const total=CONTEUDO.perguntas.length; const acertos=estado.respostas.filter(r=>r.acertou).length; return{total,acertos,erros:total-acertos,pct:total?Math.round((acertos/total)*100):0}; }
+function corPorPct(pct){ if(pct>80)return"var(--verde-esc)"; if(pct>=50)return"var(--amarelo)"; return"var(--laranja)"; }
+function mensagemPorPct(pct){ if(pct>80)return"🏆 Campeão! Você arrasou!"; if(pct>=50)return"💪 Muito bem! Continue praticando!"; return"📚 Não desista! Revise o conteúdo e tente de novo!"; }
 function mostrarRelatorio(){
-  const r = calcularResultado();
-  const agora = new Date();
-  const dataStr = agora.toLocaleDateString("pt-BR") + " às " + agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-
-  $("rel-nome-data").textContent = estado.nome + " • " + dataStr;
-  $("rel-acertos").textContent = r.acertos;
-  $("rel-erros").textContent = r.erros;
-  $("rel-pct").textContent = r.pct;
-  $("rel-barra").style.width = r.pct + "%";
-  $("rel-barra").style.background = corPorPct(r.pct);
-  $("rel-mensagem").textContent = mensagemPorPct(r.pct);
-  $("aviso-salvo").textContent = "";
-
-  const lista = $("rel-lista");
-  lista.innerHTML = "";
-  CONTEUDO.perguntas.forEach((p, i) => {
-    const resp = estado.respostas[i];
-    const ok = resp && resp.acertou;
-    const dada = resp ? p.alternativas[resp.indiceEscolhido] : "—";
-    const certa = p.alternativas[p.correta];
-    const li = document.createElement("li");
-    if(ok) li.classList.add("ok");
-    li.innerHTML =
-      '<div class="topo-q">' +
-        '<span>' + (ok ? "✅" : "❌") + " " + p.enunciado + '</span>' +
-        '<span class="ref-relatorio">📖 pág. ' + p.pagina + '</span>' +
-      '</div>' +
-      '<div>Você respondeu: <span class="res-dada">' + dada + '</span></div>' +
-      (ok ? '' : '<div>Resposta certa: <span class="res-certa">' + certa + '</span></div>');
+  const r=calcularResultado(); const agora=new Date();
+  const dataStr=agora.toLocaleDateString("pt-BR")+" às "+agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  $("rel-nome-data").textContent=estado.nome+" • "+dataStr;
+  $("rel-acertos").textContent=r.acertos; $("rel-erros").textContent=r.erros;
+  $("rel-pct").textContent=r.pct; $("rel-barra").style.width=r.pct+"%"; $("rel-barra").style.background=corPorPct(r.pct);
+  $("rel-mensagem").textContent=mensagemPorPct(r.pct); $("aviso-salvo").textContent="";
+  const lista=$("rel-lista"); lista.innerHTML="";
+  CONTEUDO.perguntas.forEach((p,i)=>{
+    const resp=estado.respostas[i]; const ok=resp&&resp.acertou;
+    const dada=resp?p.alternativas[resp.indiceEscolhido]:"—"; const certa=p.alternativas[p.correta];
+    const li=document.createElement("li"); if(ok)li.classList.add("ok");
+    li.innerHTML='<div class="topo-q"><span>'+(ok?"✅":"❌")+" "+p.enunciado+'</span><span class="ref-relatorio">📖 pág. '+p.pagina+'</span></div><div>Você respondeu: <span class="res-dada">'+dada+'</span></div>'+(ok?'':'<div>Resposta certa: <span class="res-certa">'+certa+'</span></div>');
     lista.appendChild(li);
   });
-
   mostrarTela("tela-relatorio");
 }
-
 function salvarResultado(){
-  const r = calcularResultado();
-  const registro = {
-    nome: estado.nome,
-    data: new Date().toISOString(),
-    acertos: r.acertos,
-    erros: r.erros,
-    total: r.total,
-    pct: r.pct
-  };
-  const hist = lerHistorico();
-  hist.push(registro);
-  localStorage.setItem(CHAVE_HIST, JSON.stringify(hist));
-  $("aviso-salvo").textContent = "💾 Resultado salvo no histórico!";
+  const r=calcularResultado();
+  const registro={nome:estado.nome,data:new Date().toISOString(),acertos:r.acertos,erros:r.erros,total:r.total,pct:r.pct};
+  const hist=lerHistorico(); hist.push(registro); localStorage.setItem(CHAVE_HIST,JSON.stringify(hist));
+  $("aviso-salvo").textContent="💾 Resultado salvo no histórico!";
 }
-
-/* ============================================================
-   TELA 6 — HISTÓRICO
-   ============================================================ */
-function lerHistorico(){
-  try{ return JSON.parse(localStorage.getItem(CHAVE_HIST)) || []; }
-  catch(e){ return []; }
-}
-
+function lerHistorico(){ try{return JSON.parse(localStorage.getItem(CHAVE_HIST))||[];}catch(e){return[];} }
 function mostrarHistorico(){
-  const cont = $("lista-historico");
-  const hist = lerHistorico().slice().reverse(); // mais recente primeiro
-  if(hist.length === 0){
-    cont.innerHTML = '<p class="centro" style="font-size:22px;">Nenhum simulado salvo ainda. 📭<br>Faça um simulado e salve o resultado!</p>';
-  }else{
-    cont.innerHTML = "";
-    hist.forEach(reg => {
-      const d = new Date(reg.data);
-      const dataStr = d.toLocaleDateString("pt-BR") + " às " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-      const cor = corPorPct(reg.pct);
-      const div = document.createElement("div");
-      div.className = "item-hist";
-      div.innerHTML =
-        '<div class="data">' + (reg.nome || "Aluno") + ' • ' + dataStr + '</div>' +
-        '<div class="pct" style="color:' + cor + '">' + reg.pct + '% — ' + reg.acertos + '/' + reg.total + ' acertos</div>' +
-        '<div class="barra-prog"><span style="width:' + reg.pct + '%;background:' + cor + '"></span></div>';
-      cont.appendChild(div);
-    });
-  }
+  const cont=$("lista-historico"); const hist=lerHistorico().slice().reverse();
+  if(hist.length===0){ cont.innerHTML='<p class="centro" style="font-size:22px;">Nenhum simulado salvo ainda. 📭<br>Faça um simulado e salve o resultado!</p>'; }
+  else{ cont.innerHTML=""; hist.forEach(reg=>{
+    const d=new Date(reg.data); const dataStr=d.toLocaleDateString("pt-BR")+" às "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+    const cor=corPorPct(reg.pct); const div=document.createElement("div"); div.className="item-hist";
+    div.innerHTML='<div class="data">'+(reg.nome||"Aluno")+' • '+dataStr+'</div><div class="pct" style="color:'+cor+'">'+reg.pct+'% — '+reg.acertos+'/'+reg.total+' acertos</div><div class="barra-prog"><span style="width:'+reg.pct+'%;background:'+cor+'"></span></div>';
+    cont.appendChild(div);
+  }); }
   mostrarTela("tela-historico");
 }
+function limparHistorico(){ if(confirm("Tem certeza que deseja apagar TODO o histórico?")){localStorage.removeItem(CHAVE_HIST);mostrarHistorico();} }
 
-function limparHistorico(){
-  if(confirm("Tem certeza que deseja apagar TODO o histórico? Esta ação não pode ser desfeita.")){
-    localStorage.removeItem(CHAVE_HIST);
-    mostrarHistorico();
-  }
-}
-
-/* ============================================================
-   LIGAÇÕES (eventos)
-   ============================================================ */
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded",()=>{
   iniciarApp();
-
-  $("btn-comecar").addEventListener("click", comecar);
-  $("campo-nome").addEventListener("keydown", e => { if(e.key === "Enter") comecar(); });
-
-  $("btn-aprender").addEventListener("click", iniciarAprendizagem);
-  $("btn-simulado").addEventListener("click", iniciarSimulado);
-  $("btn-historico").addEventListener("click", mostrarHistorico);
-
-  $("btn-card-proximo").addEventListener("click", cardProximo);
-  $("btn-card-anterior").addEventListener("click", cardAnterior);
-  $("btn-aprender-menu").addEventListener("click", irParaMenu);
-
-  $("btn-tentar-novamente").addEventListener("click", iniciarSimulado);
-  $("btn-revisar").addEventListener("click", iniciarAprendizagem);
-  $("btn-salvar").addEventListener("click", salvarResultado);
-  $("btn-relatorio-menu").addEventListener("click", irParaMenu);
-
-  $("btn-limpar-hist").addEventListener("click", limparHistorico);
-  $("btn-historico-menu").addEventListener("click", irParaMenu);
+  $("btn-comecar").addEventListener("click",comecar);
+  $("campo-nome").addEventListener("keydown",e=>{if(e.key==="Enter")comecar();});
+  $("btn-aprender").addEventListener("click",iniciarAprendizagem);
+  $("btn-simulado").addEventListener("click",iniciarSimulado);
+  $("btn-historico").addEventListener("click",mostrarHistorico);
+  $("btn-card-proximo").addEventListener("click",cardProximo);
+  $("btn-card-anterior").addEventListener("click",cardAnterior);
+  $("btn-aprender-menu").addEventListener("click",irParaMenu);
+  $("btn-tentar-novamente").addEventListener("click",iniciarSimulado);
+  $("btn-revisar").addEventListener("click",iniciarAprendizagem);
+  $("btn-salvar").addEventListener("click",salvarResultado);
+  $("btn-relatorio-menu").addEventListener("click",irParaMenu);
+  $("btn-limpar-hist").addEventListener("click",limparHistorico);
+  $("btn-historico-menu").addEventListener("click",irParaMenu);
 });
 </script>
 </body>
