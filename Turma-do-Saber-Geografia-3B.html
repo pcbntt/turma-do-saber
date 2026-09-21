@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Turma do Saber 🌍 Geografia — Recursos Naturais e Solo / Paisagem e Boas Atitudes (3º Bimestre)</title>
+<style>
+/* ============================================================
+   TURMA DO SABER — Geografia (Recursos Naturais e Solo / Paisagem)
+   App educacional para crianças com TEA
+   100% offline, sem dependências externas
+   Conteúdo: Capítulos 7 e 8 (3º Bimestre)
+   ============================================================ */
+
+:root{
+  --verde:       #4CAF50;
+  --verde-claro: #E8F5E9;
+  --verde-escuro:#2E7D32; /* selos de página */
+  --laranja:     #FF9800;
+  --laranja-cl:  #FFF3E0;
+  --marrom:      #795548;
+  --marrom-cl:   #EFEBE9;
+  --amarelo:     #FDD835;
+  --amarelo-cl:  #FFFDE7;
+  --texto:       #3E2723;
+  --branco:      #FFFFFF;
+  --sombra:      0 6px 18px rgba(62,39,35,.15);
+  --raio:        22px;
+  --transicao:   .3s ease;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{ margin:0; padding:0; }
+
+body{
+  font-family: 'Trebuchet MS', 'Segoe UI', Verdana, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--texto);
+  background: linear-gradient(135deg, var(--marrom-cl), var(--verde-claro) 45%, var(--laranja-cl));
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2{ font-size: 28px; }
+h1{ font-size: 34px; }
+
+#app{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px 16px 48px;
+}
+
+.tela{
+  display: none;
+  animation: aparecer var(--transicao);
+}
+.tela.ativa{ display: block; }
+
+@keyframes aparecer{
+  from{ opacity:0; transform: translateY(14px); }
+  to  { opacity:1; transform: translateY(0); }
+}
+
+.cartao{
+  background: var(--branco);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 26px 22px;
+  margin: 14px 0;
+  position: relative;
+}
+
+.centro{ text-align:center; }
+
+button{
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  min-height: 60px;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 22px;
+  cursor: pointer;
+  color: var(--branco);
+  background: var(--verde);
+  transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao);
+  box-shadow: 0 4px 0 rgba(0,0,0,.12);
+}
+button:hover{ transform: translateY(-2px); }
+button:active{ transform: translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.12); }
+button:focus-visible{ outline: 4px solid var(--laranja); outline-offset: 3px; }
+
+.btn-grande{ width:100%; min-height:78px; font-size:24px; margin:10px 0; }
+.btn-verde    { background: var(--verde); }
+.btn-laranja  { background: var(--laranja); color: var(--texto); }
+.btn-marrom   { background: var(--marrom); }
+.btn-amarelo  { background: var(--amarelo); color: var(--texto); }
+.btn-pequeno  { font-size:18px; min-height:60px; }
+.btn-cinza    { background:#9AA7B8; }
+
+.linha-botoes{
+  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+}
+.linha-botoes button{ flex:1 1 140px; }
+
+input[type="text"]{
+  font-family: inherit;
+  font-size: 24px;
+  text-align:center;
+  width: 100%;
+  max-width: 420px;
+  min-height: 64px;
+  padding: 12px 18px;
+  border: 3px solid var(--verde);
+  border-radius: 16px;
+  margin: 10px auto;
+  display:block;
+  color: var(--texto);
+}
+input[type="text"]:focus{ outline:none; border-color: var(--laranja); box-shadow:0 0 0 4px var(--laranja-cl); }
+
+.emoji-gigante{ font-size: 100px; line-height:1.1; display:block; margin: 8px 0; }
+.emoji-grande { font-size: 80px;  line-height:1.1; display:block; margin: 6px 0; }
+
+/* Mascote globo terrestre CSS puro */
+.mascote{ width:170px; height:200px; margin: 6px auto 0; position:relative; }
+.mascote .globo{
+  position:absolute; top:20px; left:50%; transform:translateX(-50%);
+  width:140px; height:140px; background: var(--verde);
+  border-radius:50%; box-shadow: inset -20px -10px 0 rgba(0,0,0,.1), 0 0 0 6px var(--verde-claro);
+  overflow:hidden;
+  animation: girar 20s linear infinite;
+}
+.mascote .continente{
+  position:absolute; background: var(--marrom); border-radius:40%;
+}
+.mascote .c1{ top:30px; left:20px; width:50px; height:40px; }
+.mascote .c2{ top:60px; left:80px; width:40px; height:50px; }
+.mascote .c3{ top:90px; left:40px; width:35px; height:30px; }
+@keyframes girar{ from{transform:translateX(-50%) rotate(0deg)} to{transform:translateX(-50%) rotate(360deg)} }
+
+.mascote .olhos{
+  position:absolute; top:55px; width:100%; display:flex; justify-content:center; gap:30px; z-index:2;
+}
+.mascote .olho{
+  width:30px; height:30px; background:var(--branco); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation: piscar 4s infinite;
+}
+.mascote .olho::after{
+  content:""; width:14px; height:14px; background:var(--texto); border-radius:50%;
+}
+@keyframes piscar{
+  0%, 92%, 100%{ transform: scaleY(1); }
+  95%, 97%     { transform: scaleY(.1); }
+}
+.mascote .boca{
+  position:absolute; top:100px; left:50%; transform:translateX(-50%); z-index:2;
+  width:50px; height:14px; background:var(--texto); border-radius:0 0 25px 25px;
+}
+.mascote.acena{ animation: balancinho 2s ease-in-out infinite; }
+@keyframes balancinho{ 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+
+.selo-pagina{
+  position:absolute; right:14px; bottom:14px;
+  background: var(--verde-escuro); color: var(--branco);
+  font-size: 16px; font-weight:bold;
+  padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(0,0,0,.25);
+}
+.tag-pagina{
+  display:inline-block;
+  background: var(--verde-escuro); color: var(--branco);
+  font-size: 14px; font-weight:bold;
+  padding: 6px 12px; border-radius: 999px;
+  margin: 4px 0 2px;
+}
+.ref-relatorio{
+  display:inline-block; background: var(--verde-escuro); color:var(--branco);
+  font-size: 13px; font-weight:bold; padding: 3px 9px; border-radius: 999px;
+  margin-left: 6px; white-space:nowrap;
+}
+
+.indicador-card{
+  text-align:center; font-size:20px; font-weight:bold; color: var(--verde-escuro);
+  margin-bottom: 6px;
+}
+.barra-prog{
+  width:100%; height:22px; background: var(--verde-claro);
+  border-radius:999px; overflow:hidden; margin: 10px 0 4px;
+}
+.barra-prog > span{
+  display:block; height:100%; width:0%;
+  background: linear-gradient(90deg, var(--verde), var(--laranja));
+  transition: width var(--transicao);
+}
+
+#alternativas button{
+  width:100%; text-align:left; background: var(--branco); color: var(--texto);
+  border: 3px solid var(--verde); margin: 10px 0; min-height:64px;
+}
+#alternativas button:hover{ background: var(--verde-claro); }
+#alternativas button.correta{ background: var(--verde-claro); border-color: var(--verde-escuro); color: var(--verde-escuro); }
+#alternativas button.errada-escolhida{ background:#FDE2E2; border-color:#E05757; color:#B23030; }
+#alternativas button:disabled{ cursor: default; }
+
+@keyframes balanco{
+  0%,100%{ transform: translateX(0); }
+  20%{ transform: translateX(-10px); }
+  40%{ transform: translateX(10px); }
+  60%{ transform: translateX(-7px); }
+  80%{ transform: translateX(7px); }
+}
+.balanca{ animation: balanco .5s; }
+
+.feedback{
+  text-align:center; font-size:26px; font-weight:bold; min-height:40px;
+  margin: 12px 0; opacity:0; transition: opacity var(--transicao);
+}
+.feedback.ver{ opacity:1; animation: pulo .5s; }
+.feedback.acerto{ color: var(--verde-escuro); }
+.feedback.erro  { color: var(--laranja); }
+@keyframes pulo{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+
+.parabens{
+  text-align:center; animation: pulo .6s;
+}
+.parabens .emoji-gigante{ animation: balancinho 1.5s ease-in-out infinite; }
+
+.resumo-num{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
+.cubo{
+  flex:1 1 120px; background:var(--verde-claro); border-radius:16px; padding:14px; text-align:center;
+}
+.cubo b{ display:block; font-size:40px; }
+.cubo.acertos{ background: var(--verde-claro); color: var(--verde-escuro); }
+.cubo.erros  { background: #FDE2E2; color:#B23030; }
+
+.lista-questoes{ list-style:none; padding:0; margin: 8px 0; }
+.lista-questoes li{
+  background: var(--verde-claro); border-radius:14px; padding:12px 14px; margin:10px 0;
+  font-size:18px;
+}
+.lista-questoes li .res-dada{ color:#B23030; }
+.lista-questoes li.ok .res-dada{ color: var(--verde-escuro); }
+.lista-questoes li .res-certa{ color: var(--verde-escuro); font-weight:bold; }
+.lista-questoes .topo-q{ font-weight:bold; display:flex; justify-content:space-between; gap:8px; align-items:center; flex-wrap:wrap; }
+
+.item-hist{
+  background: var(--branco); border-radius:16px; box-shadow:var(--sombra);
+  padding:14px 16px; margin:12px 0;
+}
+.item-hist .data{ font-size:17px; color:#6b7890; }
+.item-hist .pct{ font-size:24px; font-weight:bold; }
+
+#confete{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:50; }
+.confete-peca{
+  position:absolute; top:-20px; width:12px; height:18px; border-radius:3px;
+  animation: cair linear forwards;
+}
+@keyframes cair{
+  to{ transform: translateY(110vh) rotate(720deg); opacity:1; }
+}
+
+.saudacao{ text-align:center; font-size:26px; margin: 6px 0 18px; }
+.subtitulo{ text-align:center; color: var(--verde-escuro); font-weight:bold; }
+.aviso-edicao{
+  font-size:14px; color:#6b7890; text-align:center; margin-top:18px;
+}
+
+@media (max-width:520px){
+  body{ font-size:20px; }
+  .btn-grande{ font-size:22px; }
+  input[type="text"]{ font-size:22px; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- TELA 1 — BOAS-VINDAS -->
+  <section id="tela-boasvindas" class="tela ativa">
+    <div class="cartao centro">
+      <h1>Turma do Saber 🌍</h1>
+      <p class="subtitulo">Geografia — Recursos Naturais e Solo / Paisagem e Boas Atitudes (3º Bimestre)</p>
+
+      <div class="mascote" role="img" aria-label="Mascote globo terrestre que pisca os olhos">
+        <div class="globo">
+          <div class="continente c1"></div>
+          <div class="continente c2"></div>
+          <div class="continente c3"></div>
+        </div>
+        <div class="olhos"><span class="olho"></span><span class="olho"></span></div>
+        <span class="boca"></span>
+      </div>
+
+      <p>Qual é o seu nome?</p>
+      <input id="campo-nome" type="text" placeholder="Digite seu nome" aria-label="Digite seu nome" maxlength="20" autocomplete="off" />
+      <button class="btn-grande btn-verde" id="btn-comecar" aria-label="Começar a estudar">Vamos estudar! 🚀</button>
+    </div>
+  </section>
+
+  <!-- TELA 2 — MENU PRINCIPAL -->
+  <section id="tela-menu" class="tela">
+    <div class="cartao">
+      <p class="saudacao" id="saudacao-menu">Olá! 👋</p>
+      <button class="btn-grande btn-verde" id="btn-aprender" aria-label="Aprender o conteúdo">📚 Aprender o Conteúdo</button>
+      <button class="btn-grande btn-laranja" id="btn-simulado" aria-label="Fazer o simulado">🧠 Fazer o Simulado</button>
+      <div class="centro" style="margin-top:10px;">
+        <button class="btn-pequeno btn-amarelo" id="btn-historico" aria-label="Ver meu histórico">📊 Meu Histórico</button>
+      </div>
+      <p class="subtitulo" id="info-materia" style="margin-top:18px;"></p>
+    </div>
+  </section>
+
+  <!-- TELA 3 — APRENDIZAGEM -->
+  <section id="tela-aprender" class="tela">
+    <div class="indicador-card" id="indicador-card">Card 1 de 1</div>
+    <div class="barra-prog"><span id="prog-aprender"></span></div>
+
+    <div class="cartao" id="card-conteudo">
+      <div id="card-corpo" class="centro"></div>
+      <div class="selo-pagina" id="selo-card" aria-label="Referência de página no livro">📖 Livro pág. —</div>
+    </div>
+
+    <div class="linha-botoes">
+      <button class="btn-cinza" id="btn-card-anterior" aria-label="Card anterior">⬅ Anterior</button>
+      <button class="btn-verde" id="btn-card-proximo" aria-label="Próximo card">Próximo ➡</button>
+    </div>
+    <div class="centro" style="margin-top:10px;">
+      <button class="btn-pequeno btn-cinza" id="btn-aprender-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+    </div>
+  </section>
+
+  <!-- TELA 4 — SIMULADO -->
+  <section id="tela-simulado" class="tela">
+    <div class="indicador-card" id="indicador-pergunta">Pergunta 1 de 1</div>
+    <div class="barra-prog"><span id="prog-simulado"></span></div>
+
+    <div class="cartao centro">
+      <span class="emoji-gigante" id="emoji-pergunta" aria-hidden="true">❓</span>
+      <h2 id="enunciado-pergunta">—</h2>
+      <div><span class="tag-pagina" id="tag-pagina-pergunta">📖 Confira no livro: pág. —</span></div>
+      <div id="alternativas" style="margin-top:14px;"></div>
+      <div class="feedback" id="feedback-pergunta" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- TELA 5 — RELATÓRIO -->
+  <section id="tela-relatorio" class="tela">
+    <div class="cartao">
+      <h1 class="centro" id="rel-titulo">Resultado 🎉</h1>
+      <p class="saudacao" id="rel-nome-data"></p>
+
+      <div class="resumo-num">
+        <div class="cubo acertos"><b id="rel-acertos">0</b>✅ Acertos</div>
+        <div class="cubo erros"><b id="rel-erros">0</b>❌ Erros</div>
+      </div>
+
+      <p class="centro" style="font-size:24px;font-weight:bold;"><span id="rel-pct">0</span>% de aproveitamento</p>
+      <div class="barra-prog" style="height:28px;"><span id="rel-barra"></span></div>
+
+      <p class="centro" id="rel-mensagem" style="font-size:24px;font-weight:bold;margin:18px 0;"></p>
+
+      <h2>Revisão das perguntas</h2>
+      <ul class="lista-questoes" id="rel-lista"></ul>
+
+      <div class="linha-botoes" style="margin-top:16px;">
+        <button class="btn-verde" id="btn-tentar-novamente" aria-label="Tentar o simulado novamente">🔄 Tentar novamente</button>
+        <button class="btn-laranja" id="btn-revisar" aria-label="Revisar o conteúdo">📚 Revisar o conteúdo</button>
+      </div>
+      <div class="linha-botoes" style="margin-top:12px;">
+        <button class="btn-marrom" id="btn-salvar" aria-label="Salvar resultado">💾 Salvar resultado</button>
+        <button class="btn-cinza" id="btn-relatorio-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+      </div>
+      <p class="aviso-edicao" id="aviso-salvo"></p>
+    </div>
+  </section>
+
+  <!-- TELA 6 — HISTÓRICO -->
+  <section id="tela-historico" class="tela">
+    <div class="cartao">
+      <h1 class="centro">Meu Histórico 📊</h1>
+      <div id="lista-historico"></div>
+      <div class="linha-botoes" style="margin-top:16px;">
+        <button class="btn-laranja" id="btn-limpar-hist" aria-label="Limpar histórico">🗑️ Limpar histórico</button>
+        <button class="btn-cinza" id="btn-historico-menu" aria-label="Voltar ao menu">🏠 Menu</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="confete" aria-hidden="true"></div>
+
+<script>
+/* ============================================================
+   CONTEÚDO — GEOGRAFIA 3º BIMESTRE (CAPÍTULOS 7 E 8)
+   Capítulo 7: Recursos Naturais e Solo
+   Capítulo 8: Paisagem e Boas Atitudes
+   ============================================================ */
+const CHAVE_NOME = "ts_geografia_3b_nome";
+const CHAVE_HIST = "ts_geografia_3b_hist";
+
+const CONTEUDO = {
+  disciplina: "Geografia",
+  tema: "Recursos Naturais e Solo / Paisagem e Boas Atitudes",
+  turma: "4º ano • 3º Bimestre",
+
+  topicos: [
+    {
+      titulo: "O que são Recursos Naturais",
+      emoji: "🌿",
+      pagina: 98,
+      texto: "Recursos naturais são elementos da natureza que os seres humanos utilizam para viver. A água, o solo, o ar, as plantas, os animais e os minerais são exemplos de recursos naturais. Eles podem ser renováveis ou não renováveis."
+    },
+    {
+      titulo: "Recursos Renováveis e Não Renováveis",
+      emoji: "♻️",
+      pagina: 99,
+      texto: "Recursos renováveis são aqueles que podem se regenerar na natureza, como a água, o vento e a luz do sol. Recursos não renováveis são aqueles que acabam um dia, como o petróleo, o carvão mineral e alguns minérios. Precisamos usá-los com cuidado!"
+    },
+    {
+      titulo: "A Importância da Água",
+      emoji: "💧",
+      pagina: 100,
+      texto: "A água é essencial para a vida. Usamos água para beber, cozinhar, tomar banho, lavar roupas e irrigar plantações. Mas a água potável é limitada! Por isso, devemos economizar água e evitar desperdícios, como fechar a torneira enquanto escovamos os dentes."
+    },
+    {
+      titulo: "O Solo e sua Importância",
+      emoji: "🌱",
+      pagina: 104,
+      texto: "O solo é a camada superficial da Terra onde crescem as plantas. Ele é formado por areia, argila, matéria orgânica e minerais. O solo fértil permite o cultivo de alimentos. Sem solo saudável, não teríamos comida suficiente para todos."
+    },
+    {
+      titulo: "Tipos de Solo",
+      emoji: "🏜️",
+      pagina: 105,
+      texto: "Existem diferentes tipos de solo: arenoso (com muita areia, drena rápido), argiloso (com muita argila, retém água) e humoso (rico em matéria orgânica, ideal para plantio). Cada tipo serve para diferentes usos na agricultura e construção."
+    },
+    {
+      titulo: "Cuidados com o Solo",
+      emoji: "🚜",
+      pagina: 106,
+      texto: "Para proteger o solo, devemos evitar desmatamentos, usar técnicas de plantio corretas, fazer rotação de culturas e não jogar lixo no chão. A erosão acontece quando o solo é lavado pela chuva ou levado pelo vento, deixando a terra improdutiva."
+    },
+    {
+      titulo: "O que é Paisagem",
+      emoji: "🏞️",
+      pagina: 112,
+      texto: "Paisagem é tudo aquilo que podemos ver, ouvir, cheirar e sentir em um lugar. Ela inclui elementos naturais (montanhas, rios, árvores) e elementos culturais (prédios, estradas, plantações). As paisagens mudam com o tempo e com a ação humana."
+    },
+    {
+      titulo: "Paisagem Natural e Cultural",
+      emoji: "🏙️",
+      pagina: 113,
+      texto: "Paisagem natural é aquela formada apenas pela natureza, sem intervenção humana, como florestas virgens e montanhas. Paisagem cultural é aquela modificada pelo ser humano, como cidades, fazendas e parques. A maioria das paisagens hoje tem elementos dos dois tipos."
+    },
+    {
+      titulo: "Transformação das Paisagens",
+      emoji: "🏗️",
+      pagina: 114,
+      texto: "Os seres humanos transformam as paisagens para atender suas necessidades: constroem casas, abrem estradas, criam represas e desmatam florestas. Essas transformações podem trazer benefícios, mas também problemas como poluição e perda de habitats naturais."
+    },
+    {
+      titulo: "Boas Atitudes com o Meio Ambiente",
+      emoji: "🤝",
+      pagina: 118,
+      texto: "Ter boas atitudes significa cuidar do planeta. Podemos reciclar lixo, economizar água e energia, plantar árvores, respeitar os animais e não poluir rios e mares. Pequenas ações diárias fazem grande diferença para preservar a natureza!"
+    },
+    {
+      titulo: "Os 5 Rs da Sustentabilidade",
+      emoji: "🔄",
+      pagina: 119,
+      texto: "Os 5 Rs são: Repensar (refletir sobre nossos hábitos), Recusar (dizer não ao desperdício), Reduzir (consumir menos), Reutilizar (dar nova função aos objetos) e Reciclar (transformar lixo em novo produto). Praticar os 5 Rs ajuda a proteger o meio ambiente!"
+    },
+    {
+      titulo: "Preservação e Conservação",
+      emoji: "🌳",
+      pagina: 120,
+      texto: "Preservação é proteger a natureza sem alterá-la, como em parques nacionais. Conservação é usar os recursos naturais de forma sustentável, sem esgotá-los. Ambas são importantes para garantir que as futuras gerações também possam desfrutar do planeta."
+    }
+  ],
+
+  perguntas: [
+    {
+      emoji: "🌿",
+      enunciado: "O que são recursos naturais?",
+      pagina: 98,
+      alternativas: [
+        "São coisas fabricadas pelo homem",
+        "São elementos da natureza usados pelos seres humanos",
+        "São apenas os animais da floresta"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "♻️",
+      enunciado: "Qual destes é um recurso renovável?",
+      pagina: 99,
+      alternativas: [
+        "Petróleo",
+        "Carvão mineral",
+        "Luz do sol"
+      ],
+      correta: 2
+    },
+    {
+      emoji: "💧",
+      enunciado: "Por que devemos economizar água?",
+      pagina: 100,
+      alternativas: [
+        "Porque a água potável é limitada",
+        "Porque a água nunca acaba",
+        "Porque economizar água não é importante"
+      ],
+      correta: 0
+    },
+    {
+      emoji: "🌱",
+      enunciado: "O que é o solo?",
+      pagina: 104,
+      alternativas: [
+        "É a camada de ar que envolve a Terra",
+        "É a camada superficial da Terra onde crescem as plantas",
+        "É apenas areia da praia"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🏜️",
+      enunciado: "Qual tipo de solo é mais fértil para plantio?",
+      pagina: 105,
+      alternativas: [
+        "Solo arenoso",
+        "Solo argiloso",
+        "Solo humoso"
+      ],
+      correta: 2
+    },
+    {
+      emoji: "🚜",
+      enunciado: "O que causa a erosão do solo?",
+      pagina: 106,
+      alternativas: [
+        "Plantar muitas árvores",
+        "Chuva e vento levando o solo desprotegido",
+        "Regar as plantas todos os dias"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🏞️",
+      enunciado: "O que é paisagem?",
+      pagina: 112,
+      alternativas: [
+        "É apenas o que vemos nas fotos",
+        "É tudo que percebemos com nossos sentidos em um lugar",
+        "É somente a natureza sem o ser humano"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🏙️",
+      enunciado: "Uma cidade é exemplo de qual tipo de paisagem?",
+      pagina: 113,
+      alternativas: [
+        "Paisagem natural",
+        "Paisagem cultural",
+        "Paisagem subaquática"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🏗️",
+      enunciado: "As transformações humanas nas paisagens podem causar:",
+      pagina: 114,
+      alternativas: [
+        "Apenas benefícios sem problemas",
+        "Poluição e perda de habitats naturais",
+        "Nenhuma mudança no ambiente"
+      ],
+      correta: 1
+    },
+    {
+      emoji: "🤝",
+      enunciado: "Qual é uma boa atitude com o meio ambiente?",
+      pagina: 118,
+      alternativas: [
+        "Jogar lixo no rio",
+        "Deixar a luz acesa sem necessidade",
+        "Reciclar e economizar água"
+      ],
+      correta: 2
+    },
+    {
+      emoji: "🔄",
+      enunciado: "Quantos são os Rs da sustentabilidade?",
+      pagina: 119,
+      alternativas: [
+        "Três Rs",
+        "Quatro Rs",
+        "Cinco Rs"
+      ],
+      correta: 2
+    },
+    {
+      emoji: "🌳",
+      enunciado: "Qual a diferença entre preservação e conservação?",
+      pagina: 120,
+      alternativas: [
+        "São exatamente a mesma coisa",
+        "Preservação protege sem alterar; conservação usa de forma sustentável",
+        "Conservação proíbe qualquer uso da natureza"
+      ],
+      correta: 1
+    }
+  ]
+};
+
+/* ============================================================
+   ESTADO E UTILITÁRIOS
+   ============================================================ */
+const estado = {
+  nome: "",
+  cardAtual: 0,
+  perguntaAtual: 0,
+  respostas: [],
+  travado: false
+};
+
+function $(id){ return document.getElementById(id); }
+
+function mostrarTela(id){
+  document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
+  $(id).classList.add("ativa");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- Som simples (Web Audio API) ---------- */
+let audioCtx = null;
+function tocarSom(tipo){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    if(tipo === "agudo"){
+      o.type = "sine"; o.frequency.setValueAtTime(660, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.18);
+    }else{
+      o.type = "sawtooth"; o.frequency.setValueAtTime(220, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.3);
+    }
+    g.gain.setValueAtTime(0.18, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+    o.start(); o.stop(audioCtx.currentTime + 0.4);
+  }catch(e){}
+}
+
+/* ---------- Confete ---------- */
+let confeteTimer = null;
+function soltarConfete(duracaoMs){
+  const cores = ["#4CAF50","#FF9800","#795548","#FDD835","#2E7D32"];
+  const palco = $("confete");
+  const fim = Date.now() + duracaoMs;
+  clearInterval(confeteTimer);
+  confeteTimer = setInterval(() => {
+    if(Date.now() > fim){ clearInterval(confeteTimer); return; }
+    for(let i=0;i<6;i++){
+      const p = document.createElement("span");
+      p.className = "confete-peca";
+      p.style.left = Math.random()*100 + "vw";
+      p.style.background = cores[(Math.random()*cores.length)|0];
+      p.style.animationDuration = (2 + Math.random()*1.5) + "s";
+      p.style.transform = "rotate(" + (Math.random()*360) + "deg)";
+      palco.appendChild(p);
+      setTimeout(() => p.remove(), 3500);
+    }
+  }, 120);
+}
+
+/* ============================================================
+   TELA 1 — BOAS-VINDAS
+   ============================================================ */
+function iniciarApp(){
+  const salvo = localStorage.getItem(CHAVE_NOME);
+  if(salvo){ $("campo-nome").value = salvo; }
+}
+
+function comecar(){
+  const nome = $("campo-nome").value.trim();
+  if(!nome){
+    $("campo-nome").focus();
+    $("campo-nome").style.borderColor = "#E05757";
+    return;
+  }
+  estado.nome = nome;
+  localStorage.setItem(CHAVE_NOME, nome);
+  irParaMenu();
+}
+
+/* ============================================================
+   TELA 2 — MENU
+   ============================================================ */
+function irParaMenu(){
+  $("saudacao-menu").textContent = "Olá, " + estado.nome + "! 👋 O que vamos fazer hoje?";
+  $("info-materia").textContent = CONTEUDO.disciplina + " • " + CONTEUDO.tema + " • " + CONTEUDO.turma;
+  mostrarTela("tela-menu");
+}
+
+/* ============================================================
+   TELA 3 — APRENDIZAGEM
+   ============================================================ */
+function iniciarAprendizagem(){
+  estado.cardAtual = 0;
+  renderCard();
+  mostrarTela("tela-aprender");
+}
+
+function renderCard(){
+  const total = CONTEUDO.topicos.length;
+  const i = estado.cardAtual;
+  const ehUltimo = (i === total - 1);
+  $("indicador-card").textContent = "Card " + (i+1) + " de " + total;
+  $("prog-aprender").style.width = (((i+1)/total)*100) + "%";
+
+  const t = CONTEUDO.topicos[i];
+  const corpo = $("card-corpo");
+
+  if(ehUltimo){
+    corpo.innerHTML =
+      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
+      '<h2>' + t.titulo + '</h2>' +
+      '<p>' + t.texto + '</p>' +
+      '<div class="parabens" style="margin-top:18px;">' +
+        '<span class="emoji-gigante" aria-hidden="true">🎉</span>' +
+        '<h2 style="color:var(--verde-escuro)">Parabéns, ' + estado.nome + '!</h2>' +
+        '<p>Você terminou todo o conteúdo do 3º bimestre! 🌟</p>' +
+      '</div>';
+  }else{
+    corpo.innerHTML =
+      '<span class="emoji-gigante" aria-hidden="true">' + t.emoji + '</span>' +
+      '<h2>' + t.titulo + '</h2>' +
+      '<p>' + t.texto + '</p>';
+  }
+
+  $("selo-card").textContent = "📖 Livro pág. " + t.pagina;
+  $("btn-card-anterior").disabled = (i === 0);
+  $("btn-card-proximo").textContent = ehUltimo ? "Concluir ✅" : "Próximo ➡";
+}
+
+function cardProximo(){
+  if(estado.cardAtual < CONTEUDO.topicos.length - 1){
+    estado.cardAtual++; renderCard();
+  }else{
+    irParaMenu();
+  }
+}
+function cardAnterior(){
+  if(estado.cardAtual > 0){ estado.cardAtual--; renderCard(); }
+}
+
+/* ============================================================
+   TELA 4 — SIMULADO
+   ============================================================ */
+function iniciarSimulado(){
+  estado.perguntaAtual = 0;
+  estado.respostas = [];
+  estado.travado = false;
+  renderPergunta();
+  mostrarTela("tela-simulado");
+}
+
+function renderPergunta(){
+  estado.travado = false;
+  const total = CONTEUDO.perguntas.length;
+  const i = estado.perguntaAtual;
+  const p = CONTEUDO.perguntas[i];
+
+  $("indicador-pergunta").textContent = "Pergunta " + (i+1) + " de " + total;
+  $("prog-simulado").style.width = ((i/total)*100) + "%";
+  $("emoji-pergunta").textContent = p.emoji;
+  $("enunciado-pergunta").textContent = p.enunciado;
+  $("tag-pagina-pergunta").textContent = "📖 Confira no livro: pág. " + p.pagina;
+
+  const fb = $("feedback-pergunta");
+  fb.className = "feedback"; fb.textContent = "";
+
+  const cont = $("alternativas");
+  cont.innerHTML = "";
+  p.alternativas.forEach((alt, idx) => {
+    const b = document.createElement("button");
+    b.textContent = alt;
+    b.setAttribute("aria-label", "Resposta: " + alt);
+    b.addEventListener("click", () => responder(idx, b));
+    cont.appendChild(b);
+  });
+}
+
+function responder(idx, botao){
+  if(estado.travado) return;
+  estado.travado = true;
+
+  const p = CONTEUDO.perguntas[estado.perguntaAtual];
+  const acertou = (idx === p.correta);
+  const botoes = $("alternativas").querySelectorAll("button");
+  botoes.forEach(b => b.disabled = true);
+
+  const fb = $("feedback-pergunta");
+
+  if(acertou){
+    botao.classList.add("correta");
+    fb.textContent = "✅ Muito bem! Você acertou!";
+    fb.className = "feedback acerto ver";
+    tocarSom("agudo");
+    soltarConfete(2500);
+  }else{
+    botao.classList.add("errada-escolhida","balanca");
+    botoes[p.correta].classList.add("correta");
+    fb.textContent = "❌ Quase lá! A resposta certa era essa 👆";
+    fb.className = "feedback erro ver";
+    tocarSom("grave");
+  }
+
+  estado.respostas.push({ indiceEscolhido: idx, acertou: acertou });
+
+  setTimeout(() => {
+    if(estado.perguntaAtual < CONTEUDO.perguntas.length - 1){
+      estado.perguntaAtual++;
+      renderPergunta();
+    }else{
+      $("prog-simulado").style.width = "100%";
+      mostrarRelatorio();
+    }
+  }, 3000);
+}
+
+/* ============================================================
+   TELA 5 — RELATÓRIO
+   ============================================================ */
+function calcularResultado(){
+  const total = CONTEUDO.perguntas.length;
+  const acertos = estado.respostas.filter(r => r.acertou).length;
+  const erros = total - acertos;
+  const pct = total ? Math.round((acertos/total)*100) : 0;
+  return { total, acertos, erros, pct };
+}
+
+function corPorPct(pct){
+  if(pct > 80) return "var(--verde-escuro)";
+  if(pct >= 50) return "var(--laranja)";
+  return "#E05757";
+}
+
+function mensagemPorPct(pct){
+  if(pct > 80) return "🏆 Campeão! Você arrasou!";
+  if(pct >= 50) return "💪 Muito bem! Continue praticando!";
+  return "📚 Não desista! Revise o conteúdo e tente de novo!";
+}
+
+function mostrarRelatorio(){
+  const r = calcularResultado();
+  const agora = new Date();
+  const dataStr = agora.toLocaleDateString("pt-BR") + " às " + agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+
+  $("rel-nome-data").textContent = estado.nome + " • " + dataStr;
+  $("rel-acertos").textContent = r.acertos;
+  $("rel-erros").textContent = r.erros;
+  $("rel-pct").textContent = r.pct;
+  $("rel-barra").style.width = r.pct + "%";
+  $("rel-barra").style.background = corPorPct(r.pct);
+  $("rel-mensagem").textContent = mensagemPorPct(r.pct);
+  $("aviso-salvo").textContent = "";
+
+  const lista = $("rel-lista");
+  lista.innerHTML = "";
+  CONTEUDO.perguntas.forEach((p, i) => {
+    const resp = estado.respostas[i];
+    const ok = resp && resp.acertou;
+    const dada = resp ? p.alternativas[resp.indiceEscolhido] : "—";
+    const certa = p.alternativas[p.correta];
+    const li = document.createElement("li");
+    if(ok) li.classList.add("ok");
+    li.innerHTML =
+      '<div class="topo-q">' +
+        '<span>' + (ok ? "✅" : "❌") + " " + p.enunciado + '</span>' +
+        '<span class="ref-relatorio">📖 pág. ' + p.pagina + '</span>' +
+      '</div>' +
+      '<div>Você respondeu: <span class="res-dada">' + dada + '</span></div>' +
+      (ok ? '' : '<div>Resposta certa: <span class="res-certa">' + certa + '</span></div>');
+    lista.appendChild(li);
+  });
+
+  mostrarTela("tela-relatorio");
+}
+
+function salvarResultado(){
+  const r = calcularResultado();
+  const registro = {
+    nome: estado.nome,
+    data: new Date().toISOString(),
+    acertos: r.acertos,
+    erros: r.erros,
+    total: r.total,
+    pct: r.pct
+  };
+  const hist = lerHistorico();
+  hist.push(registro);
+  localStorage.setItem(CHAVE_HIST, JSON.stringify(hist));
+  $("aviso-salvo").textContent = "💾 Resultado salvo no histórico!";
+}
+
+/* ============================================================
+   TELA 6 — HISTÓRICO
+   ============================================================ */
+function lerHistorico(){
+  try{ return JSON.parse(localStorage.getItem(CHAVE_HIST)) || []; }
+  catch(e){ return []; }
+}
+
+function mostrarHistorico(){
+  const cont = $("lista-historico");
+  const hist = lerHistorico().slice().reverse();
+  if(hist.length === 0){
+    cont.innerHTML = '<p class="centro" style="font-size:22px;">Nenhum simulado salvo ainda. 📭<br>Faça um simulado e salve o resultado!</p>';
+  }else{
+    cont.innerHTML = "";
+    hist.forEach(reg => {
+      const d = new Date(reg.data);
+      const dataStr = d.toLocaleDateString("pt-BR") + " às " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+      const cor = corPorPct(reg.pct);
+      const div = document.createElement("div");
+      div.className = "item-hist";
+      div.innerHTML =
+        '<div class="data">' + (reg.nome || "Aluno") + ' • ' + dataStr + '</div>' +
+        '<div class="pct" style="color:' + cor + '">' + reg.pct + '% — ' + reg.acertos + '/' + reg.total + ' acertos</div>' +
+        '<div class="barra-prog"><span style="width:' + reg.pct + '%;background:' + cor + '"></span></div>';
+      cont.appendChild(div);
+    });
+  }
+  mostrarTela("tela-historico");
+}
+
+function limparHistorico(){
+  if(confirm("Tem certeza que deseja apagar TODO o histórico? Esta ação não pode ser desfeita.")){
+    localStorage.removeItem(CHAVE_HIST);
+    mostrarHistorico();
+  }
+}
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  iniciarApp();
+
+  $("btn-comecar").addEventListener("click", comecar);
+  $("campo-nome").addEventListener("keydown", e => { if(e.key === "Enter") comecar(); });
+
+  $("btn-aprender").addEventListener("click", iniciarAprendizagem);
+  $("btn-simulado").addEventListener("click", iniciarSimulado);
+  $("btn-historico").addEventListener("click", mostrarHistorico);
+
+  $("btn-card-proximo").addEventListener("click", cardProximo);
+  $("btn-card-anterior").addEventListener("click", cardAnterior);
+  $("btn-aprender-menu").addEventListener("click", irParaMenu);
+
+  $("btn-tentar-novamente").addEventListener("click", iniciarSimulado);
+  $("btn-revisar").addEventListener("click", iniciarAprendizagem);
+  $("btn-salvar").addEventListener("click", salvarResultado);
+  $("btn-relatorio-menu").addEventListener("click", irParaMenu);
+
+  $("btn-limpar-hist").addEventListener("click", limparHistorico);
+  $("btn-historico-menu").addEventListener("click", irParaMenu);
+});
+</script>
+</body>
+</html>
