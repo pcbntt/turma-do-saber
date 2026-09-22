@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geografia - Capítulos 7 e 8</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            line-height: 1.8;
+            background-color: #f5f5f0;
+            color: #2c2c2c;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #e67e22;
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #e67e22;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #27ae60;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #d5f5e3;
+            border-left: 6px solid #27ae60;
+            border-radius: 8px;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #e67e22;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 22px;
+            color: #8e44ad;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .intro-text {
+            background-color: #fef9e7;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .definition-box {
+            background-color: #eaf2f8;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 3px solid #3498db;
+        }
+
+        .definition-box strong {
+            color: #2980b9;
+            font-size: 22px;
+        }
+
+        .question-box {
+            background-color: #fdedec;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .question-box h4 {
+            color: #c0392b;
+            margin-top: 0;
+        }
+
+        .activity-box {
+            background-color: #f4ecf7;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #8e44ad;
+        }
+
+        .activity-box h4 {
+            color: #6c3483;
+            margin-top: 0;
+        }
+
+        .info-box {
+            background-color: #e8f8f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #16a085;
+        }
+
+        .info-box h4 {
+            color: #138d75;
+            margin-top: 0;
+        }
+
+        ol, ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 25px;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #e67e22;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .word-bank {
+            background-color: #fdebd0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 22px;
+            border: 2px dashed #e67e22;
+        }
+
+        .grid-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .grid-item {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+
+        .grid-item strong {
+            color: #e67e22;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+        }
+
+        th, td {
+            border: 2px solid #3498db;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ebf5fb;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        strong {
+            color: #c0392b;
+        }
+
+        .chapter-divider {
+            text-align: center;
+            margin: 60px 0;
+            padding: 30px;
+            background: linear-gradient(to right, #e67e22, #f39c12);
+            color: white;
+            border-radius: 15px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            body {
+                font-size: 18px;
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Geografia - 3º Bimestre</h1>
+
+        <!-- CAPÍTULO 7 -->
+        <h2>Capítulo 7 - Os recursos naturais</h2>
+
+        <div class="intro-text">
+            <p>O pic-nic, pintura feita por Sonia Canheo, representa o cotidiano de um povo que vive em meio à natureza.</p>
+        </div>
+
+        <div class="question-box">
+            <h4>💭 Trocando ideias</h4>
+            <ol>
+                <li>Como os seres humanos estão utilizando a natureza nessa pintura?</li>
+                <li>De que maneira os seres humanos necessitam da natureza para viver?</li>
+            </ol>
+        </div>
+
+        <p>Os seres humanos necessitam da natureza para viver. Quando vamos comer, quando vamos nos vestir, trabalhar e até nos divertir, usamos recursos da natureza, ou seja, os <strong>recursos naturais</strong>.</p>
+
+        <div class="definition-box">
+            <strong> Recurso natural</strong> é tudo o que buscamos na natureza para atender às nossas necessidades.
+        </div>
+
+        <h3>1. O uso dos recursos naturais</h3>
+
+        <p>Paula e sua mãe gostam muito de preparar refeições saudáveis. Vão à cozinha e preparam deliciosos pratos. Elas sempre utilizam diversos recursos naturais para a preparação dos alimentos.</p>
+
+        <ol class="step-list">
+            <li>Paula usa folhas de manjericão e castanhas para fazer um delicioso molho <span class="highlight">pesto</span>. Os legumes, as verduras, as frutas e os grãos que comemos são recursos <strong>vegetais</strong>.
+                <br><br>
+                <em>Pesto: Molho para macarrão, de origem italiana, feito com folhas de manjericão trituradas.</em>
+            </li>
+            <li>Para cozinhar o macarrão, Paula usa água e sal. O sal, a água e o material usado para fazer a panela são recursos <strong>minerais</strong>.</li>
+            <li>No desjejum, Paula gosta de preparar torradas com mel. O mel é produzido pela abelha e, por isso, é um recurso <strong>animal</strong>.</li>
+        </ol>
+
+        <div class="activity-box">
+            <h4>🎲 Caixa surpresa</h4>
+            <p><strong>Você vai precisar de:</strong></p>
+            <ul>
+                <li>1 caixa com um pequeno espaço para colocar a mão</li>
+                <li>objetos (ou imagens) de origem vegetal, mineral ou animal</li>
+                <li>venda para os olhos</li>
+            </ul>
+            <p><strong>Como jogar:</strong></p>
+            <p>Um aluno vendado coloca a mão dentro da caixa, retirando um objeto. Os demais alunos devem dar dicas para ajudá-lo a descobrir se o objeto é de origem vegetal, mineral ou animal.</p>
+        </div>
+
+        <h3>A. Recursos vegetais</h3>
+
+        <p>O ser humano utiliza a variedade de vegetais disponíveis na natureza de diferentes formas: alimentação, vestuário, higiene, decoração, construção, energia, etc. Os <strong>recursos vegetais</strong> podem ser cultivados pelo ser humano ou estar disponíveis na natureza.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 1</h4>
+            <p>Escreva a função dos vegetais em cada situação a seguir. Utilize as palavras abaixo.</p>
+            <div class="word-bank">
+                alimentação – calor – construção – beleza – decoração – limpeza
+            </div>
+            <div class="grid-items">
+                <div class="grid-item">
+                    <strong>a) Lenha para lareira</strong>
+                    <p>Resposta: CALOR</p>
+                </div>
+                <div class="grid-item">
+                    <strong>b) Hidratante natural</strong>
+                    <p>Resposta: BELEZA</p>
+                </div>
+                <div class="grid-item">
+                    <strong>c) Uso de álcool</strong>
+                    <p>Resposta: LIMPEZA</p>
+                </div>
+                <div class="grid-item">
+                    <strong>d) Infusão de plantas</strong>
+                    <p>Resposta: ALIMENTAÇÃO</p>
+                </div>
+                <div class="grid-item">
+                    <strong>e) Arranjo de flores na mesa</strong>
+                    <p>Resposta: DECORAÇÃO</p>
+                </div>
+                <div class="grid-item">
+                    <strong>f) Uso da madeira em estruturas</strong>
+                    <p>Resposta: CONSTRUÇÃO</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-box">
+            <h4>🔍 Na prática</h4>
+            <p>Vamos mapear os recursos vegetais da escola? Siga as orientações do professor, encontre os recursos e registre suas descobertas.</p>
+        </div>
+
+        <h3>A história da camiseta de Luís</h3>
+
+        <p>No dia de seu aniversário, Luís ganhou uma linda camiseta. Curioso, ele se perguntou: "De que é feita a camiseta? Como ocorre a sua fabricação?"</p>
+
+        <ol class="step-list">
+            <li>A camiseta começa no campo, onde o semeador coloca a semente de algodão na terra.</li>
+            <li>Com o sol, a chuva e o solo bem nutrido, o algodão começa a crescer e, depois de maduro, é colhido e limpo.</li>
+            <li>Cada bolinha de algodão é passada em uma máquina de fiar para se fazerem os fios.</li>
+            <li>Os fios são mergulhados em tintas especiais para tingimento da fibra.</li>
+            <li>Os fios tingidos passam por uma máquina de tear, onde se faz o tecido.</li>
+            <li>O tecido é cortado e costurado em máquinas de costura, e a camiseta está pronta!</li>
+        </ol>
+
+        <div class="info-box">
+            <h4>💡 Você sabia?</h4>
+            <p>Atualmente, grandes máquinas em indústrias têxteis fazem o processo de fabricação das roupas. Muitas delas são produzidas totalmente por robôs.</p>
+        </div>
+
+        <h3>B. Recursos minerais</h3>
+
+        <p>Diferentemente das plantas, os recursos minerais não são plantados nem cultivados. Eles já estão dentro do solo e das rochas de nosso planeta: que vivem em montanhas, no fundo do mar e até debaixo de nossos pés. Conheça alguns recursos minerais apresentados a seguir.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 2</h4>
+            <p>Retire os adesivos da página 227 e cole-os conforme a descrição da legenda.</p>
+            <div class="grid-items">
+                <div class="grid-item">
+                    <strong>a) Sal</strong>
+                    <p>Existem diversos tipos de sal: o marinho, o rosa do Himalaia, o grosso, etc.</p>
+                    <p>A água do mar é colocada em tanques expostos ao Sol. Ao evaporar, fica o sal, que é purificado, refinado e ensacado para uso.</p>
+                </div>
+                <div class="grid-item">
+                    <strong>b) Plástico</strong>
+                    <p>Brinquedos, roupas, objetos descartáveis e muitas outras coisas são feitas de plástico.</p>
+                    <p>Os plásticos vêm de uma substância chamada polímero, que é feita do petróleo encontrado no subsolo e, muitas vezes, no fundo do mar.</p>
+                </div>
+                <div class="grid-item">
+                    <strong>c) Metais</strong>
+                    <p>Ferro, alumínio, cobre, prata e outros metais que podem ser moldados para fazer talheres e muitos outros objetos.</p>
+                    <p>Os metais são coletados por meio de escavações em minas. Depois de serem recolhidos, são purificados e moldados para formar os objetos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-box">
+            <h4>🔬 Investigue</h4>
+            <p>Em grupo, escolha um dentre estes três objetos e descubra de onde vem e como é feito. Faça o registro em seu caderno.</p>
+            <ul>
+                <li><strong>PIA DO BANHEIRO</strong></li>
+                <li><strong>TELHA</strong></li>
+                <li><strong>VIDRO DA JANELA</strong></li>
+            </ul>
+        </div>
+
+        <h3>C. Recursos animais</h3>
+
+        <p>Dizemos que são de origem animal os produtos feitos de animais, partes deles ou do que produzem. Os animais são utilizados como força para carregar cargas e máquinas, mas também como parte da alimentação, vestuário, entre outros usos.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 3</h4>
+            <p>Recorte as imagens da página 241 e cole-as conforme a legenda a seguir.</p>
+            <div class="grid-items">
+                <div class="grid-item">
+                    <strong>a) Produtos cosméticos e de higiene</strong>
+                    <p>Produtos cosméticos e produtos de higiene, como cremes, condicionadores, cremes dentais, entre outros...</p>
+                    <p>...podem ser feitos de glicerina e tutano, que vêm de partes de ossos de animais, como os bois.</p>
+                </div>
+                <div class="grid-item">
+                    <strong>b) Vacinas e remédios</strong>
+                    <p>Vacinas, injeções, soros e alguns remédios têm em sua composição uma substância chamada penicilina...</p>
+                    <p>...que vem de diversos fungos do leite de vacas.</p>
+                </div>
+                <div class="grid-item">
+                    <strong>c) Ômega 3</strong>
+                    <p>Um suplemento alimentar em cápsulas chamado ômega 3...</p>
+                    <p>...é retirado de peixes, como as anchovas, que vivem em mares bem profundos.</p>
+                </div>
+                <div class="grid-item">
+                    <strong>d) Seda</strong>
+                    <p>A seda, um tecido resistente e macio...</p>
+                    <p>...é fabricada por uma mariposa chamada de bicho-da-seda, que, quando está na fase de lagarta, produz um fio altamente resistente para seu casulo.</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>2. Recursos renováveis</h3>
+
+        <p>Chamamos de recursos renováveis aqueles que se renovam espontaneamente na natureza, sem necessidade de cultivo ou qualquer intervenção humana.</p>
+
+        <p><strong>São recursos renováveis:</strong></p>
+        <ul>
+            <li>A luz solar</li>
+            <li>A água</li>
+            <li>Os vegetais</li>
+            <li>O vento</li>
+            <li>Os animais</li>
+        </ul>
+
+        <div class="question-box">
+            <h4>✏️ Questão 4</h4>
+            <p>Pinte somente os recursos renováveis no cenário.</p>
+        </div>
+
+        <h3>3. Recursos não renováveis</h3>
+
+        <p>Os recursos naturais não renováveis são aqueles que, uma vez esgotados na natureza, dificilmente ou nunca se refazem. Por exemplo: se tirarmos todo o minério de ferro de dentro do solo, a natureza não conseguirá mais repor esse mineral. Isso pode ocorrer com o petróleo e com os metais preciosos.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 5</h4>
+            <p>Encaixe corretamente as palavras abaixo na cruzadinha a seguir com o nome de alguns recursos não renováveis.</p>
+            <div class="word-bank">
+                ferro – ouro – aço – prata – alumínio – manganês – petróleo – carvão mineral – gás natural – granito
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>🌱 Posso ser + Econômico</h4>
+            <p>Nossos recursos naturais estão se esgotando. A água para se beber está ficando cada vez mais rara. Precisamos ser mais econômicos, não desperdiçar água e cuidar do solo, além de reciclar e reutilizar sempre que possível, fazendo bom uso dos materiais.</p>
+        </div>
+
+        <h3>4. Atividades extrativistas</h3>
+
+        <p>Quando extraímos algo da natureza chamamos de <strong>atividade extrativa</strong> ou <strong>extrativista</strong>, podendo ser animal, vegetal ou mineral. O ser humano é quem realiza as atividades extrativistas para a manutenção do que necessita a fim de viver na sociedade moderna.</p>
+
+        <div class="info-box">
+            <h4>🦷 Você já teve um dente extraído?</h4>
+            <p>A palavra "extrativista" ou "extrativa" vem do verbo extrair que significa "tirar algo de algum lugar" onde era natural. Que tipo de atividades extrativistas o ser humano pode fazer?</p>
+        </div>
+
+        <div class="question-box">
+            <h4>✏️ Questão 6</h4>
+            <p>Escreva "vegetal", "mineral" ou "animal" identificando o tipo de atividade extrativista que está sendo feita, conforme a retirada dos recursos naturais.</p>
+            <div class="grid-items">
+                <div class="grid-item">
+                    <strong>a) Pesca</strong>
+                    <p>Resposta: ANIMAL</p>
+                </div>
+                <div class="grid-item">
+                    <strong>b) Coleta de açaí de juçara na Mata Atlântica</strong>
+                    <p>Resposta: VEGETAL</p>
+                </div>
+                <div class="grid-item">
+                    <strong>c) Mineração de areia</strong>
+                    <p>Resposta: MINERAL</p>
+                </div>
+                <div class="grid-item">
+                    <strong>d) Perfuração de poço para extração de água</strong>
+                    <p>Resposta: MINERAL</p>
+                </div>
+                <div class="grid-item">
+                    <strong>e) Tosquia de ovelha para obter a lã</strong>
+                    <p>Resposta: ANIMAL</p>
+                </div>
+                <div class="grid-item">
+                    <strong>f) Extração de madeira autorizada na Amazônia</strong>
+                    <p>Resposta: VEGETAL</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>O que aprendi</h3>
+
+        <p>Observe a imagem a seguir e responda às questões.</p>
+
+        <div class="question-box">
+            <ol type="a">
+                <li>Que tipo de extrativismo foi feito e está sendo carregado pelo trem?</li>
+                <li>Que recursos vegetais estão presentes na imagem?</li>
+                <li>Que tipo de recurso natural não está presente nesse quadro?</li>
+                <li>O que os vagões do trem podem estar carregando? Dê exemplos.</li>
+                <li>Os vagões do trem são feitos de recursos renováveis ou não renováveis?</li>
+            </ol>
+        </div>
+
+        <div class="activity-box">
+            <h4>✅ Autoavaliação</h4>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>😊 Sim</th>
+                    <th>😐 Mais ou menos</th>
+                    <th>😞 Não</th>
+                </tr>
+                <tr>
+                    <td>a) Identifiquei os tipos de recursos naturais e sua utilidade para nossa sobrevivência.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>b) Compreendi que todas as coisas ao nosso redor dependem da natureza para serem feitas.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>c) Consegui descrever algumas atividades extrativistas estudadas.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- DIVISOR DE CAPÍTULO -->
+        <div class="chapter-divider">
+            📖 Capítulo 8 - Solo, paisagem e boas atitudes
+        </div>
+
+        <!-- CAPÍTULO 8 -->
+        <h2>Capítulo 8 - Solo, paisagem e boas atitudes</h2>
+
+        <div class="intro-text">
+            <p><strong>Diálogo na praia:</strong></p>
+            <p>"Eu li na minha Bíblia que antes de Deus criar o mundo era tudo água. Aí Ele falou e apareceu a parte seca, que chamou de terra. Vocês sabiam disso?"</p>
+            <p>"Imaginem só... será que Deus também brincou de fazer castelo na areia da praia, na beira do mar, assim como nós?"</p>
+            <p>"Claro que sei. Porque eu também li na minha Bíblia que Deus separou a água da terra e ficou muito feliz."</p>
+        </div>
+
+        <div class="question-box">
+            <h4>💭 Trocando ideias</h4>
+            <ol>
+                <li>Você já entrou no mar?</li>
+                <li>Já cavou um buraco no chão ou já brincou com terra?</li>
+                <li>Em que a água e a terra são diferentes?</li>
+            </ol>
+        </div>
+
+        <h3>1. O que há sobre o solo?</h3>
+
+        <p>No limite entre a água do mar e as terras ou solo de Santa Catarina está Balneário Camboriú. A cidade foi construída nas terras junto ao mar para aproveitar tudo o que ele oferece.</p>
+
+        <div class="activity-box">
+            <h4>👀 O que você vê?</h4>
+            <p>Observe atentamente cada elemento presente sobre o solo de Balneário Camboriú.</p>
+            <p>Na tabela, marque apenas o que você vê na cena.</p>
+            <table>
+                <tr>
+                    <td>Prédios altos</td>
+                    <td>Praças</td>
+                    <td>Areia</td>
+                    <td>Lavouras</td>
+                </tr>
+                <tr>
+                    <td>Prédios baixos</td>
+                    <td>Mata</td>
+                    <td>Estádio</td>
+                    <td>Rodovia</td>
+                </tr>
+            </table>
+            <p><strong>O solo de Balneário Camboriú, visto na foto, é considerado urbano, pois uma cidade foi construída sobre ele.</strong></p>
+        </div>
+
+        <div class="question-box">
+            <h4>✏️ Questão 1</h4>
+            <p>Imagine que Balneário Camboriú fosse um espaço rural. Refaça a paisagem desenhando, no seu caderno, quatro atividades ou elementos que poderiam ser feitos sobre um solo rural. Depois pinte seu desenho.</p>
+        </div>
+
+        <h3>A. Em cima e embaixo do solo</h3>
+
+        <p>A terra ou o solo também é chamado de chão. Ele serve para dar sustentação às plantas e servir de base para a vida de animais e humanos. Nele se constroem casas, prédios, cultivam-se pastagens, abrem-se estradas, cultivam-se jardins e muitas outras coisas para atender às necessidades e aos projetos humanos. Também estão sobre o solo as águas de barragens construídas, de rios, de lagos e dos oceanos.</p>
+
+        <p>Debaixo do solo, espaço chamado de <strong>subsolo</strong>, estão pedras e minerais diversos e estoques de água da chuva, mas também podem ficar depósitos de esgoto, lixo e encanamentos de água e gás, fundações dos prédios, estacionamentos, linhas de metrô, túneis, entre outras coisas.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 2</h4>
+            <p>A respeito dos elementos que podem ser encontrados no subsolo, quais você já viu?</p>
+        </div>
+
+        <div class="activity-box">
+            <h4>🔬 Investigue</h4>
+            <p>Você já reparou como é usado o solo nos arredores de sua escola? Observe com o professor e os colegas quais elementos naturais e construídos existem sobre o solo na quadra onde a escola está localizada. Anote em seu caderno cada um dos elementos e como são utilizados.</p>
+        </div>
+
+        <h3>B. Tem vida no subsolo</h3>
+
+        <p>Você já sabe o que pode ser construído acima do chão, na superfície do solo, e também no subsolo. Vamos descobrir o que mais existe dentro do chão?</p>
+
+        <div class="intro-text">
+            <p><strong>Diálogo:</strong></p>
+            <p>"Olhem! Esse bichinho vive embaixo da areia!"</p>
+            <p>"Uau! Eu queria saber o que mais tem dentro da terra!"</p>
+            <p>"Você não sabia? Deus fez animais que vivem na água, em cima da terra e também os que vivem embaixo dela."</p>
+        </div>
+
+        <div class="question-box">
+            <h4>✏️ Questão 3</h4>
+            <p>Depois de analisar a imagem, responda às perguntas a seguir.</p>
+            <ol type="a">
+                <li>No solo há animais? Quais?</li>
+                <li>E as plantas? Qual das suas partes tem contato com o solo?</li>
+                <li>O que mais você pode ver?</li>
+            </ol>
+        </div>
+
+        <div class="question-box">
+            <h4>💭 Trocando ideias</h4>
+            <p>Deus fez também os pequenos animaizinhos que vivem no solo e ficou satisfeito. Será que eles são tão importantes quanto os grandes animais que vivem fora do solo? Por quê?</p>
+        </div>
+
+        <div class="info-box">
+            <h4>💡 Você sabia?</h4>
+            <p>Seres humanos também podem viver debaixo do chão. Há uma cidade na Austrália, chamada Coober Pedy, onde toda a sua população vive debaixo da terra. O motivo é o calor extremo de dia e o frio intenso de noite na superfície, enquanto debaixo da terra a temperatura é agradável de dia e de noite.</p>
+        </div>
+
+        <h3>C. Características do solo</h3>
+
+        <p>O solo é formado por diversos elementos da natureza, como farelos de pedra, restos de animais e plantas, ar e água. Também possui características como cor, textura e porosidade, entre outras.</p>
+
+        <div class="grid-items">
+            <div class="grid-item">
+                <strong>Textura</strong>
+                <p>Quais são os tamanhos dos grãos do solo? Podemos percebê-los ao tocar no solo? Grãos grandes ou pequenos?</p>
+            </div>
+            <div class="grid-item">
+                <strong>Porosidade e drenagem</strong>
+                <p>A água infiltra no solo ou não? Será que este solo é poroso?</p>
+            </div>
+            <div class="grid-item">
+                <strong>Cor</strong>
+                <p>Os solos podem ser de várias cores: vermelhos, amarelos, laranja, marrons, pretos, cinza, brancos e, algumas vezes, azulados ou esverdeados. Quantas cores você pode ver nessa montanha do Peru, chamada de Vinicunca ou Rainbow Mountain?</p>
+            </div>
+        </div>
+
+        <p>Os solos servem para diversas atividades, inclusive para fazer corantes para pintura.</p>
+
+        <div class="activity-box">
+            <h4>🔍 Na prática</h4>
+            <p>Procure, com sua família, um tipo de solo que considere interessante para levar à escola. Retire uma pequena quantidade com uma colher ou pá e coloque em um plástico transparente. Leve para a sala de aula e aguarde as orientações do professor.</p>
+        </div>
+
+        <h3>Parábola do semeador</h3>
+
+        <p>Você já ouviu falar da parábola do semeador em Mateus 13:3 a 8? Nessa parábola, Jesus fala de sementes sendo plantadas em diferentes tipos de solo.</p>
+
+        <div class="question-box">
+            <h4>✏️ Questão 4</h4>
+            <p>Recorte as imagens da página 241 e cole as cenas da parábola no espaço a seguir, de acordo com a legenda.</p>
+            <ol class="step-list">
+                <li>Um semeador jogou sementes no solo.</li>
+                <li>Algumas sementes caíram em um solo batido, à beira do caminho. As aves vieram e as comeram.</li>
+                <li>Outras sementes caíram em um solo com muitas pedras. Elas brotaram, mas queimaram com o sol e morreram.</li>
+                <li>Outras, ainda, caíram em um solo com espinhos. Chegaram a brotar, mas foram sufocadas e morreram.</li>
+                <li>As outras sementes caíram em solo fértil, e as plantas cresceram saudáveis e fortes.</li>
+            </ol>
+        </div>
+
+        <div class="activity-box">
+            <h4>🔍 Na prática</h4>
+            <p>Agora que já conhecemos as características dos solos da parábola, vamos observar cada um deles?</p>
+            <p>Seguindo as orientações do professor, com os colegas, plantem sementes em solos com as mesmas condições dos da parábola. Como as sementes ficarão? Será que nascerão saudáveis?</p>
+        </div>
+
+        <div class="info-box">
+            <h4>💡 Para pensar</h4>
+            <p>O que Jesus queria ensinar com essa parábola? Leia Marcos 4:13-20 e descubra.</p>
+        </div>
+
+        <h3>2. Utilidades do solo</h3>
+
+        <div class="intro-text">
+            <p><strong>Diálogo:</strong></p>
+            <p>"Crianças, o desafio de hoje é descobrir de onde vêm as árvores e as demais plantas. Podem procurar."</p>
+            <p>"Achei, professora! Aqui no chão!"</p>
+            <p>"Verdade que essa árvore enorme um dia foi assim, bem pequenininha, nascendo na terra?"</p>
+            <p>"Quero ver também!"</p>
+        </div>
+
+        <p>Além de ser a base para a reprodução das sementes, o solo pode ser utilizado para diferentes finalidades. Veja os exemplos.</p>
+
+        <div class="grid-items">
+            <div class="grid-item">
+                <strong>Areia para a construção civil</strong>
+            </div>
+            <div class="grid-item">
+                <strong>Argila para fabricar tijolos e telhas</strong>
+            </div>
+            <div class="grid-item">
+                <strong>Produção de arte</strong>
+            </div>
+            <div class="grid-item">
+                <strong>Pedras e minerais diversos</strong>
+            </div>
+            <div class="grid-item">
+                <strong>Guardar reserva de água</strong>
+            </div>
+            <div class="grid-item">
+                <strong>Conservar a biodiversidade</strong>
+            </div>
+        </div>
+
+        <div class="question-box">
+            <h4>✏️ Questão 5</h4>
+            <p>Identifique para que o solo está sendo utilizado.</p>
+            <div class="grid-items">
+                <div class="grid-item">
+                    <strong>a)</strong>
+                    <p>[Espaço para resposta]</p>
+                </div>
+                <div class="grid-item">
+                    <strong>b)</strong>
+                    <p>[Espaço para resposta]</p>
+                </div>
+                <div class="grid-item">
+                    <strong>c)</strong>
+                    <p>[Espaço para resposta]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-box">
+            <h4>🔬 Investigue</h4>
+            <p>Em dupla, faça uma caminhada na escola e encontre duas situações em que o solo está sendo utilizado.</p>
+        </div>
+
+        <h3>3. Problemas no solo</h3>
+
+        <p>São muitos os fatores que levam à degradação do solo, tanto no meio rural quanto nas cidades.</p>
+
+        <div class="activity-box">
+            <h4>👀 O que você vê?</h4>
+            <p>Identifique, na ilustração, quais problemas os animais e os seres humanos que dependem do solo estão enfrentando.</p>
+        </div>
+
+        <div class="question-box">
+            <h4>✏️ Questão 6</h4>
+            <p>Observe as imagens e identifique os problemas no solo, separando-os entre problemas do campo e da cidade. Pinte de <strong style="color: green;">verde</strong> as palavras que indicam os problemas referentes ao solo rural, e de <strong style="color: orange;">laranja</strong>, os referentes ao solo urbano. Se existirem nos dois ambientes, pinte uma parte de <strong style="color: green;">verde</strong>, outra de <strong style="color: orange;">laranja</strong>.</p>
+            <div class="grid-items">
+                <div class="grid-item"><strong>a) Desmatamento</strong></div>
+                <div class="grid-item"><strong>b) Alagamento</strong></div>
+                <div class="grid-item"><strong>c) Erosão</strong></div>
+                <div class="grid-item"><strong>d) Impermeabilização</strong></div>
+                <div class="grid-item"><strong>e) Solo infértil</strong></div>
+                <div class="grid-item"><strong>f) Lixo</strong></div>
+                <div class="grid-item"><strong>g) Seca</strong></div>
+                <div class="grid-item"><strong>h) Doenças por verminoses</strong></div>
+                <div class="grid-item"><strong>i) Queimadas</strong></div>
+                <div class="grid-item"><strong>j) Deslizamento e desmoronamento</strong></div>
+                <div class="grid-item"><strong>k) Contaminação por defensivos agrícolas</strong></div>
+                <div class="grid-item"><strong>l) Esgoto a céu aberto</strong></div>
+            </div>
+        </div>
+
+        <div class="question-box">
+            <h4>💭 Trocando ideias</h4>
+            <ol>
+                <li>Qual desses problemas, no campo ou na cidade, você já viu acontecer?</li>
+                <li>Em dupla, escolham um deles e criem uma proposta para acabar com o problema. Compartilhem com a turma.</li>
+            </ol>
+        </div>
+
+        <h3>Compostagem</h3>
+
+        <p>Observe o tipo de lixo que pode ser utilizado na compostagem e o que você não deve utilizar.</p>
+
+        <div class="grid-items">
+            <div class="grid-item" style="background-color: #d5f5e3;">
+                <strong style="color: #27ae60;">✅ O que utilizar</strong>
+                <ul>
+                    <li>Alimentos vegetais com casca</li>
+                    <li>Aparas de plantas da casa e do jardim</li>
+                    <li>Casca de ovos</li>
+                    <li>Frutas</li>
+                    <li>Cascas de nozes</li>
+                    <li>Sobras de papel e papelão</li>
+                </ul>
+            </div>
+            <div class="grid-item" style="background-color: #fadbd8;">
+                <strong style="color: #c0392b;">❌ O que não utilizar</strong>
+                <ul>
+                    <li>Laticínios, gorduras e óleos</li>
+                    <li>Ovos, carnes e ossos</li>
+                    <li>Fezes de animais de estimação</li>
+                    <li>Plantas e frutas doentes</li>
+                    <li>Medicamentos</li>
+                    <li>Vidros quebrados</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>C. Horta em um pequeno espaço</h3>
+
+        <p>Plante ervas, temperos, flores e o que mais quiser em pequenos espaços, como vasos ou floreiras, utilizando o solo criado na compostagem.</p>
+
+        <div class="info-box">
+            <h4>🌱 Posso ser + Tranquilo</h4>
+            <p>Está nervoso? O solo pode ajudar você a relaxar. Andar descalço na terra úmida ou mexer com terra, cultivando plantas, traz tranquilidade. Você já experimentou?</p>
+        </div>
+
+    </div>
+</body>
+</html>
